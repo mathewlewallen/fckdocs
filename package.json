@@ -1,5 +1,5 @@
 {
-  "name": "supabase-with-openai",
+  "name": "fckdocs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -66,5 +66,10 @@
     "prettier": "^2.8.7",
     "tailwindcss": "^3.2.7",
     "tsx": "^3.12.6"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
