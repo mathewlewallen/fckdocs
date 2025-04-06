@@ -1,0 +1,196 @@
+{
+  "$schema": "https://mintlify.com/schema.json",
+  "name": "ScrapeGraphAI",
+  "logo": {
+    "dark": "/logo/dark.svg",
+    "light": "/logo/light.svg",
+    "href": "https://docs.scrapegraphai.com"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#9333ea",
+    "light": "#9f52eb",
+    "dark": "#1f2937",
+    "background": {
+      "dark": "#101725"
+    },
+    "anchors": {
+      "from": "#9333ea",
+      "to": "#9f52eb"
+    }
+  },
+  "topbarLinks": [
+    {
+      "name": "Status",
+      "url": "https://scrapegraphapi.openstatus.dev/"
+    },
+    {
+      "name": "Support",
+      "url": "mailto:contact@scrapegraphai.com"
+    }
+  ],
+  "topbarCtaButton": {
+    "name": "Dashboard",
+    "url": "https://dashboard.scrapegraphai.com"
+  },
+  "primaryTab": {
+    "name": "Home"
+  },
+  "tabs": [
+    {
+      "name": "Cookbook",
+      "url": "cookbook"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Official Website",
+      "icon": "globe",
+      "url": "https://scrapegraphai.com/"
+    },
+    {
+      "name": "Community",
+      "icon": "discord",
+      "url": "https://discord.gg/uJN7TYcpNa"
+    },
+    {
+      "name": "Blog",
+      "icon": "newspaper",
+      "url": "https://scrapegraphai.com/blog"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        {
+          "group": "Dashboard",
+          "pages": [
+            "dashboard/overview",
+            "dashboard/playground",
+            "dashboard/jobs",
+            "dashboard/settings"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Services",
+      "pages": [
+        "services/smartscraper",
+        "services/searchscraper",
+        "services/markdownify",
+        {
+          "group": "Additional Parameters",
+          "pages": [
+            "services/additional-parameters/headers"
+          ]
+        },
+        {
+          "group": "Browser Extensions",
+          "pages": [
+            "services/extensions/firefox",
+            "services/extensions/chrome"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Official SDKs",
+      "pages": [
+        "sdks/python",
+        "sdks/javascript"
+      ]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        "integrations/langchain",
+        "integrations/llamaindex",
+        "integrations/crewai",
+        "integrations/agno",
+        "integrations/langflow"
+      ]
+    },
+    {
+      "group": "Cookbook",
+      "pages": [
+        "cookbook/introduction"
+      ]
+    },
+    {
+      "group": "Examples",
+      "pages": [
+        "cookbook/examples/company-info",
+        "cookbook/examples/github-trending",
+        "cookbook/examples/wired",
+        "cookbook/examples/homes",
+        "cookbook/examples/research-agent",
+        "cookbook/examples/chat-webpage"
+      ]
+    },
+    {
+      "group": "API Documentation",
+      "pages": [
+        "api-reference/introduction",
+        "api-reference/errors"
+      ]
+    },
+    {
+      "group": "SmartScraper",
+      "pages": [
+        "api-reference/endpoint/smartscraper/start",
+        "api-reference/endpoint/smartscraper/get-status"
+      ]
+    },
+    {
+      "group": "SearchScraper",
+      "pages": [
+        "api-reference/endpoint/searchscraper/start",
+        "api-reference/endpoint/searchscraper/get-status"
+      ]
+    },
+
+    {
+      "group": "Markdownify",
+      "pages": [
+        "api-reference/endpoint/markdownify/start",
+        "api-reference/endpoint/markdownify/get-status"
+      ]
+    },
+    {
+      "group": "User",
+      "pages": [
+        "api-reference/endpoint/user/get-credits",
+        "api-reference/endpoint/user/submit-feedback"
+      ]
+    },
+    {
+      "group": "Contribute",
+      "pages": [
+        "contribute/opensource",
+        "contribute/feedback"
+      ]
+    },
+    {
+      "group": "Resources",
+      "icon": "puzzle-piece",
+      "pages": [
+        "resources/badge"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "x": "https://x.com/scrapegraphai",
+    "github": "https://github.com/ScrapeGraphAI",
+    "linkedin": "https://www.linkedin.com/company/scrapegraphai/"
+  },
+  "feedback": {
+    "thumbsRating": true
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "F*ckDocs",
+  "colors": {
+    "primary": "#9333ea",
+    "light": "#9f52eb",
+    "dark": "#1f2937"
+  },
+  "favicon": "/favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Home",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              {
+                "group": "Dashboard",
+                "pages": [
+                  "dashboard/overview",
+                  "dashboard/playground",
+                  "dashboard/jobs",
+                  "dashboard/settings"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Services",
+            "pages": [
+              "services/smartscraper",
+              "services/searchscraper",
+              "services/markdownify",
+              {
+                "group": "Additional Parameters",
+                "pages": [
+                  "services/additional-parameters/headers"
+                ]
+              },
+              {
+                "group": "Browser Extensions",
+                "pages": [
+                  "services/extensions/firefox",
+                  "services/extensions/chrome"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Official SDKs",
+            "pages": [
+              "sdks/python",
+              "sdks/javascript"
+            ]
+          },
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/langchain",
+              "integrations/llamaindex",
+              "integrations/crewai",
+              "integrations/agno",
+              "integrations/langflow"
+            ]
+          },
+          {
+            "group": "Contribute",
+            "pages": [
+              "contribute/opensource",
+              "contribute/feedback"
+            ]
+          },
+          {
+            "group": "Resources",
+            "icon": "puzzle-piece",
+            "pages": [
+              "resources/badge"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Cookbook",
+        "groups": [
+          {
+            "group": "Cookbook",
+            "pages": [
+              "cookbook/introduction"
+            ]
+          },
+          {
+            "group": "Examples",
+            "pages": [
+              "cookbook/examples/company-info",
+              "cookbook/examples/github-trending",
+              "cookbook/examples/wired",
+              "cookbook/examples/homes",
+              "cookbook/examples/research-agent",
+              "cookbook/examples/chat-webpage"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/errors"
+            ]
+          },
+          {
+            "group": "SmartScraper",
+            "pages": [
+              "api-reference/endpoint/smartscraper/start",
+              "api-reference/endpoint/smartscraper/get-status"
+            ]
+          },
+          {
+            "group": "SearchScraper",
+            "pages": [
+              "api-reference/endpoint/searchscraper/start",
+              "api-reference/endpoint/searchscraper/get-status"
+            ]
+          },
+          {
+            "group": "Markdownify",
+            "pages": [
+              "api-reference/endpoint/markdownify/start",
+              "api-reference/endpoint/markdownify/get-status"
+            ]
+          },
+          {
+            "group": "User",
+            "pages": [
+              "api-reference/endpoint/user/get-credits",
+              "api-reference/endpoint/user/submit-feedback"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Official Website",
+          "href": "https://scrapegraphai.com/",
+          "icon": "globe"
+        },
+        {
+          "anchor": "Community",
+          "href": "https://discord.gg/uJN7TYcpNa",
+          "icon": "discord"
+        },
+        {
+          "anchor": "Blog",
+          "href": "https://scrapegraphai.com/blog",
+          "icon": "newspaper"
+        }
+      ]
+    }
+  },
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://docs.scrapegraphai.com"
+  },
+  "background": {
+    "color": {
+      "dark": "#101725"
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Status",
+        "href": "https://scrapegraphapi.openstatus.dev/"
+      },
+      {
+        "label": "Support",
+        "href": "mailto:contact@scrapegraphai.com"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.scrapegraphai.com"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/scrapegraphai",
+      "github": "https://github.com/ScrapeGraphAI",
+      "linkedin": "https://www.linkedin.com/company/scrapegraphai/"
+    }
+  }
+}

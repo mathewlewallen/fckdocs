@@ -1,0 +1,483 @@
+---
+title: 'SmartScraper'
+description: 'AI-powered web scraping for any website'
+icon: 'robot'
+---
+
+<Frame>
+  <img src="/services/images/smartscraper-banner.png" alt="SmartScraper Service" />
+</Frame>
+
+## Overview
+
+SmartScraper is our flagship LLM-powered web scraping service that intelligently extracts structured data from any website. Using advanced LLM models, it understands context and content like a human would, making web data extraction more reliable and efficient than ever.
+
+<Note>
+Try SmartScraper instantly in our [interactive playground](https://dashboard.scrapegraphai.com/) - no coding required!
+</Note>
+
+## Getting Started
+
+### Quick Start
+
+<CodeGroup>
+
+```python Python
+from scrapegraph_py import Client
+
+client = Client(api_key="your-api-key")
+
+response = client.smartscraper(
+    website_url="https://scrapegraphai.com/",
+    user_prompt="Extract info about the company"
+)
+```
+
+```javascript JavaScript
+import { smartScraper } from 'scrapegraph-js';
+
+const apiKey = 'your-api-key';
+const url = 'https://scrapegraphai.com';
+const prompt = 'What does the company do?';
+
+try {
+  const response = await smartScraper(apiKey, url, prompt);
+  console.log(response);
+} catch (error) {
+  console.error(error);
+}
+```
+
+```bash cURL
+curl -X 'POST' \
+  'https://api.scrapegraphai.com/v1/smartscraper' \
+  -H 'accept: application/json' \
+  -H 'SGAI-APIKEY: your-api-key' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "website_url": "https://example-shop.com/products/456",
+  "user_prompt": "Extract product details including name, price, availability, specifications, and customer ratings."
+}'
+```
+
+</CodeGroup>
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| apiKey | string | Yes | The ScrapeGraph API Key. |
+| websiteUrl | string | Yes | The URL of the webpage that needs to be scraped. |
+| prompt | string | Yes | A textual description of what you want to achieve. |
+| schema | object | No | The Pydantic or Zod object that describes the structure and format of the response. |
+
+
+<Note>
+Get your API key from the [dashboard](https://dashboard.scrapegraphai.com)
+</Note>
+
+
+<Accordion title="Example Response" icon="terminal">
+```json
+{
+  "request_id": "sg-req-abc123",
+  "status": "completed",
+  "website_url": "https://scrapegraphai.com/",
+  "user_prompt": "Extract info about the company",
+  "result": {
+    "company_name": "ScrapeGraphAI",
+    "description": "ScrapeGraphAI is a powerful AI scraping API designed for efficient web data extraction to power LLM applications and AI agents...",
+    "features": [
+      "Effortless, cost-effective, and AI-powered data extraction",
+      "Handles proxy rotation and rate limits",
+      "Supports a wide variety of websites"
+    ],
+    "contact_email": "contact@scrapegraphai.com",
+    "social_links": {
+      "github": "https://github.com/ScrapeGraphAI/Scrapegraph-ai",
+      "linkedin": "https://www.linkedin.com/company/101881123",
+      "twitter": "https://x.com/scrapegraphai"
+    }
+  },
+  "error": ""
+}
+```
+
+The response includes:
+- `request_id`: Unique identifier for tracking your request
+- `status`: Current status of the extraction ("completed", "running", "failed")
+- `result`: The extracted data in structured JSON format
+- `error`: Error message (if any occurred during extraction)
+</Accordion>
+
+<Accordion title="Using Your Own HTML" icon="code">
+Instead of providing a URL, you can optionally pass your own HTML content:
+
+```python
+html_content = """
+<html>
+    <body>
+        <h1>ScrapeGraphAI</h1>
+        <div class="description">
+            <p>AI-powered web scraping for modern applications.</p>
+        </div>
+        <div class="features">
+            <ul>
+                <li>Smart Extraction</li>
+                <li>Local Processing</li>
+                <li>Schema Support</li>
+            </ul>
+        </div>
+    </body>
+</html>
+"""
+
+response = client.smartscraper(
+    website_html=html_content,  # This will override website_url if both are provided
+    user_prompt="Extract info about the company"
+)
+```
+
+This is useful when:
+- You already have the HTML content cached
+- You want to process modified HTML
+- You're working with dynamically generated content
+- You need to process content offline
+- You want to pre-process the HTML before extraction
+
+<Note>
+When both `website_url` and `website_html` are provided, `website_html` takes precedence and will be used for extraction.
+</Note>
+</Accordion>
+
+## Key Features
+
+<CardGroup cols={2}>
+  <Card title="Universal Compatibility" icon="globe">
+    Works with any website structure, including JavaScript-rendered content
+  </Card>
+  <Card title="AI Understanding" icon="brain">
+    Contextual understanding of content for accurate extraction
+  </Card>
+  <Card title="Structured Output" icon="table">
+    Returns clean, structured data in your preferred format
+  </Card>
+  <Card title="Schema Support" icon="code">
+    Define custom output schemas using Pydantic or Zod
+  </Card>
+</CardGroup>
+
+## Use Cases
+
+### Content Aggregation
+- News article extraction
+- Blog post summarization
+- Product information gathering
+- Research data collection
+
+### Data Analysis
+- Market research
+- Competitor analysis
+- Price monitoring
+- Trend tracking
+
+### AI Training
+- Dataset creation
+- Training data collection
+- Content classification
+- Knowledge base building
+
+<Note>
+Want to learn more about our AI-powered scraping technology? Visit our [main website](https://scrapegraphai.com) to discover how we're revolutionizing web data extraction.
+</Note>
+
+## Other Functionality
+
+### Retrieve a previous request
+
+If you know the response id of a previous request you made, you can retrieve all the information.
+
+<CodeGroup>
+
+```javascript JavaScript
+import { getSmartScraperRequest } from 'scrapegraph-js';
+
+const apiKey = 'your_api_key';
+const requestId = 'ID_of_previous_request';
+
+try {
+  const requestInfo = await getSmartScraperRequest(apiKey, requestId);
+  console.log(requestInfo);
+} catch (error) {
+  console.error(error);
+}
+```
+
+</CodeGroup>
+
+#### Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| apiKey | string | Yes | The ScrapeGraph API Key. |
+| requestId | string | Yes | The request ID associated with the output of a previous smartScraper request. |
+
+### Custom Schema Example
+
+Define exactly what data you want to extract:
+
+<CodeGroup>
+
+```python Python
+from pydantic import BaseModel, Field
+
+class ArticleData(BaseModel):
+    title: str = Field(description="Article title")
+    author: str = Field(description="Author name")
+    content: str = Field(description="Main article content")
+    publish_date: str = Field(description="Publication date")
+
+response = client.smartscraper(
+    website_url="https://example.com/article",
+    user_prompt="Extract the article information",
+    output_schema=ArticleData
+)
+```
+
+```javascript JavaScript
+import { smartScraper } from 'scrapegraph-js';
+import { z } from 'zod';
+
+const apiKey = 'your_api_key';
+const url = 'https://scrapegraphai.com/';
+const prompt = 'What does the company do? and ';
+
+const schema = z.object({
+  title: z.string().describe('The title of the webpage'),
+  description: z.string().describe('The description of the webpage'),
+  summary: z.string().describe('A brief summary of the webpage'),
+});
+
+try {
+  const response = await smartScraper(apiKey, url, prompt, schema);
+  console.log(response.result);
+} catch (error) {
+  console.error(error);
+}
+```
+
+</CodeGroup>
+
+### Async Support
+
+For applications requiring asynchronous execution, SmartScraper provides comprehensive async support through the `AsyncClient`:
+
+<CodeGroup>
+
+```python Python
+import asyncio
+from scrapegraph_py import AsyncClient
+from pydantic import BaseModel, Field
+
+# Define your schema
+class WebpageSchema(BaseModel):
+    title: str = Field(description="The title of the webpage")
+    description: str = Field(description="The description of the webpage")
+    summary: str = Field(description="A brief summary of the webpage")
+
+async def main():
+    # Initialize the async client
+    async with AsyncClient(api_key="your-api-key") as client:
+        # List of URLs to analyze
+        urls = [
+            "https://scrapegraphai.com/",
+            "https://github.com/ScrapeGraphAI/Scrapegraph-ai",
+        ]
+
+        # Create scraping tasks for each URL
+        tasks = [
+            client.smartscraper(
+                website_url=url,
+                user_prompt="Summarize the main content",
+                output_schema=WebpageSchema
+            )
+            for url in urls
+        ]
+
+        # Execute requests concurrently
+        responses = await asyncio.gather(*tasks, return_exceptions=True)
+
+        # Process results
+        for i, response in enumerate(responses):
+            if isinstance(response, Exception):
+                print(f"Error for {urls[i]}: {response}")
+            else:
+                print(f"Result for {urls[i]}: {response['result']}")
+
+# Run the async function
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+```javascript JavaScript
+import { AsyncSmartScraper } from 'scrapegraph-js';
+import { z } from 'zod';
+
+// Define schema using Zod
+const WebpageSchema = z.object({
+  title: z.string().describe('The title of the webpage'),
+  description: z.string().describe('The description of the webpage'),
+  summary: z.string().describe('A brief summary of the webpage')
+});
+
+async function scrapeMultiplePages() {
+  const apiKey = 'your-api-key';
+  const scraper = new AsyncSmartScraper(apiKey);
+  
+  const urls = [
+    'https://scrapegraphai.com/',
+    'https://github.com/ScrapeGraphAI/Scrapegraph-ai'
+  ];
+
+  try {
+    const results = await Promise.all(
+      urls.map(url => 
+        scraper.extract({
+          url,
+          prompt: 'Summarize the main content',
+          schema: WebpageSchema
+        })
+      )
+    );
+    
+    results.forEach((result, index) => {
+      console.log(`Results for ${urls[index]}:`, result);
+    });
+  } catch (error) {
+    console.error('Error during scraping:', error);
+  }
+}
+
+scrapeMultiplePages();
+```
+
+</CodeGroup>
+
+### SmartScraper Endpoint
+
+The SmartScraper endpoint is our core service for extracting structured data from any webpage using advanced language models. It automatically adapts to different website layouts and content types, enabling quick and reliable data extraction.
+
+#### Key Capabilities
+
+- **Universal Compatibility**: Works with any website structure, including JavaScript-rendered content
+- **Schema Validation**: Supports both Pydantic (Python) and Zod (JavaScript) schemas
+- **Concurrent Processing**: Efficient handling of multiple URLs through async support
+- **Custom Extraction**: Flexible user prompts for targeted data extraction
+
+#### Endpoint Details
+
+```bash
+POST https://api.scrapegraphai.com/v1/smartscraper
+```
+
+##### Required Headers
+| Header | Description |
+|--------|-------------|
+| SGAI-APIKEY | Your API authentication key |
+| Content-Type | application/json |
+
+##### Request Body
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| website_url | string | Yes* | URL to scrape (*either this or website_html required) |
+| website_html | string | No | Raw HTML content to process |
+| user_prompt | string | Yes | Instructions for data extraction |
+| output_schema | object | No | Pydantic or Zod schema for response validation |
+
+##### Response Format
+```json
+{
+  "request_id": "sg-req-abc123",
+  "status": "completed",
+  "website_url": "https://example.com",
+  "result": {
+    // Structured data based on schema or extraction prompt
+  },
+  "error": null
+}
+```
+
+#### Best Practices
+
+1. **Schema Definition**:
+   - Define schemas to ensure consistent data structure
+   - Use descriptive field names and types
+   - Include field descriptions for better extraction accuracy
+
+2. **Async Processing**:
+   - Use async clients for concurrent requests
+   - Implement proper error handling
+   - Monitor rate limits and implement backoff strategies
+
+3. **Error Handling**:
+   - Always wrap requests in try-catch blocks
+   - Check response status before processing
+   - Implement retry logic for failed requests
+
+## Integration Options
+
+### Official SDKs
+- [Python SDK](/sdks/python) - Perfect for data science and backend applications
+- [JavaScript SDK](/sdks/javascript) - Ideal for web applications and Node.js
+
+### AI Framework Integrations
+- [LangChain Integration](/integrations/langchain) - Use SmartScraper in your LLM workflows
+- [LlamaIndex Integration](/integrations/llamaindex) - Build powerful search and QA systems
+
+## Best Practices
+
+### Optimizing Extraction
+1. Be specific in your prompts
+2. Use schemas for structured data
+3. Handle pagination for multi-page content
+4. Implement error handling and retries
+
+### Rate Limiting
+- Implement reasonable delays between requests
+- Use async clients for better performance
+- Monitor your [API usage](/dashboard/overview)
+
+## Example Projects
+
+Check out our [cookbook](/cookbook/introduction) for real-world examples:
+- E-commerce product scraping
+- News aggregation
+- Research data collection
+- Content monitoring
+
+## API Reference
+
+For detailed API documentation, see:
+- [Start Scraping Job](/api-reference/endpoint/smartscraper/start)
+- [Get Job Status](/api-reference/endpoint/smartscraper/get-status)
+
+## Support & Resources
+
+<CardGroup cols={2}>
+  <Card title="Documentation" icon="book" href="/introduction">
+    Comprehensive guides and tutorials
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference/introduction">
+    Detailed API documentation
+  </Card>
+  <Card title="Community" icon="discord" href="https://discord.gg/uJN7TYcpNa">
+    Join our Discord community
+  </Card>
+  <Card title="GitHub" icon="github" href="https://github.com/ScrapeGraphAI">
+    Check out our open-source projects
+  </Card>
+</CardGroup>
+
+<Card title="Ready to Start?" icon="rocket" href="https://dashboard.scrapegraphai.com">
+  Sign up now and get your API key to begin extracting data with SmartScraper!
+</Card>

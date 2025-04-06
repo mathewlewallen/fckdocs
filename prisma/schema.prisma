@@ -1,0 +1,109 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+generator zod {
+  provider              = "zod-prisma"
+  output                = "./zod"
+  relationModel         = true
+  modelCase             = "camelCase"
+  modelSuffix           = "Schema"
+  useDecimalJs          = true
+  prismaJsonNullability = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Page {
+  id        String   @id @default(cuid())
+  name      String
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  text      String
+  content   Json
+  name      String
+  user_id   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      user     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model user {
+  id               String    @id @unique
+  email            String    @unique
+  stripeCustomerId String?   @unique
+  firstName        String?
+  lastName         String?
+  profileImageUrl  String?
+  isPremium        Boolean   @default(false)
+  PremiumUntil     DateTime?
+
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  posts            Post[]
+  accounts         Account[]
+  sessions         Session[]
+
+  @@index([id])
+}
+
+model Account {
+  id                      String   @id @default(cuid())
+  userId                  String
+  type                    String
+  provider                String
+  providerAccountId       String
+  refresh_token           String?
+  access_token            String?
+  expires_at              Int?
+  token_type              String?
+  scope                   String?
+  id_token                String?
+  session_state           String?
+  refresh_token_expires_in Int?
+
+  user                    user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id            String   @id @default(cuid())
+  sessionToken  String   @unique
+  userId        String
+  expires       DateTime
+
+  user          user     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Project {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+
+  @@index([userId])
+}

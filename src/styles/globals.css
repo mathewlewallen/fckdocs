@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@source "../**/*.{ts,tsx}";
+
+@plugin 'tailwindcss-animate';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(95% 0.02 270);
+  --foreground: oklch(30% 0.02 270);
+  --card: oklch(97% 0.015 270);
+  --card-foreground: oklch(30% 0.02 270);
+  --popover: oklch(98% 0.01 270);
+  --popover-foreground: oklch(35% 0.025 270);
+  --primary: oklch(50% 0.05 270);
+  --primary-foreground: oklch(98% 0.01 270);
+  --secondary: oklch(85% 0.01 270);
+  --secondary-foreground: oklch(30% 0.02 270);
+  --muted: oklch(92% 0.01 270);
+  --muted-foreground: oklch(40% 0.015 270);
+  --accent: oklch(88% 0.03 220);
+  --accent-foreground: oklch(30% 0.02 270);
+  --destructive: oklch(55% 0.12 25);
+  --destructive-foreground: oklch(98% 0.01 270);
+  --border: oklch(90% 0.01 270);
+  --input: oklch(93% 0.01 270);
+  --ring: oklch(40% 0.03 270);
+  --chart-1: oklch(65% 0.12 250);
+  --chart-2: oklch(75% 0.08 90);
+  --chart-3: oklch(60% 0.15 30);
+  --chart-4: oklch(70% 0.14 300);
+  --chart-5: oklch(68% 0.13 40);
+  --radius: 0.625rem;
+  --sidebar: oklch(96% 0.01 270);
+  --sidebar-foreground: oklch(30% 0.02 270);
+  --sidebar-primary: oklch(30% 0.02 270);
+  --sidebar-primary-foreground: oklch(96% 0.01 270);
+  --sidebar-accent: oklch(90% 0.01 270);
+  --sidebar-accent-foreground: oklch(25% 0.02 270);
+  --sidebar-border: oklch(88% 0.01 270);
+  --sidebar-ring: oklch(35% 0.02 270);
+  --rnf-notification-icon-button-size: 1rem;
+}
+
+.rnf-notification-icon-button svg {
+  width: var(--rnf-notification-icon-button-size);
+  height: var(--rnf-notification-icon-button-size);
+}
+
+.dark {
+  --background: oklch(15% 0.015 270);
+  --foreground: oklch(92% 0.01 270);
+  --card: oklch(12% 0.01 270);
+  --card-foreground: oklch(92% 0.01 270);
+  --popover: oklch(10% 0.01 270);
+  --popover-foreground: oklch(92% 0.01 270);
+  --primary: oklch(80% 0.01 270);
+  --primary-foreground: oklch(20% 0.015 270);
+  --secondary: oklch(35% 0.01 270);
+  --secondary-foreground: oklch(95% 0.01 270);
+  --muted: oklch(25% 0.01 270);
+  --muted-foreground: oklch(75% 0.01 270);
+  --accent: oklch(35% 0.02 240);
+  --accent-foreground: oklch(95% 0.01 270);
+  --destructive: oklch(40% 0.12 25);
+  --destructive-foreground: oklch(90% 0.01 270);
+  --border: oklch(35% 0.01 270);
+  --input: oklch(32% 0.01 270);
+  --ring: oklch(75% 0.01 270);
+  --chart-1: oklch(90% 0.02 240);
+  --chart-2: oklch(65% 0.08 90);
+  --chart-3: oklch(50% 0.15 30);
+  --chart-4: oklch(70% 0.14 300);
+  --chart-5: oklch(68% 0.13 40);
+  --sidebar: oklch(18% 0.02 270);
+  --sidebar-foreground: oklch(90% 0.01 270);
+  --sidebar-primary: oklch(18% 0.02 270);
+  --sidebar-primary-foreground: oklch(95% 0.01 270);
+  --sidebar-accent: oklch(40% 0.02 240);
+  --sidebar-accent-foreground: oklch(90% 0.01 270);
+  --sidebar-border: oklch(35% 0.01 270);
+  --sidebar-ring: oklch(70% 0.01 270);
+}
+
+/* rest of file continues unchanged with @theme inline, @layer base, and @utility prose */

@@ -1,0 +1,13 @@
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - '@clerk/shared'
+  - '@parcel/watcher'
+  - '@prisma/client'
+  - '@prisma/engines'
+  - '@sentry/cli'
+  - '@vercel/speed-insights'
+  - bufferutil
+  - core-js
+  - esbuild
+  - prisma
+  - sharp
