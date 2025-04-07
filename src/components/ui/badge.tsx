@@ -1,46 +1,79 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+'use client';
 
-import { cn } from "@fck/lib/utils"
+import { Flex } from '@fck/components/ui/Flex';
+import React, { forwardRef } from 'react';
+import Arrow from '@fck/components/ui/Arrow';
+import Icon from '@fck/components/ui/Icon';
+import SmartLink from '@fck/components/ui/SmartLink';
+import Text from '@fck/components/ui/Text';
+import '@fck/styles/globals.css';
 
-const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
-  {
-    variants: {
-      variant: {
-        default:
-          "border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
-        secondary:
-          "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
-        destructive:
-          "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
-        outline:
-          "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-)
-
-function Badge({
-  className,
-  variant,
-  asChild = false,
-  ...props
-}: React.ComponentProps<"span"> &
-  VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot : "span"
-
-  return (
-    <Comp
-      data-slot="badge"
-      className={cn(badgeVariants({ variant }), className)}
-      {...props}
-    />
-  )
+interface BadgeProps extends React.ComponentProps<typeof Flex> {
+  title?: string;
+  icon?: string;
+  arrow?: boolean;
+  children?: React.ReactNode;
+  href?: string;
+  effect?: boolean;
 }
 
-export { Badge, badgeVariants }
+const Badge = forwardRef<HTMLDivElement | HTMLAnchorElement, BadgeProps>(
+  (
+    { title, icon, arrow = true, children, href, effect = true, ...rest },
+    ref
+  ) => {
+    const content = (
+      <Flex
+        id="badge"
+        paddingX="20"
+        paddingY="12"
+        fitWidth
+        className={effect ? 'animation' : undefined}
+        vertical="center"
+        radius="full"
+        background="neutral-weak"
+        border="brand-alpha-medium"
+        shadow="l"
+        {...rest}
+      >
+        {icon && (
+          <Icon
+            className="mr-8"
+            size="s"
+            name={icon}
+            onBackground="brand-medium"
+          />
+        )}
+        {title && (
+          <Text onBackground="brand-strong" variant="label-strong-s">
+            {title}
+          </Text>
+        )}
+        {children}
+        {arrow && <Arrow trigger="#badge" />}
+      </Flex>
+    );
+
+    if (href) {
+      return (
+        <SmartLink
+          unstyled
+          style={{
+            borderRadius: 'var(--radius-full)',
+          }}
+          href={href}
+          ref={ref as React.Ref<HTMLAnchorElement>}
+        >
+          {content}
+        </SmartLink>
+      );
+    }
+
+    return React.cloneElement(content, {
+      ref: ref as React.Ref<HTMLDivElement>,
+    });
+  }
+);
+
+Badge.displayName = 'Badge';
+export default Badge

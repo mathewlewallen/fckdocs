@@ -1,11 +1,7 @@
-import {
-  createTRPCRouter,
-  publicProcedure,
-} from "@fck/server/trpc/trpc";
+import { createTRPCRouter, publicProcedure } from '@fck/server/trpc/trpc';
+import type { Prisma } from '@prisma/client';
 import { TRPCError } from '@trpc/server';
 import { z } from 'zod';
-import type { db } from '@fck/server/db';
-import type { Prisma } from '@prisma/client';
 
 const defaultPostSelect = {
   id: true,
@@ -19,11 +15,13 @@ const defaultPostSelect = {
 
 export const postRouter = createTRPCRouter({
   list: publicProcedure
-    .input(z.object({ 
-      text: z.string(),
-      limit: z.number().min(1).max(100).nullish(),
-      cursor: z.string().nullish(),
-    }))
+    .input(
+      z.object({
+        text: z.string(),
+        limit: z.number().min(1).max(100).nullish(),
+        cursor: z.string().nullish(),
+      })
+    )
     .query(async ({ input }) => {
       const limit = input.limit ?? 50;
       const { cursor } = input;
@@ -42,7 +40,7 @@ export const postRouter = createTRPCRouter({
           createdAt: 'desc',
         },
       });
-      let nextCursor: typeof cursor | undefined = undefined;
+      let nextCursor: typeof cursor | undefined;
       if (items.length > limit) {
         // Remove the last item and use it as next cursor
 
@@ -55,11 +53,11 @@ export const postRouter = createTRPCRouter({
         nextCursor,
       };
     }),
-    byId: publicProcedure
+  byId: publicProcedure
     .input(
       z.object({
         id: z.string(),
-      }),
+      })
     )
     .query(async ({ input }) => {
       const { id } = input;
@@ -81,7 +79,7 @@ export const postRouter = createTRPCRouter({
         id: z.string().uuid().optional(),
         title: z.string().min(1).max(32),
         text: z.string().min(1),
-      }),
+      })
     )
     .mutation(async ({ input }) => {
       const post = await db.post.create({

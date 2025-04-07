@@ -1,9 +1,9 @@
+import { createClerkToolkit } from '@clerk/agent-toolkit/ai-sdk';
 import { streamText } from '@fck/lib/ai';
-import { log } from '@fck/lib/observability/log';
 import { models } from '@fck/lib/ai/lib/models';
-import { createClerkToolkit } from '@clerk/agent-toolkit/ai-sdk'
-import { auth } from '@fck/server/auth/server'
-import { systemPrompt } from "@fck/lib/ai/lib/prompts";
+import { systemPrompt } from '@fck/lib/ai/lib/prompts';
+import { log } from '@fck/lib/observability/log';
+import { auth } from '@fck/server/auth/server';
 
 export const POST = async (req: Request) => {
   const authContext = await auth.protect();

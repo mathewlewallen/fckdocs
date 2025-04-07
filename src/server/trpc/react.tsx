@@ -1,18 +1,18 @@
 'use client';
 
-import { useState } from 'react';
 import { env } from '@fck/env';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { loggerLink, httpBatchStreamLink } from '@trpc/client';
+import { httpBatchStreamLink, loggerLink } from '@trpc/client';
 import { createTRPCReact } from '@trpc/react-query';
+import { useState } from 'react';
 import superjson from 'superjson';
 
-import { getBaseUrl } from '@fck/server/trpc/shared';
 import type { AppRouter } from '@fck/server/api/root';
+import { getBaseUrl } from '@fck/server/trpc/shared';
 
 const createQueryClient = () => new QueryClient();
 
-let clientQueryClientSingleton: QueryClient | undefined = undefined;
+let clientQueryClientSingleton: QueryClient | undefined;
 const getQueryClient = () => {
   if (typeof window === 'undefined') {
     return createQueryClient();
@@ -52,7 +52,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
           },
         }),
       ],
-    }),
+    })
   );
 
   return (

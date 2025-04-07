@@ -1,4 +1,4 @@
-import type { LiveList } from "@liveblocks/client";
+import type { LiveList } from '@liveblocks/client';
 
 // https://liveblocks.io/docs/api-reference/liveblocks-react#Typing-your-data
 declare global {
@@ -24,7 +24,7 @@ declare global {
         name?: string;
         avatar?: string;
         color: string;
-        role?: "photographer" | "client";
+        role?: 'photographer' | 'client';
       };
     };
 

@@ -1,4 +1,5 @@
 import 'server-only';
+
 import { env } from '@fck/env';
 import type { BetterStackResponse } from './types';
 

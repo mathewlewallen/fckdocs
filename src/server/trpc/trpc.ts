@@ -1,11 +1,11 @@
 import { currentUser } from '@clerk/nextjs/server';
-import { initTRPC, TRPCError } from '@trpc/server';
+import { TRPCError, initTRPC } from '@trpc/server';
 import superjson from 'superjson';
 import { ZodError } from 'zod';
 
-import { db } from '@fck/server/db';
-import { resend } from '@fck/lib/resend';
 import { redis } from '@fck/lib/redis';
+import { resend } from '@fck/lib/resend';
+import { db } from '@fck/server/db';
 
 export const createTRPCContext = (opts: { headers: Headers }) => {
   return {
@@ -48,4 +48,3 @@ export const protectedProcedure = t.procedure.use(async ({ next }) => {
     },
   });
 });
-

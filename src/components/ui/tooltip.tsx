@@ -1,9 +1,20 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import * as TooltipPrimitive from "@radix-ui/react-tooltip"
+import { cn } from '@fck/lib/utils';
+import * as TooltipPrimitive from '@radix-ui/react-tooltip';
+import { clsx } from 'clsx';
+import type React from 'react';
+import { type ReactNode, forwardRef } from 'react';
+import { Icon } from '.';
+import { Flex } from './Flex';
 
-import { cn } from "@fck/lib/utils"
+type TooltipProps = {
+  label: ReactNode;
+  prefixIcon?: string;
+  suffixIcon?: string;
+  className?: string;
+  style?: React.CSSProperties;
+};
 
 function TooltipProvider({
   delayDuration = 0,
@@ -15,23 +26,13 @@ function TooltipProvider({
       delayDuration={delayDuration}
       {...props}
     />
-  )
-}
-
-function Tooltip({
-  ...props
-}: React.ComponentProps<typeof TooltipPrimitive.Root>) {
-  return (
-    <TooltipProvider>
-      <TooltipPrimitive.Root data-slot="tooltip" {...props} />
-    </TooltipProvider>
-  )
+  );
 }
 
 function TooltipTrigger({
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Trigger>) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
+  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
 }
 
 function TooltipContent({
@@ -46,16 +47,56 @@ function TooltipContent({
         data-slot="tooltip-content"
         sideOffset={sideOffset}
         className={cn(
-          "bg-primary text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit rounded-md px-3 py-1.5 text-xs text-balance",
+          'fade-in-0 zoom-in-95 data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-fit animate-in text-balance rounded-md bg-primary px-3 py-1.5 text-primary-foreground text-xs data-[state=closed]:animate-out',
           className
         )}
         {...props}
       >
         {children}
-        <TooltipPrimitive.Arrow className="bg-primary fill-primary z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px]" />
+        <TooltipPrimitive.Arrow className="z-50 size-2.5 translate-y-[calc(-50%_-_2px)] rotate-45 rounded-[2px] bg-primary fill-primary" />
       </TooltipPrimitive.Content>
     </TooltipPrimitive.Portal>
-  )
+  );
 }
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider }
+const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
+  ({ label, prefixIcon, suffixIcon, className, style }, ref) => {
+    return (
+      <Flex
+        hide="m"
+        ref={ref}
+        style={{
+          whiteSpace: 'nowrap',
+          userSelect: 'none',
+          ...style,
+        }}
+        vertical="center"
+        gap="4"
+        zIndex={1}
+        background="surface"
+        paddingY="4"
+        paddingX="8"
+        radius="s"
+        border="neutral-medium"
+        role="tooltip"
+        className={clsx(className)}
+      >
+        {prefixIcon && <Icon name={prefixIcon} size="xs" />}
+        <Flex
+          paddingX="2"
+          vertical="center"
+          textVariant="body-default-xs"
+          onBackground="neutral-strong"
+        >
+          {label}
+        </Flex>
+        {suffixIcon && <Icon name={suffixIcon} size="xs" />}
+      </Flex>
+    );
+  }
+);
+
+Tooltip.displayName = 'Tooltip';
+
+export default Tooltip
+export { TooltipProvider, TooltipTrigger, TooltipContent };

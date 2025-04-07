@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
 import { Waitlist as ClerkWaitlist } from '@clerk/nextjs';
 
 export const Waitlist = () => (
-    <ClerkWaitlist
+  <ClerkWaitlist
     afterJoinWaitlistUrl="/"
     appearance={{
       elements: {

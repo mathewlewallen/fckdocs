@@ -1,11 +1,15 @@
 "use client";
 
 import { forwardRef, useState, useEffect } from "react";
-import { Flex, Text, SegmentedControl, IconButton, Scroller, Column } from ".";
-
-import styles from "./StylePanel.module.scss";
-import classNames from "classnames";
+import { Text } from "@fck/components/ui/text";
+import "@fck/styles/globals.css";
+import { clsx } from "clsx";
 import { style } from "@fck/lib/once-ui";
+import { Flex } from "@fck/components/ui/Flex";
+import { Column } from "@fck/components/ui/column";
+import { IconButton } from "@fck/components/ui/IconButton";
+import { Scroller } from "@fck/components/ui/Scroller";
+import { SegmentedControl } from "@fck/components/ui/SegmentedControl";
 
 interface StylePanelProps extends React.ComponentProps<typeof Flex> {
   style?: React.CSSProperties;
@@ -125,16 +129,13 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(({ ...rest }, ref
                 key={radius}
                 horizontal="center"
                 vertical="center"
-                className={classNames(
-                  styles.select,
-                  selectedShape === radius ? styles.selected : "",
-                )}
+                className={clsx("select", selectedShape === radius && "selected")}
                 onClick={() => {
                   setSelectedShape(radius);
                 }}
               >
                 <IconButton variant="ghost" size="m">
-                  <div className={classNames(styles.neutral, styles.swatch)}></div>
+                  <div className={clsx("neutral", "swatch")}></div>
                 </IconButton>
               </Flex>
             ))}
@@ -168,13 +169,13 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(({ ...rest }, ref
                 key={color}
                 horizontal="center"
                 vertical="center"
-                className={classNames(styles.select, brandColor === color ? styles.selected : "")}
+                className={clsx("select", brandColor === color && "selected")}
                 onClick={() => {
                   setBrandColor(color);
                 }}
               >
                 <IconButton variant="ghost" size="m">
-                  <div className={`${styles[color]} ${styles.swatch}`}></div>
+                  <div className={color + " swatch"}></div>
                 </IconButton>
               </Flex>
             ))}
@@ -200,13 +201,13 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(({ ...rest }, ref
                 key={color}
                 horizontal="center"
                 vertical="center"
-                className={classNames(styles.select, accentColor === color ? styles.selected : "")}
+                className={clsx("select", accentColor === color && "selected")}
                 onClick={() => {
                   setAccentColor(color);
                 }}
               >
                 <IconButton variant="ghost" size="m">
-                  <div className={`${styles[color]} ${styles.swatch}`}></div>
+                  <div className={color + " swatch"}></div>
                 </IconButton>
               </Flex>
             ))}
@@ -231,13 +232,13 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(({ ...rest }, ref
                 key={color}
                 horizontal="center"
                 vertical="center"
-                className={classNames(styles.select, neutralColor === color ? styles.selected : "")}
+                className={clsx("select", neutralColor === color && "selected")}
                 onClick={() => {
                   setNeutralColor(color);
                 }}
               >
                 <IconButton variant="ghost" size="m">
-                  <div className={`${styles[color]} ${styles.swatch}`}></div>
+                  <div className={color + " swatch"}></div>
                 </IconButton>
               </Flex>
             ))}

@@ -1,7 +1,7 @@
+import { Header } from '@fck/components/ui/header';
 import { auth } from '@fck/server/auth/server';
 import { db } from '@fck/server/db';
 import { notFound, redirect } from 'next/navigation';
-import { Header } from '@fck/components/header';
 
 type SearchPageProperties = {
   searchParams: Promise<{

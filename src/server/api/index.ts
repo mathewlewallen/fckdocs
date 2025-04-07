@@ -1,4 +1,8 @@
-import { createCallerFactory, createTRPCRouter, publicProcedure } from '@fck/server/trpc/trpc';
+import {
+  createCallerFactory,
+  createTRPCRouter,
+  publicProcedure,
+} from '@fck/server/trpc/trpc';
 import { postRouter } from './routers/post';
 
 export const appRouter = createTRPCRouter({

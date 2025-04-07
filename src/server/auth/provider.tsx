@@ -3,7 +3,7 @@
 import '@fck/styles/globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
-import type { Theme, Appearance } from '@clerk/types';
+import type { Appearance, Theme } from '@clerk/types';
 import { useTheme } from 'next-themes';
 import type { ComponentProps, JSX } from 'react';
 

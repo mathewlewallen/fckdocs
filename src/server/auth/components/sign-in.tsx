@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { SignIn as ClerkSignIn } from '@clerk/nextjs';
 

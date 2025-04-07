@@ -1,5 +1,5 @@
-"use client";
-import { motion } from "motion/react"
+'use client';
+import { motion } from 'motion/react';
 
 export const Animated_h1 = motion.h1;
 export const Animated_h2 = motion.h2;

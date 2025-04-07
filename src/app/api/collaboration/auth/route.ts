@@ -1,5 +1,5 @@
-import { auth, currentUser } from '@fck/server/auth/server';
 import { authenticate } from '@fck/lib/collaboration/auth';
+import { auth, currentUser } from '@fck/server/auth/server';
 
 const COLORS = [
   'var(--color-red-500)',
@@ -36,7 +36,9 @@ export const POST = async () => {
       name:
         user.fullName ?? user.emailAddresses.at(0)?.emailAddress ?? undefined,
       avatar: user.imageUrl ?? undefined,
-      color: COLORS[Math.floor(Math.random() * COLORS.length)] ?? 'var(--color-red-500)',
+      color:
+        COLORS[Math.floor(Math.random() * COLORS.length)] ??
+        'var(--color-red-500)',
     },
   });
 };

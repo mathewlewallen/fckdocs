@@ -1,10 +1,10 @@
-import { ChatOpenAI } from "@langchain/openai";
-import { createClerkToolkit } from "@clerk/agent-toolkit/langchain";
-import { auth } from "@fck/server/auth/server";
-import { HumanMessage, SystemMessage } from "@langchain/core/messages";
-import { LangChainAdapter } from "@fck/lib/ai";
-import { systemPrompt } from "@fck/lib/ai/lib/prompts";
+import { createClerkToolkit } from '@clerk/agent-toolkit/langchain';
+import { LangChainAdapter } from '@fck/lib/ai';
+import { systemPrompt } from '@fck/lib/ai/lib/prompts';
 import { log } from '@fck/lib/observability/log';
+import { auth } from '@fck/server/auth/server';
+import { HumanMessage, SystemMessage } from '@langchain/core/messages';
+import { ChatOpenAI } from '@langchain/openai';
 
 export const maxDuration = 30;
 
@@ -14,12 +14,15 @@ export async function POST(req: Request) {
 
   log.info('🤖 Langchain request received.', { prompt });
 
-  const model = new ChatOpenAI({ model: "gpt-4o", temperature: 0 });
+  const model = new ChatOpenAI({ model: 'gpt-4o', temperature: 0 });
   const toolkit = await createClerkToolkit({ authContext });
   const modelWithTools = model.bindTools(toolkit.allTools());
 
   log.info('🤖 Generating response...');
-  const messages = [new SystemMessage(toolkit.injectSessionClaims(systemPrompt)), new HumanMessage(prompt)];
+  const messages = [
+    new SystemMessage(toolkit.injectSessionClaims(systemPrompt)),
+    new HumanMessage(prompt),
+  ];
   const aiMessage = await modelWithTools.invoke(messages);
   messages.push(aiMessage);
 

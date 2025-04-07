@@ -1,22 +1,23 @@
-"use client";
+import { createMetadata } from '@fck/lib/seo/metadata';
+import type { Metadata } from 'next';
+import dynamic from 'next/dynamic';
 
-import { SignOutButton } from "@clerk/nextjs";
+const title = 'Create an account';
+const description = 'Enter your details to get started.';
+const SignUp = dynamic(() =>
+  import('@fck/server/auth/components/sign-up').then((mod) => mod.SignUp)
+);
 
-import { Button } from "@fck/components/ui/button";
+export const metadata: Metadata = createMetadata({ title, description });
 
-export default function AuthenticationPage() {
-
-  return (
-    <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
-      <div className="flex flex-col space-y-2 text-center">
-        <h1 className="font-semibold text-2xl tracking-tight">Sign Out</h1>
-        <p className="text-muted-foreground text-sm">
-          Are you sure you want to sign out?
-        </p>
-        <SignOutButton redirectUrl="/">
-          <Button>Confirm</Button>
-        </SignOutButton>
-      </div>
+const SignUpPage = () => (
+  <>
+    <div className="flex flex-col space-y-2 text-center">
+      <h1 className="font-bold text-4xl tracking-tight">{title}</h1>
+      <p className="text-lg text-muted-foreground">{description}</p>
     </div>
-  );
-}
+    <SignUp />
+  </>
+);
+
+export default SignUpPage;

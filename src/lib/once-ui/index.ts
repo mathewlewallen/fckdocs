@@ -7,7 +7,7 @@ export {
   display,
   mailchimp,
   baseURL,
-} from "@fck/lib/once-ui/config";
+} from '@fck/lib/once-ui/config';
 export {
   person,
   social,
@@ -17,4 +17,4 @@ export {
   blog,
   work,
   gallery,
-} from "@fck/lib/once-ui/content";
+} from '@fck/lib/once-ui/content';

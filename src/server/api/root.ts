@@ -1,6 +1,6 @@
-import { postRouter } from "@fck//server/api/routers/post";
-import { createTRPCRouter } from "@fck/server/trpc/trpc";
-import { stripeRouter } from "./routers/stripe";
+import { postRouter } from '@fck//server/api/routers/post';
+import { createTRPCRouter } from '@fck/server/trpc/trpc';
+import { stripeRouter } from './routers/stripe';
 
 /**
  * This is the primary router for your server.

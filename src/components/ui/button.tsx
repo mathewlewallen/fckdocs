@@ -1,60 +1,127 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
+'use client';
 
-import { cn } from "@fck/lib/utils"
+import { clsx } from 'clsx';
+import type React from 'react';
+import { type ReactNode, forwardRef } from 'react';
+import { Arrow, Icon, Spinner } from '.';
+import { ElementType } from './ElementType';
+import '@fck/styles/globals.css';
+import { Flex } from '@fck/components/ui/Flex';
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all duration-150 ease-in-out disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-  {
-    variants: {
-      variant: {
-        default:
-          "bg-primary text-primary-foreground shadow-sm hover:bg-primary/90 hover:shadow-md active:shadow-inner",
-        destructive:
-          "bg-destructive text-white shadow-sm hover:bg-destructive/90 hover:shadow-md active:shadow-inner focus-visible:ring-destructive/60",
-        outline:
-          "border border-border bg-background text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground hover:shadow-md active:shadow-inner",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-md hover:bg-secondary/85 hover:shadow-lg active:shadow-inner",
-        ghost:
-          "text-foreground hover:bg-muted/50 hover:text-foreground/90 focus-visible:ring-ring/30",
-        link:
-          "text-primary underline underline-offset-4 hover:text-primary/80 hover:underline",
-      },
-      size: {
-        default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
-        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
-        icon: "h-9 w-9",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-    },
-  }
-)
-
-function Button({
-  className,
-  variant,
-  size,
-  asChild = false,
-  ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot : "button"
-
-  return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  )
+interface CommonProps {
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'danger';
+  size?: 's' | 'm' | 'l';
+  radius?:
+    | 'none'
+    | 'top'
+    | 'right'
+    | 'bottom'
+    | 'left'
+    | 'top-left'
+    | 'top-right'
+    | 'bottom-right'
+    | 'bottom-left';
+  label?: string;
+  weight?: 'default' | 'strong';
+  prefixIcon?: string;
+  suffixIcon?: string;
+  loading?: boolean;
+  fillWidth?: boolean;
+  justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between';
+  children?: ReactNode;
+  href?: string;
+  className?: string;
+  style?: React.CSSProperties;
+  id?: string;
+  arrowIcon?: boolean;
 }
 
-export { Button, buttonVariants }
+export type ButtonProps = CommonProps &
+  React.ButtonHTMLAttributes<HTMLButtonElement>;
+export type AnchorProps = CommonProps &
+  React.AnchorHTMLAttributes<HTMLAnchorElement>;
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps | AnchorProps>(
+  (
+    {
+      variant = 'primary',
+      size = 'm',
+      radius,
+      label,
+      weight = 'strong',
+      children,
+      prefixIcon,
+      suffixIcon,
+      loading = false,
+      fillWidth = false,
+      justifyContent = 'center',
+      href,
+      id,
+      arrowIcon = false,
+      className,
+      style,
+      ...props
+    },
+    ref
+  ) => {
+    const iconSize = size === 'l' ? 's' : size === 'm' ? 's' : 'xs';
+    const radiusSize = size === 's' || size === 'm' ? 'm' : 'l';
+
+    return (
+      <ElementType
+        id={id}
+        href={href}
+        ref={ref}
+        className={clsx(
+          'button',
+          variant,
+          size,
+          radius === 'none'
+            ? 'radius-none'
+            : radius
+              ? `radius-${radiusSize}-${radius}`
+              : `radius-${radiusSize}`,
+          'text-decoration-none',
+          'button',
+          'cursor-interactive',
+          {
+            ['fill-width']: fillWidth,
+            ['fit-width']: !fillWidth,
+            ['justify-' + justifyContent]: justifyContent,
+          },
+          className
+        )}
+        style={style}
+        {...props}
+      >
+        {prefixIcon && !loading && <Icon name={prefixIcon} size={iconSize} />}
+        {loading && <Spinner size={size} />}
+        {(label || children) && (
+          <Flex
+            paddingX="4"
+            paddingY="0"
+            textWeight={weight}
+            textSize={size}
+            className="font-label"
+          >
+            {label || children}
+          </Flex>
+        )}
+        {arrowIcon && (
+          <Arrow
+            style={{
+              marginLeft: 'calc(-1 * var(--static-space-4))',
+            }}
+            trigger={'#' + id}
+            scale={size === 's' ? 0.8 : size === 'm' ? 0.9 : 1}
+            color={variant === 'primary' ? 'onSolid' : 'onBackground'}
+          />
+        )}
+        {suffixIcon && <Icon name={suffixIcon} size={iconSize} />}
+      </ElementType>
+    );
+  }
+);
+
+Button.displayName = 'Button';
+export default Button

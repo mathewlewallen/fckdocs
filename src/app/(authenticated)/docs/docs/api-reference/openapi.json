@@ -13,9 +13,7 @@
   "paths": {
     "/v1/smartscraper": {
       "post": {
-        "tags": [
-          "SmartScraper"
-        ],
+        "tags": ["SmartScraper"],
         "summary": "Start Smartscraper",
         "operationId": "start_smartscraper_v1_smartscraper_post",
         "requestBody": {
@@ -76,9 +74,7 @@
     },
     "/v1/smartscraper/{request_id}": {
       "get": {
-        "tags": [
-          "SmartScraper"
-        ],
+        "tags": ["SmartScraper"],
         "summary": "Get Smartscraper Status",
         "operationId": "get_smartscraper_status_v1_smartscraper__request_id__get",
         "security": [
@@ -129,21 +125,18 @@
             "lang": "python",
             "label": "Python",
             "source": "ciao"
-            },
+          },
           {
             "lang": "javascript",
-            "label": "JavaScript", 
+            "label": "JavaScript",
             "source": "const url = 'https://api.scrapegraphai.com/v1/smartscraper/YOUR_REQUEST_ID';\nconst headers = {\n  'SGAI-APIKEY': 'YOUR_API_KEY'\n};\n\nfetch(url, { headers })\n  .then(response => response.json())\n  .then(data => console.log(data));"
           }
-  
         ]
       }
     },
     "/v1/markdownify": {
       "post": {
-        "tags": [
-          "Markdownify"
-        ],
+        "tags": ["Markdownify"],
         "summary": "Start Markdownify",
         "operationId": "start_markdownify_v1_markdownify_post",
         "requestBody": {
@@ -204,9 +197,7 @@
     },
     "/v1/markdownify/{request_id}": {
       "get": {
-        "tags": [
-          "Markdownify"
-        ],
+        "tags": ["Markdownify"],
         "summary": "Get Markdownify Status",
         "operationId": "get_markdownify_status_v1_markdownify__request_id__get",
         "security": [
@@ -268,9 +259,7 @@
     },
     "/v1/credits": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Get Credits",
         "operationId": "get_credits_v1_credits_get",
         "responses": {
@@ -311,9 +300,7 @@
     },
     "/v1/feedback": {
       "post": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "summary": "Submit Feedback",
         "operationId": "submit_feedback_v1_feedback_post",
         "requestBody": {
@@ -374,16 +361,12 @@
     },
     "/v1/searchscraper": {
       "get": {
-        "tags": [
-          "SearchScraper"
-        ],
+        "tags": ["SearchScraper"],
         "summary": "Get Searchscraper Status",
-        "operationId": "get_searchscraper_status_v1_searchscraper__request_id__get",
+        "operationId": "get_searchscraper_status_v1_searchscraper__request_id__get"
       },
       "post": {
-        "tags": [
-          "SearchScraper"
-        ],
+        "tags": ["SearchScraper"],
         "summary": "Start Searchscraper",
         "operationId": "start_searchscraper_v1_searchscraper_post",
         "requestBody": {
@@ -444,9 +427,7 @@
     },
     "/v1/searchscraper/{request_id}": {
       "get": {
-        "tags": [
-          "SearchScraper"
-        ],
+        "tags": ["SearchScraper"],
         "summary": "Get Searchscraper Status",
         "operationId": "get_searchscraper_status_v1_searchscraper__request_id__get",
         "security": [
@@ -540,11 +521,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "request_id",
-          "status",
-          "website_url"
-        ],
+        "required": ["request_id", "status", "website_url"],
         "title": "CompletedMarkdownifyResponse"
       },
       "CompletedSmartscraperResponse": {
@@ -582,12 +559,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "request_id",
-          "status",
-          "website_url",
-          "user_prompt"
-        ],
+        "required": ["request_id", "status", "website_url", "user_prompt"],
         "title": "CompletedSmartscraperResponse"
       },
       "CreditsResponse": {
@@ -602,10 +574,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "remaining_credits",
-          "total_credits_used"
-        ],
+        "required": ["remaining_credits", "total_credits_used"],
         "title": "CreditsResponse"
       },
       "FeedbackCreate": {
@@ -635,10 +604,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "request_id",
-          "rating"
-        ],
+        "required": ["request_id", "rating"],
         "title": "FeedbackCreate"
       },
       "FeedbackResponse": {
@@ -665,11 +631,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "feedback_id",
-          "request_id",
-          "feedback_timestamp"
-        ],
+        "required": ["feedback_id", "request_id", "feedback_timestamp"],
         "title": "FeedbackResponse"
       },
       "HTTPValidationError": {
@@ -706,19 +668,12 @@
           }
         },
         "type": "object",
-        "required": [
-          "website_url"
-        ],
+        "required": ["website_url"],
         "title": "MarkdownifyRequest"
       },
       "MarkdownifyStatus": {
         "type": "string",
-        "enum": [
-          "queued",
-          "processing",
-          "completed",
-          "failed"
-        ],
+        "enum": ["queued", "processing", "completed", "failed"],
         "title": "MarkdownifyStatus"
       },
       "ScrapeRequest": {
@@ -764,20 +719,13 @@
           }
         },
         "type": "object",
-        "required": [
-          "user_prompt"
-        ],
+        "required": ["user_prompt"],
         "title": "ScrapeRequest",
         "description": "Either website_url or website_html must be provided"
       },
       "SmartscraperStatus": {
         "type": "string",
-        "enum": [
-          "queued",
-          "processing",
-          "completed",
-          "failed"
-        ],
+        "enum": ["queued", "processing", "completed", "failed"],
         "title": "SmartscraperStatus"
       },
       "ValidationError": {
@@ -806,11 +754,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
+        "required": ["loc", "msg", "type"],
         "title": "ValidationError"
       },
       "SearchScraperRequest": {
@@ -855,9 +799,7 @@
           }
         },
         "type": "object",
-        "required": [
-          "user_prompt"
-        ],
+        "required": ["user_prompt"],
         "title": "SearchScraperRequest",
         "description": "Request to search and extract information from multiple web sources"
       },
@@ -916,22 +858,13 @@
           }
         },
         "type": "object",
-        "required": [
-          "request_id",
-          "status",
-          "user_prompt"
-        ],
+        "required": ["request_id", "status", "user_prompt"],
         "title": "CompletedSearchScraperResponse",
         "description": "Response containing the search results and extracted information"
       },
       "SearchScraperStatus": {
         "type": "string",
-        "enum": [
-          "queued",
-          "processing",
-          "completed",
-          "failed"
-        ],
+        "enum": ["queued", "processing", "completed", "failed"],
         "title": "SearchScraperStatus"
       }
     },

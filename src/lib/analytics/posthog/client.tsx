@@ -1,10 +1,10 @@
 'use client';
 
+import { env } from '@fck/env';
 import posthog, { type PostHog } from 'posthog-js';
 import { PostHogProvider as PostHogProviderRaw } from 'posthog-js/react';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
-import { env } from '@fck/env';
 
 type PostHogProviderProps = {
   readonly children: ReactNode;

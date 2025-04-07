@@ -1,12 +1,12 @@
 'use client';
 
+import { env } from '@fck/env';
 import {
   NotificationFeedPopover,
   NotificationIconButton,
 } from '@knocklabs/react';
 import { useRef, useState } from 'react';
 import type { RefObject } from 'react';
-import { env } from '@fck/env';
 
 // Required CSS import, unless you're overriding the styling
 import '@knocklabs/react/dist/index.css';

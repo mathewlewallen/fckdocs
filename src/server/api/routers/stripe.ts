@@ -1,15 +1,12 @@
-import { z } from "zod";
-import Stripe from "stripe";
-import {
-  createTRPCRouter,
-  protectedProcedure,
-} from "@fck/server/trpc/trpc";
-import { currentUser } from "@clerk/nextjs/server";
-import { TRPCError } from "@trpc/server";
-import { env } from "@fck/env";
+import { currentUser } from '@clerk/nextjs/server';
+import { env } from '@fck/env';
+import { createTRPCRouter, protectedProcedure } from '@fck/server/trpc/trpc';
+import { TRPCError } from '@trpc/server';
+import Stripe from 'stripe';
+import { z } from 'zod';
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
-  apiVersion: "2023-10-16",
+  apiVersion: '2023-10-16',
 });
 
 /*
@@ -26,8 +23,8 @@ export const stripeRouter = createTRPCRouter({
 
       if (!user) {
         throw new TRPCError({
-          code: "UNAUTHORIZED",
-          message: "You are not signed in.",
+          code: 'UNAUTHORIZED',
+          message: 'You are not signed in.',
         });
       }
 
@@ -42,7 +39,7 @@ export const stripeRouter = createTRPCRouter({
 
       if (!ctx.session.userId || !userData?.stripeCustomerId) {
         throw new TRPCError({
-          code: "UNAUTHORIZED",
+          code: 'UNAUTHORIZED',
           message:
             "You are not signed in or you don't have a Stripe account, contact support.",
         });
@@ -50,28 +47,27 @@ export const stripeRouter = createTRPCRouter({
 
       const plan = await stripe.plans.create({
         amount: 2000,
-        currency: "eur",
-        interval: "month",
+        currency: 'eur',
+        interval: 'month',
         product: input.productId,
       });
 
       const checkoutSession = await stripe.checkout.sessions.create({
-        payment_method_types: ["card"],
-        billing_address_collection: "required",
+        payment_method_types: ['card'],
+        billing_address_collection: 'required',
         line_items: [
           {
             price: plan.id,
             quantity: 1,
           },
         ],
-        mode: "subscription",
+        mode: 'subscription',
         customer: userData.stripeCustomerId,
-        success_url:
-          `${process.env.NEXT_PUBLIC_WEBSITE_URL}?session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: process.env.NEXT_PUBLIC_WEBSITE_URL,
         metadata: {
           clerkId: user.id,
-          clerkEmailAddress: user.emailAddresses[0]?.emailAddress ?? "",
+          clerkEmailAddress: user.emailAddresses[0]?.emailAddress ?? '',
           clerkFullName: `${user.firstName} ${user.lastName}`,
         },
       });
@@ -81,8 +77,8 @@ export const stripeRouter = createTRPCRouter({
       }
 
       throw new TRPCError({
-        code: "INTERNAL_SERVER_ERROR",
-        message: "Something went wrong, contact support.",
+        code: 'INTERNAL_SERVER_ERROR',
+        message: 'Something went wrong, contact support.',
       });
     }),
 
@@ -102,7 +98,7 @@ export const stripeRouter = createTRPCRouter({
 
       if (!ctx.session.userId || !userData?.stripeCustomerId) {
         throw new TRPCError({
-          code: "UNAUTHORIZED",
+          code: 'UNAUTHORIZED',
           message:
             "You are not signed in or you don't have a Stripe account, contact support.",
         });
@@ -114,9 +110,9 @@ export const stripeRouter = createTRPCRouter({
 
       for (const subscription of subscriptions.data) {
         if (
-          subscription.status === "active" ||
-          subscription.status === "trialing" ||
-          subscription.status === "past_due"
+          subscription.status === 'active' ||
+          subscription.status === 'trialing' ||
+          subscription.status === 'past_due'
         ) {
           return {
             isPremium: true,

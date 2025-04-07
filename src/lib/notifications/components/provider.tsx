@@ -1,8 +1,8 @@
 'use client';
 
+import { env } from '@fck/env';
 import { KnockFeedProvider, KnockProvider } from '@knocklabs/react';
 import type { ReactNode } from 'react';
-import { env } from '@fck/env';
 
 const knockApiKey = env.NEXT_PUBLIC_KNOCK_API_KEY;
 const knockFeedChannelId = env.NEXT_PUBLIC_KNOCK_FEED_CHANNEL_ID;

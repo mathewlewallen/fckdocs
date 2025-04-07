@@ -1,31 +1,102 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import * as SwitchPrimitive from "@radix-ui/react-switch"
-
-import { cn } from "@fck/lib/utils"
-
-function Switch({
-  className,
-  ...props
-}: React.ComponentProps<typeof SwitchPrimitive.Root>) {
-  return (
-    <SwitchPrimitive.Root
-      data-slot="switch"
-      className={cn(
-        "peer data-[state=checked]:bg-primary data-[state=unchecked]:bg-input focus-visible:border-ring focus-visible:ring-ring/50 inline-flex h-5 w-9 shrink-0 items-center rounded-full border-2 border-transparent shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
-        className
-      )}
-      {...props}
-    >
-      <SwitchPrimitive.Thumb
-        data-slot="switch-thumb"
-        className={cn(
-          "bg-background pointer-events-none block size-4 rounded-full ring-0 shadow-lg transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0"
-        )}
-      />
-    </SwitchPrimitive.Root>
-  )
+import type React from 'react';
+import { forwardRef } from 'react';
+import '@fck/styles/globals.css';
+import { clsx } from 'clsx';
+import { InteractiveDetails, type InteractiveDetailsProps } from '.';
+import { Flex } from './Flex';
+interface SwitchProps
+  extends Omit<InteractiveDetailsProps, 'onClick'>,
+    React.InputHTMLAttributes<HTMLInputElement> {
+  style?: React.CSSProperties;
+  className?: string;
+  isChecked: boolean;
+  name?: string;
+  value?: string;
+  disabled?: boolean;
+  reverse?: boolean;
+  ariaLabel?: string;
+  onToggle: () => void;
 }
 
-export { Switch }
+const Switch: React.FC<SwitchProps> = forwardRef<HTMLInputElement, SwitchProps>(
+  (
+    {
+      className,
+      isChecked,
+      reverse = false,
+      onToggle,
+      ariaLabel = 'Toggle switch',
+      disabled,
+      name,
+      value,
+      ...props
+    },
+    ref
+  ) => {
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (!disabled && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        onToggle();
+      }
+    };
+
+    const handleClick = () => {
+      if (!disabled) {
+        onToggle();
+      }
+    };
+
+    return (
+      <Flex
+        gap="16"
+        vertical="center"
+        horizontal={reverse ? 'space-between' : undefined}
+        fillWidth={reverse}
+        className={clsx('container', className, {
+          reverse: reverse,
+          disabled: disabled,
+        })}
+        onClick={handleClick}
+        role="switch"
+        aria-checked={isChecked}
+        aria-label={ariaLabel}
+        aria-disabled={disabled}
+        tabIndex={-1}
+      >
+        <input
+          ref={ref}
+          type="checkbox"
+          name={name}
+          value={value}
+          checked={isChecked}
+          onChange={onToggle}
+          className="hidden"
+          tabIndex={-1}
+          {...props}
+        />
+        <div
+          className={clsx('switch', {
+            checked: isChecked,
+            disabled: disabled,
+          })}
+        >
+          <div
+            onKeyDown={handleKeyDown}
+            tabIndex={disabled ? -1 : 0}
+            className={clsx('element', {
+              checked: isChecked,
+              disabled: disabled,
+            })}
+          />
+        </div>
+        {props.label && <InteractiveDetails {...props} onClick={() => {}} />}
+      </Flex>
+    );
+  }
+);
+
+Switch.displayName = 'Switch';
+
+export default Switch

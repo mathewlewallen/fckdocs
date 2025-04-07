@@ -87,25 +87,17 @@
         "services/markdownify",
         {
           "group": "Additional Parameters",
-          "pages": [
-            "services/additional-parameters/headers"
-          ]
+          "pages": ["services/additional-parameters/headers"]
         },
         {
           "group": "Browser Extensions",
-          "pages": [
-            "services/extensions/firefox",
-            "services/extensions/chrome"
-          ]
+          "pages": ["services/extensions/firefox", "services/extensions/chrome"]
         }
       ]
     },
     {
       "group": "Official SDKs",
-      "pages": [
-        "sdks/python",
-        "sdks/javascript"
-      ]
+      "pages": ["sdks/python", "sdks/javascript"]
     },
     {
       "group": "Integrations",
@@ -119,9 +111,7 @@
     },
     {
       "group": "Cookbook",
-      "pages": [
-        "cookbook/introduction"
-      ]
+      "pages": ["cookbook/introduction"]
     },
     {
       "group": "Examples",
@@ -136,10 +126,7 @@
     },
     {
       "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction",
-        "api-reference/errors"
-      ]
+      "pages": ["api-reference/introduction", "api-reference/errors"]
     },
     {
       "group": "SmartScraper",
@@ -172,17 +159,12 @@
     },
     {
       "group": "Contribute",
-      "pages": [
-        "contribute/opensource",
-        "contribute/feedback"
-      ]
+      "pages": ["contribute/opensource", "contribute/feedback"]
     },
     {
       "group": "Resources",
       "icon": "puzzle-piece",
-      "pages": [
-        "resources/badge"
-      ]
+      "pages": ["resources/badge"]
     }
   ],
   "footerSocials": {

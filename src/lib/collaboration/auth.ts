@@ -1,14 +1,13 @@
-
-import "server-only";
-import { Liveblocks as LiveblocksNode } from "@liveblocks/node";
-import { env } from "@fck/env";
+import 'server-only';
+import { env } from '@fck/env';
+import { Liveblocks as LiveblocksNode } from '@liveblocks/node';
 
 const secret = env.LIVEBLOCKS_SECRET;
 
 export type AuthenticateOptions = {
   userId: string;
   orgId: string;
-  userInfo: Liveblocks["UserMeta"]["info"];
+  userInfo: Liveblocks['UserMeta']['info'];
 };
 
 export const authenticate = async ({
@@ -17,7 +16,7 @@ export const authenticate = async ({
   userInfo,
 }: AuthenticateOptions) => {
   if (!secret) {
-    throw new Error("LIVEBLOCKS_SECRET is not set");
+    throw new Error('LIVEBLOCKS_SECRET is not set');
   }
 
   const liveblocks = new LiveblocksNode({ secret });

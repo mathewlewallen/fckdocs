@@ -1,6 +1,6 @@
+import { env } from '@fck/env';
 import type { ReactNode } from 'react';
 import { GoogleAnalytics } from './google';
-import { env } from '@fck/env';
 import { PostHogProvider } from './posthog/client';
 import { VercelAnalytics } from './vercel';
 

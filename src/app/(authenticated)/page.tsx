@@ -1,43 +1,38 @@
-// -------------------------
-// Imports
-// -------------------------
-
-import React from 'react';
+import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
-import type { Metadata } from 'next';
 
 import { env } from '@fck/env';
 import { auth } from '@fck/server/auth/server';
 import { db } from '@fck/server/db';
 
-import { baseURL, routes } from '@fck/lib/once-ui/config';
-import { home, about, person, newsletter } from '@fck/lib/once-ui/content';
+import { routes } from '@fck/lib/once-ui/config';
+import { about, home, newsletter, person } from '@fck/lib/once-ui/content';
 
 import {
-  Heading,
-  Flex,
-  Text,
-  Button,
   Avatar,
-  RevealFx,
-  Arrow,
+  Button,
   Column,
-} from '@fck/lib/once-ui/ui/components';
-
-import { Projects } from '@fck/lib/once-ui/ui/components/work';
-import { Posts } from '@fck/lib/once-ui/ui/components/blog';
-import { Mailchimp } from '@fck/lib/once-ui/ui/components';
-
-import { Header } from '@fck/components/header';
-import { AvatarStack } from '@fck/components/avatar-stack';
-import { Cursors } from '@fck/components/cursors';
-import { Chatbot } from '@fck/components/chatbot';
-import { Langchain } from '@fck/components/langchain';
+  Heading,
+  Projects,
+  Revealfx,
+  Text,
+  Posts,
+  Flex,
+  Mailchimp,
+  Header,
+  AvatarStack,
+  Chatbot,
+  Cursors,
+  Langchain,
+  CollaborationProvider
+} from '@fck/components/ui';
 
 // Dynamically load collaboration provider to reduce initial bundle size
 const CollaborationProvider = dynamic(() =>
-  import('@fck/components/collaboration-provider').then((mod) => mod.CollaborationProvider)
+  import('@fck/components/ui/collaboration-provider').then(
+    (mod) => mod.CollaborationProvider
+  )
 );
 
 // -------------------------
@@ -47,7 +42,6 @@ const CollaborationProvider = dynamic(() =>
 export async function generateMetadata(): Promise<Metadata> {
   const title = home.title;
   const description = home.description;
-  const ogImage = `https://${baseURL}/og?title=${encodeURIComponent(title)}`;
 
   return {
     title,
@@ -56,19 +50,12 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       type: 'website',
-      url: `https://${baseURL}`,
-      images: [
-        {
-          url: ogImage,
-          alt: title,
-        },
-      ],
+      images: [],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [ogImage],
     },
   };
 }
@@ -95,14 +82,11 @@ export default async function App() {
             '@type': 'WebPage',
             name: home.title,
             description: home.description,
-            url: `https://${baseURL}`,
-            image: `${baseURL}/og?title=${encodeURIComponent(home.title)}`,
             publisher: {
               '@type': 'Person',
               name: person.name,
               image: {
                 '@type': 'ImageObject',
-                url: `${baseURL}${person.avatar}`,
               },
             },
           }),
@@ -112,17 +96,32 @@ export default async function App() {
       {/* Hero Section */}
       <Column fillWidth paddingY="l" gap="m">
         <Column maxWidth="s">
-          <RevealFx translateY="4" fillWidth horizontal="start" paddingBottom="m">
+          <Revealfx
+            translateY="4"
+            fillWidth
+            horizontal="start"
+            paddingBottom="m"
+          >
             <Heading wrap="balance" variant="display-strong-l">
               {home.headline}
             </Heading>
-          </RevealFx>
-          <RevealFx translateY="8" delay={0.2} fillWidth horizontal="start" paddingBottom="m">
-            <Text wrap="balance" onBackground="neutral-weak" variant="heading-default-xl">
+          </Revealfx>
+          <Revealfx
+            translateY="8"
+            delay={0.2}
+            fillWidth
+            horizontal="start"
+            paddingBottom="m"
+          >
+            <Text
+              wrap="balance"
+              onBackground="neutral-weak"
+              variant="heading-default-xl"
+            >
               {home.subline}
             </Text>
-          </RevealFx>
-          <RevealFx translateY="12" delay={0.4} horizontal="start">
+          </Revealfx>
+          <Revealfx translateY="12" delay={0.4} horizontal="start">
             <Button
               id="about"
               data-border="rounded"
@@ -142,14 +141,14 @@ export default async function App() {
                 {about.title}
               </Flex>
             </Button>
-          </RevealFx>
+          </Revealfx>
         </Column>
       </Column>
 
       {/* Project Highlight */}
-      <RevealFx translateY="16" delay={0.6}>
-        <Projects range={[1, 1]} />
-      </RevealFx>
+      <Revealfx translateY="16" delay={0.6}>
+        <Projects range={[1, 1]} allProjects={[]} />
+      </Revealfx>
 
       {/* Blog Section */}
       {routes['/blog'] && (
@@ -160,13 +159,13 @@ export default async function App() {
             </Heading>
           </Flex>
           <Flex flex={3} paddingX="20">
-            <Posts range={[1, 2]} columns="2" />
+            <Posts range={[1, 2]} columns="2" allBlogs={[]} />
           </Flex>
         </Flex>
       )}
 
       {/* Additional Projects */}
-      <Projects range={[2]} />
+      <Projects range={[2]} allProjects={[]} />
 
       {/* Newsletter */}
       {newsletter.display && <Mailchimp newsletter={newsletter} />}

@@ -1,5 +1,6 @@
 import { env } from '@fck/env';
 import { analytics } from '@fck/lib/analytics/posthog/server';
+import { log } from '@fck/lib/observability/log';
 import type {
   DeletedObjectJSON,
   OrganizationJSON,
@@ -7,7 +8,6 @@ import type {
   UserJSON,
   WebhookEvent,
 } from '@fck/server/auth/server';
-import { log } from '@fck/lib/observability/log';
 import { headers } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { Webhook } from 'svix';

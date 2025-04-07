@@ -1,7 +1,7 @@
 import 'server-only';
+import { env } from '@fck/env';
 import { auth } from '@fck/server/auth/server';
 import { Svix } from 'svix';
-import { env } from '@fck/env';
 
 const svixToken = env.SVIX_TOKEN;
 

@@ -1,135 +1,353 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import * as DialogPrimitive from "@radix-ui/react-dialog"
-import { XIcon } from "lucide-react"
-
-import { cn } from "@fck/lib/utils"
-
-function Dialog({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Root>) {
-  return <DialogPrimitive.Root data-slot="dialog" {...props} />
+import React, {
+  type ReactNode,
+  useEffect,
+  useCallback,
+  useRef,
+  forwardRef,
+  useState,
+  useContext,
+} from 'react';
+import ReactDOM from 'react-dom';
+import { Heading, IconButton, Text } from '.';
+import '@fck/styles/globals.css';
+import { Flex } from '@fck/components/ui/Flex';
+import { clsx } from 'clsx';
+interface DialogProps extends Omit<React.ComponentProps<typeof Flex>, 'title'> {
+  isOpen: boolean;
+  onClose: () => void;
+  title: ReactNode;
+  description?: ReactNode;
+  children: ReactNode;
+  footer?: ReactNode;
+  base?: boolean;
+  stack?: boolean;
+  onHeightChange?: (height: number) => void;
+  minHeight?: number;
 }
 
-function DialogTrigger({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
-  return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />
-}
+const DialogContext = React.createContext<{
+  stackedDialogOpen: boolean;
+  setStackedDialogOpen: (open: boolean) => void;
+}>({
+  stackedDialogOpen: false,
+  setStackedDialogOpen: () => {},
+});
 
-function DialogPortal({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Portal>) {
-  return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />
-}
+export const DialogProvider: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => {
+  const [stackedDialogOpen, setStackedDialogOpen] = useState(false);
 
-function DialogClose({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Close>) {
-  return <DialogPrimitive.Close data-slot="dialog-close" {...props} />
-}
-
-function DialogOverlay({
-  className,
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
   return (
-    <DialogPrimitive.Overlay
-      data-slot="dialog-overlay"
-      className={cn(
-        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/80",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+    <DialogContext.Provider
+      value={{
+        stackedDialogOpen,
+        setStackedDialogOpen,
+      }}
+    >
+      {children}
+    </DialogContext.Provider>
+  );
+};
 
-function DialogContent({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Content>) {
-  return (
-    <DialogPortal data-slot="dialog-portal">
-      <DialogOverlay />
-      <DialogPrimitive.Content
-        data-slot="dialog-content"
-        className={cn(
-          "bg-background data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg",
-          className
-        )}
-        {...props}
+const Dialog: React.FC<DialogProps> = forwardRef<HTMLDivElement, DialogProps>(
+  (
+    {
+      isOpen,
+      onClose,
+      title,
+      description,
+      children,
+      stack,
+      base,
+      footer,
+      onHeightChange,
+      minHeight,
+      ...rest
+    },
+    ref
+  ) => {
+    const dialogRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(isOpen);
+    const [isAnimating, setIsAnimating] = useState(false);
+    const { stackedDialogOpen, setStackedDialogOpen } =
+      useContext(DialogContext);
+
+    useEffect(() => {
+      if (stack) {
+        setStackedDialogOpen(isOpen);
+      }
+    }, [stack, isOpen, setStackedDialogOpen]);
+
+    useEffect(() => {
+      if (dialogRef.current && isVisible) {
+        const height = dialogRef.current.offsetHeight;
+        onHeightChange?.(height);
+      }
+    }, [isVisible, onHeightChange]);
+
+    useEffect(() => {
+      if (isOpen) {
+        setIsVisible(true);
+        setTimeout(() => {
+          setIsAnimating(true);
+        }, 0);
+      } else {
+        setIsAnimating(false);
+        setTimeout(() => {
+          setIsVisible(false);
+        }, 300);
+      }
+    }, [isOpen]);
+
+    const handleKeyDown = useCallback(
+      (event: KeyboardEvent) => {
+        if (event.key === 'Escape' && !base) {
+          onClose();
+        }
+        if (event.key === 'Tab' && dialogRef.current) {
+          const focusableElements = dialogRef.current.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+
+          if (focusableElements.length > 0) {
+            const firstElement = focusableElements[0] as HTMLElement;
+            const lastElement = focusableElements[
+              focusableElements.length - 1
+            ] as HTMLElement;
+
+            if (event.shiftKey && document.activeElement === firstElement) {
+              event.preventDefault();
+              lastElement.focus();
+            } else if (
+              !event.shiftKey &&
+              document.activeElement === lastElement
+            ) {
+              event.preventDefault();
+              firstElement.focus();
+            }
+          }
+        }
+      },
+      [onClose, base]
+    );
+
+    useEffect(() => {
+      if (isOpen) {
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+          document.removeEventListener('keydown', handleKeyDown);
+        };
+      }
+    }, [isOpen, handleKeyDown]);
+
+    useEffect(() => {
+      if (isOpen) {
+        document.body.style.overflow = 'hidden';
+        // Make everything outside the dialog inert
+        document.body.childNodes.forEach((node) => {
+          if (
+            node instanceof HTMLElement &&
+            node !== document.getElementById('portal-root')
+          ) {
+            node.inert = true;
+          }
+        });
+
+        // If this is a stacked dialog, make the base dialog inert too
+        if (stack) {
+          const dialogs = document.querySelectorAll('[role="dialog"]');
+          dialogs.forEach((dialog) => {
+            if (
+              dialog instanceof HTMLElement &&
+              !dialog.contains(dialogRef.current)
+            ) {
+              dialog.inert = true;
+            }
+          });
+        }
+      } else {
+        // If this is a stacked dialog closing, restore interactivity to base dialog
+        if (stack) {
+          const dialogs = document.querySelectorAll('[role="dialog"]');
+          dialogs.forEach((dialog) => {
+            if (dialog instanceof HTMLElement) {
+              dialog.inert = false;
+            }
+          });
+        } else {
+          // If base dialog is closing, restore everything
+          document.body.childNodes.forEach((node) => {
+            if (node instanceof HTMLElement) {
+              node.inert = false;
+            }
+          });
+          document.body.style.overflow = 'unset';
+        }
+      }
+    }, [isOpen, stack]);
+
+    useEffect(() => {
+      if (isOpen && dialogRef.current) {
+        const focusableElements =
+          dialogRef.current.querySelectorAll<HTMLElement>(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+        const firstElement = focusableElements[0];
+        firstElement.focus();
+      }
+    }, [isOpen]);
+
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          !dialogRef.current?.contains(event.target as Node) &&
+          (stack || !base)
+        ) {
+          onClose();
+        }
+      };
+
+      if (isVisible) {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+        };
+      }
+    }, [isVisible, onClose, stack, base]);
+
+    if (!isVisible) return null;
+
+    return ReactDOM.createPortal(
+      <Flex
+        ref={ref}
+        transition="macro-medium"
+        background="overlay"
+        position="fixed"
+        zIndex={base ? 9 : 10}
+        top="0"
+        left="0"
+        right="0"
+        bottom="0"
+        className={clsx('overlay', {
+          open: isAnimating,
+        })}
+        center
+        padding="l"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="dialog-title"
       >
-        {children}
-        <DialogPrimitive.Close className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4">
-          <XIcon />
-          <span className="sr-only">Close</span>
-        </DialogPrimitive.Close>
-      </DialogPrimitive.Content>
-    </DialogPortal>
-  )
-}
+        <Flex
+          fill
+          center
+          transition="macro-medium"
+          style={{
+            transform: base ? 'scale(0.94) translateY(-1.25rem)' : '',
+          }}
+        >
+          <Flex
+            className={clsx('dialog', {
+              open: isAnimating,
+            })}
+            style={{
+              minHeight: minHeight ? `${minHeight}px` : undefined,
+            }}
+            ref={dialogRef}
+            fillWidth
+            transition="macro-medium"
+            shadow="xl"
+            radius="xl"
+            border="neutral-medium"
+            background="neutral-weak"
+            direction="column"
+            tabIndex={-1}
+            onKeyDown={(e) => {
+              if (e.key === 'Tab') {
+                const focusableElements = Array.from(
+                  dialogRef.current?.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                  ) || []
+                );
 
-function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="dialog-header"
-      className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
-      {...props}
-    />
-  )
-}
+                if (focusableElements.length === 0) return;
 
-function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="dialog-footer"
-      className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+                const firstElement = focusableElements[0] as HTMLElement;
+                const lastElement = focusableElements[
+                  focusableElements.length - 1
+                ] as HTMLElement;
 
-function DialogTitle({
-  className,
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Title>) {
-  return (
-    <DialogPrimitive.Title
-      data-slot="dialog-title"
-      className={cn("text-lg leading-none font-semibold", className)}
-      {...props}
-    />
-  )
-}
+                if (e.shiftKey && document.activeElement === firstElement) {
+                  e.preventDefault();
+                  lastElement.focus();
+                } else if (
+                  !e.shiftKey &&
+                  document.activeElement === lastElement
+                ) {
+                  e.preventDefault();
+                  firstElement.focus();
+                }
+              }
+            }}
+            {...rest}
+          >
+            <Flex
+              as="header"
+              direction="column"
+              paddingX="24"
+              paddingTop="24"
+              paddingBottom="s"
+              gap="4"
+            >
+              <Flex fillWidth horizontal="space-between" gap="8">
+                <Heading id="dialog-title" variant="heading-strong-l">
+                  {title}
+                </Heading>
+                <IconButton
+                  icon="close"
+                  size="m"
+                  variant="tertiary"
+                  tooltip="Close"
+                  onClick={onClose}
+                />
+              </Flex>
+              {description && (
+                <Text variant="body-default-s" onBackground="neutral-weak">
+                  {description}
+                </Text>
+              )}
+            </Flex>
+            <Flex
+              as="section"
+              paddingX="24"
+              paddingBottom="24"
+              flex={1}
+              overflowY="auto"
+              direction="column"
+            >
+              {children}
+            </Flex>
+            {footer && (
+              <Flex
+                borderTop="neutral-medium"
+                as="footer"
+                horizontal="end"
+                padding="12"
+                gap="8"
+              >
+                {footer}
+              </Flex>
+            )}
+          </Flex>
+        </Flex>
+      </Flex>,
+      document.body
+    );
+  }
+);
 
-function DialogDescription({
-  className,
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Description>) {
-  return (
-    <DialogPrimitive.Description
-      data-slot="dialog-description"
-      className={cn("text-muted-foreground text-sm", className)}
-      {...props}
-    />
-  )
-}
+Dialog.displayName = 'Dialog';
 
-export {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogOverlay,
-  DialogPortal,
-  DialogTitle,
-  DialogTrigger,
-}
+export default Dialog

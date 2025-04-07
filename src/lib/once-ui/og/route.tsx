@@ -1,90 +1,88 @@
-import { ImageResponse } from "next/og";
-import { baseURL } from "@fck/lib/once-ui/config";
-import { person } from "@fck/lib/once-ui/content";
+import { person } from '@fck/lib/once-ui/content';
+import { ImageResponse } from 'next/og';
 
-export const runtime = "edge";
+export const runtime = 'edge';
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
-  const title = url.searchParams.get("title") || "Portfolio";
-  const font = fetch(new URL("@fck/public/fonts/Inter.ttf", import.meta.url)).then((res) =>
-    res.arrayBuffer(),
-  );
+  const title = url.searchParams.get('title') || 'Portfolio';
+  const font = fetch(
+    new URL('@fck/public/fonts/Inter.ttf', import.meta.url)
+  ).then((res) => res.arrayBuffer());
   const fontData = await font;
 
   return new ImageResponse(
     <div
       style={{
-        display: "flex",
-        width: "100%",
-        height: "100%",
-        padding: "8rem",
-        background: "#151515",
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+        padding: '8rem',
+        background: '#151515',
       }}
     >
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: "4rem",
-          fontFamily: "Inter",
-          fontStyle: "normal",
-          color: "white",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          gap: '4rem',
+          fontFamily: 'Inter',
+          fontStyle: 'normal',
+          color: 'white',
         }}
       >
         <span
           style={{
-            fontSize: "8rem",
-            lineHeight: "8rem",
-            letterSpacing: "-0.05em",
-            whiteSpace: "pre-wrap",
-            textWrap: "balance",
+            fontSize: '8rem',
+            lineHeight: '8rem',
+            letterSpacing: '-0.05em',
+            whiteSpace: 'pre-wrap',
+            textWrap: 'balance',
           }}
         >
           {title}
         </span>
         <div
           style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "5rem",
+            display: 'flex',
+            alignItems: 'center',
+            gap: '5rem',
           }}
         >
           <img
             alt={`${person.name}'s avatar`}
-            src={`https://${baseURL}${person.avatar}`}
             style={{
-              width: "12rem",
-              height: "12rem",
-              objectFit: "cover",
-              borderRadius: "100%",
+              width: '12rem',
+              height: '12rem',
+              objectFit: 'cover',
+              borderRadius: '100%',
             }}
           />
           <div
             style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '0.75rem',
             }}
           >
             <span
               style={{
-                fontSize: "4.5rem",
-                lineHeight: "4.5rem",
-                whiteSpace: "pre-wrap",
-                textWrap: "balance",
+                fontSize: '4.5rem',
+                lineHeight: '4.5rem',
+                whiteSpace: 'pre-wrap',
+                textWrap: 'balance',
               }}
             >
               {person.name}
             </span>
             <span
               style={{
-                fontSize: "2.5rem",
-                lineHeight: "2.5rem",
-                whiteSpace: "pre-wrap",
-                textWrap: "balance",
-                opacity: "0.6",
+                fontSize: '2.5rem',
+                lineHeight: '2.5rem',
+                whiteSpace: 'pre-wrap',
+                textWrap: 'balance',
+                opacity: '0.6',
               }}
             >
               {person.role}
@@ -98,11 +96,11 @@ export async function GET(request: Request) {
       height: 1080,
       fonts: [
         {
-          name: "Inter",
+          name: 'Inter',
           data: fontData,
-          style: "normal",
+          style: 'normal',
         },
       ],
-    },
+    }
   );
 }

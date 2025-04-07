@@ -1,181 +1,285 @@
-"use client"
+'use client';
 
-import * as React from "react"
-import * as SelectPrimitive from "@radix-ui/react-select"
-import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from "lucide-react"
+import type React from 'react';
+import { type ReactNode, forwardRef, useEffect, useRef, useState } from 'react';
+import {
+  DropdownWrapper,
+  Icon,
+  IconButton,
+  Input,
+  type InputProps,
+  Option,
+} from '.';
+import '@fck/styles/globals.css';
+import type { Placement } from '@floating-ui/react-dom';
+import { clsx } from 'clsx';
+import type { DropdownWrapperProps } from './DropdownWrapper';
+import { Flex } from './Flex';
+import type { OptionProps } from './option';
 
-import { cn } from "@fck/lib/utils"
+type SelectOptionType = Omit<OptionProps, 'selected'>;
 
-function Select({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Root>) {
-  return <SelectPrimitive.Root data-slot="select" {...props} />
+interface SelectProps
+  extends Omit<InputProps, 'onSelect' | 'value'>,
+    Pick<DropdownWrapperProps, 'minHeight' | 'minWidth' | 'maxWidth'> {
+  options: SelectOptionType[];
+  value?: string;
+  emptyState?: ReactNode;
+  onSelect?: (value: string) => void;
+  floatingPlacement?: Placement;
+  searchable?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
-function SelectGroup({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Group>) {
-  return <SelectPrimitive.Group data-slot="select-group" {...props} />
-}
+const Select = forwardRef<HTMLDivElement, SelectProps>(
+  (
+    {
+      options,
+      value = '',
+      onSelect,
+      searchable = false,
+      emptyState = 'No results',
+      minHeight,
+      minWidth,
+      maxWidth,
+      floatingPlacement,
+      className,
+      style,
+      ...rest
+    },
+    ref
+  ) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const [isFilled, setIsFilled] = useState(!!value);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [highlightedIndex, setHighlightedIndex] = useState<number | null>(
+      () => {
+        if (!options?.length || !value) return null;
+        return options.findIndex((option) => option.value === value);
+      }
+    );
+    const [searchQuery, setSearchQuery] = useState('');
+    const selectRef = useRef<HTMLDivElement | null>(null);
+    const clearButtonRef = useRef<HTMLButtonElement>(null);
 
-function SelectValue({
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Value>) {
-  return <SelectPrimitive.Value data-slot="select-value" {...props} />
-}
+    const handleFocus = () => {
+      setIsFocused(true);
+    };
 
-function SelectTrigger({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Trigger>) {
-  return (
-    <SelectPrimitive.Trigger
-      data-slot="select-trigger"
-      className={cn(
-        "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive flex h-9 w-fit items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className
-      )}
-      {...props}
-    >
-      {children}
-      <SelectPrimitive.Icon asChild>
-        <ChevronDownIcon className="size-4 opacity-50" />
-      </SelectPrimitive.Icon>
-    </SelectPrimitive.Trigger>
-  )
-}
+    const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+      if (
+        selectRef.current &&
+        !selectRef.current.contains(event.relatedTarget as Node)
+      ) {
+        setIsFocused(false);
+        setIsDropdownOpen(false);
+      }
+    };
 
-function SelectContent({
-  className,
-  children,
-  position = "popper",
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Content>) {
-  return (
-    <SelectPrimitive.Portal>
-      <SelectPrimitive.Content
-        data-slot="select-content"
-        className={cn(
-          "bg-popover text-popover-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-md border shadow-md",
-          position === "popper" &&
-            "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
-          className
-        )}
-        position={position}
-        {...props}
-      >
-        <SelectScrollUpButton />
-        <SelectPrimitive.Viewport
-          className={cn(
-            "p-1",
-            position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] scroll-my-1"
-          )}
-        >
-          {children}
-        </SelectPrimitive.Viewport>
-        <SelectScrollDownButton />
-      </SelectPrimitive.Content>
-    </SelectPrimitive.Portal>
-  )
-}
+    const handleSelect = (value: string) => {
+      if (onSelect) onSelect(value);
+      setIsDropdownOpen(false);
+      setIsFilled(true);
+    };
 
-function SelectLabel({
-  className,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Label>) {
-  return (
-    <SelectPrimitive.Label
-      data-slot="select-label"
-      className={cn("px-2 py-1.5 text-sm font-medium", className)}
-      {...props}
-    />
-  )
-}
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+      if (!isFocused && event.key !== 'Enter') return;
 
-function SelectItem({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Item>) {
-  return (
-    <SelectPrimitive.Item
-      data-slot="select-item"
-      className={cn(
-        "focus:bg-accent focus:text-accent-foreground [&_svg:not([class*='text-'])]:text-muted-foreground relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-sm outline-hidden select-none data-[disabled]:pointer-events-none data-[disabled]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
-        className
-      )}
-      {...props}
-    >
-      <span className="absolute right-2 flex size-3.5 items-center justify-center">
-        <SelectPrimitive.ItemIndicator>
-          <CheckIcon className="size-4" />
-        </SelectPrimitive.ItemIndicator>
-      </span>
-      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-    </SelectPrimitive.Item>
-  )
-}
+      switch (event.key) {
+        case 'Escape':
+          setIsDropdownOpen(false);
+          break;
+        case 'ArrowDown':
+          if (!isDropdownOpen) {
+            setIsDropdownOpen(true);
+            break;
+          }
+          event.preventDefault();
+          setHighlightedIndex((prevIndex) => {
+            const newIndex =
+              prevIndex === null || prevIndex === options.length - 1
+                ? 0
+                : prevIndex + 1;
+            return newIndex;
+          });
+          break;
 
-function SelectSeparator({
-  className,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.Separator>) {
-  return (
-    <SelectPrimitive.Separator
-      data-slot="select-separator"
-      className={cn("bg-border pointer-events-none -mx-1 my-1 h-px", className)}
-      {...props}
-    />
-  )
-}
+        case 'ArrowUp':
+          event.preventDefault();
+          setHighlightedIndex((prevIndex) => {
+            const newIndex =
+              prevIndex === null || prevIndex === 0
+                ? options.length - 1
+                : prevIndex - 1;
+            return newIndex;
+          });
+          break;
 
-function SelectScrollUpButton({
-  className,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollUpButton>) {
-  return (
-    <SelectPrimitive.ScrollUpButton
-      data-slot="select-scroll-up-button"
-      className={cn(
-        "flex cursor-default items-center justify-center py-1",
-        className
-      )}
-      {...props}
-    >
-      <ChevronUpIcon className="size-4" />
-    </SelectPrimitive.ScrollUpButton>
-  )
-}
+        case 'Enter':
+          event.preventDefault();
+          if (highlightedIndex !== null && isDropdownOpen) {
+            handleSelect(options[highlightedIndex]?.value || '');
+          } else {
+            setIsDropdownOpen(true);
+          }
+          break;
 
-function SelectScrollDownButton({
-  className,
-  ...props
-}: React.ComponentProps<typeof SelectPrimitive.ScrollDownButton>) {
-  return (
-    <SelectPrimitive.ScrollDownButton
-      data-slot="select-scroll-down-button"
-      className={cn(
-        "flex cursor-default items-center justify-center py-1",
-        className
-      )}
-      {...props}
-    >
-      <ChevronDownIcon className="size-4" />
-    </SelectPrimitive.ScrollDownButton>
-  )
-}
+        default:
+          break;
+      }
+    };
 
-export {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectScrollDownButton,
-  SelectScrollUpButton,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-}
+    const handleClearSearch = (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setSearchQuery('');
+      // Force focus back to the input after clearing
+      const input = selectRef.current?.querySelector('input');
+      if (input) {
+        input.focus();
+      }
+    };
+
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (
+          selectRef.current &&
+          !selectRef.current.contains(event.target as Node) &&
+          !clearButtonRef.current?.contains(event.target as Node)
+        ) {
+          setIsDropdownOpen(false);
+        }
+      };
+
+      const handleFocusOut = (event: FocusEvent) => {
+        if (event.target instanceof HTMLInputElement) {
+          handleBlur(event as unknown as React.FocusEvent<HTMLInputElement>);
+        }
+      };
+
+      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener('focusout', handleFocusOut);
+
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+        document.removeEventListener('focusout', handleFocusOut);
+      };
+    }, []);
+
+    return (
+      <DropdownWrapper
+        fillWidth
+        ref={(node) => {
+          selectRef.current = node;
+          if (typeof ref === 'function') ref(node);
+          else if (ref) ref.current = node;
+        }}
+        isOpen={isDropdownOpen}
+        onOpenChange={setIsDropdownOpen}
+        floatingPlacement={floatingPlacement}
+        minHeight={minHeight}
+        trigger={
+          <Input
+            {...rest}
+            style={{
+              textOverflow: 'ellipsis',
+              ...style,
+            }}
+            value={value}
+            onFocus={handleFocus}
+            onKeyDown={handleKeyDown}
+            readOnly
+            className={clsx('cursor-interactive', 'fill-width', {
+              filled: isFilled,
+              focused: isFocused,
+              className,
+            })}
+            aria-haspopup="listbox"
+            aria-expanded={isDropdownOpen}
+          />
+        }
+        dropdown={
+          <>
+            {searchable && (
+              <Flex fillWidth position="relative">
+                <Input
+                  data-scaling="90"
+                  style={{
+                    marginTop: '-1px',
+                    marginLeft: '-1px',
+                    width: 'calc(100% + 2px)',
+                  }}
+                  labelAsPlaceholder
+                  id="search"
+                  label="Search"
+                  height="s"
+                  radius="none"
+                  hasSuffix={
+                    searchQuery ? (
+                      <IconButton
+                        tooltip="Clear"
+                        tooltipPosition="left"
+                        icon="close"
+                        variant="ghost"
+                        size="s"
+                        onClick={handleClearSearch}
+                      />
+                    ) : undefined
+                  }
+                  hasPrefix={<Icon name="search" size="xs" />}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onClick={(e) => e.stopPropagation()}
+                  onBlur={handleBlur}
+                />
+              </Flex>
+            )}
+            <Flex fillWidth padding="4" direction="column" gap="2">
+              {options
+                .filter((option) =>
+                  option.label
+                    ?.toString()
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase())
+                )
+                .map((option, index) => (
+                  <Option
+                    key={option.value}
+                    {...option}
+                    onClick={() => {
+                      option.onClick?.(option.value);
+                      handleSelect(option.value);
+                    }}
+                    selected={option.value === value}
+                    highlighted={index === highlightedIndex}
+                    tabIndex={-1}
+                  />
+                ))}
+              {searchQuery &&
+                options.filter((option) =>
+                  option.label
+                    ?.toString()
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase())
+                ).length === 0 && (
+                  <Flex
+                    fillWidth
+                    vertical="center"
+                    horizontal="center"
+                    paddingX="16"
+                    paddingY="32"
+                  >
+                    {emptyState}
+                  </Flex>
+                )}
+            </Flex>
+          </>
+        }
+      />
+    );
+  }
+);
+
+Select.displayName = 'Select';
+export default Select

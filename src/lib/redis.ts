@@ -1,6 +1,6 @@
-import { Redis } from '@upstash/redis';
-import { Ratelimit, type RatelimitConfig } from '@upstash/ratelimit';
 import { env } from '@fck/env';
+import { Ratelimit, type RatelimitConfig } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
 
 export const redis = new Redis({
   url: env.KV_REST_API_URL,

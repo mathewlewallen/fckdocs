@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@fck/components/ui/button';
+import { Button } from '@fck/components/ui';
 import { fonts } from '@fck/lib/fonts';
 import { captureException } from '@sentry/nextjs';
 import type NextError from 'next/error';
