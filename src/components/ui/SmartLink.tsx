@@ -1,10 +1,8 @@
 'use client';
 
-import { clsx } from 'clsx';
-import type React from 'react';
-import { type ReactNode, forwardRef } from 'react';
-import { Icon } from '.';
-import { ElementType } from './ElementType';
+import { cn } from '@fck/lib/utils';
+import * as React from 'react';
+import { Icon, ElementType } from '@fck/components/ui';
 
 interface CommonProps {
   prefixIcon?: string;
@@ -13,7 +11,7 @@ interface CommonProps {
   iconSize?: 'xs' | 's' | 'm' | 'l' | 'xl';
   selected?: boolean;
   unstyled?: boolean;
-  children: ReactNode;
+  children: React.ReactNode;
   href?: string;
   style?: React.CSSProperties;
   className?: string;
@@ -22,7 +20,7 @@ interface CommonProps {
 export type SmartLinkProps = CommonProps &
   React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
-const SmartLink = forwardRef<HTMLAnchorElement, SmartLinkProps>(
+const SmartLink = React.forwardRef<HTMLAnchorElement, SmartLinkProps>(
   (
     {
       href,
@@ -49,7 +47,7 @@ const SmartLink = forwardRef<HTMLAnchorElement, SmartLinkProps>(
 
     const commonProps = {
       ref,
-      className: clsx(
+      className: cn(
         className,
         'display-inline-flex g-8 radius-s align-items-center',
         {

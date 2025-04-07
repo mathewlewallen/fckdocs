@@ -1,6 +1,6 @@
 'use client';
 
-import { clsx } from 'clsx';
+import { cn } from '@fck/lib/utils';
 import { type CSSProperties, forwardRef } from 'react';
 
 import type {
@@ -157,7 +157,7 @@ const Grid = forwardRef<HTMLDivElement, ComponentProps>(
       return undefined;
     };
 
-    const classes = clsx(
+    const classes = cn(
       inline ? 'display-inline-grid' : 'display-grid',
       fit && 'fit',
       fitWidth && 'fit-width',

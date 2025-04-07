@@ -10,7 +10,6 @@ import type { RefObject } from 'react';
 
 // Required CSS import, unless you're overriding the styling
 import '@knocklabs/react/dist/index.css';
-import '@fck/styles/globals.css';
 
 export const NotificationsTrigger = () => {
   const [isVisible, setIsVisible] = useState(false);

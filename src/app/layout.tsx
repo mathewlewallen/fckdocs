@@ -16,7 +16,7 @@ import {
 } from '@fck/lib/once-ui/config';
 import { AuthProvider } from '@fck/server/auth/provider';
 import { TRPCReactProvider } from '@fck/server/trpc/react';
-import { clsx } from 'clsx';
+import { cn } from '@fck/lib/utils';
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import { Geist_Mono } from 'next/font/google';
@@ -120,7 +120,7 @@ export default function RootLayout({
       data-surface={style.surface}
       data-transition={style.transition}
       data-scaling={style.scaling}
-      className={clsx(
+      className={cn(
         primary.variable,
         code.variable,
         secondary ? secondary.variable : '',

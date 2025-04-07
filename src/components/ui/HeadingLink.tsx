@@ -1,10 +1,9 @@
 'use client';
 
-import { Heading, IconButton } from '@fck/components/ui';
-import type React from 'react';
-import { Flex } from '@fck/components/ui/Flex';
-import '@fck/styles/globals.css';
-import { useToast } from '@fck/hooks/use-toast';
+import { Heading, IconButton, Flex } from '@fck/components/ui';
+import type * as React from 'react';
+
+import { useToast } from '@fck/components/ui/ToastProvider';
 
 interface HeadingLinkProps {
   id: string;
@@ -18,20 +17,20 @@ export default function HeadingLink({
   level,
   children,
   style,
-}) => {
-  const { toast } = useToast();
+}: React.PropsWithChildren<HeadingLinkProps>) {
+  const { addToast } = useToast();
 
   const copyURL = (id: string): void => {
     const url = `${window.location.origin}${window.location.pathname}#${id}`;
     navigator.clipboard.writeText(url).then(
       () => {
-        toast({
+        addToast({
           variant: 'success',
           message: 'Link copied to clipboard.',
         });
       },
       () => {
-        toast({
+        addToast({
           variant: 'danger',
           message: 'Failed to copy link.',
         });
@@ -49,7 +48,7 @@ export default function HeadingLink({
   } as const;
 
   const variant = variantMap[level];
-  const asTag = `h${level}` as keyof JSX.IntrinsicElements;
+  const asTag = `h${level}` as keyof React.JSX.IntrinsicElements;
 
   return (
     <Flex

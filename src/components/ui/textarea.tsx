@@ -1,26 +1,25 @@
 'use client';
 
-import React, {
+import * as React from 'react';
+import {
   useState,
   useEffect,
   forwardRef,
   type TextareaHTMLAttributes,
   useCallback,
-  type ReactNode,
 } from 'react';
-import { Text } from '.';
-import '@fck/styles/globals.css';
+import { Text, Flex } from '@fck/components/ui';
+
 import useDebounce from '@fck/hooks/useDebounce';
-import { clsx } from 'clsx';
-import { Flex } from './Flex';
+import { cn } from '@fck/lib/utils';
 
 interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   id: string;
   label: string;
   lines?: number | 'auto';
   error?: boolean;
-  errorMessage?: ReactNode;
-  description?: ReactNode;
+  errorMessage?: React.ReactNode;
+  description?: React.ReactNode;
   radius?:
     | 'none'
     | 'top'
@@ -32,11 +31,11 @@ interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
     | 'bottom-right'
     | 'bottom-left';
   className?: string;
-  hasPrefix?: ReactNode;
-  hasSuffix?: ReactNode;
+  hasPrefix?: React.ReactNode;
+  hasSuffix?: React.ReactNode;
   labelAsPlaceholder?: boolean;
   resize?: 'horizontal' | 'vertical' | 'both' | 'none';
-  validate?: (value: ReactNode) => ReactNode | null;
+  validate?: (value: React.ReactNode) => React.ReactNode | null;
 }
 
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
@@ -66,7 +65,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ) => {
     const [isFocused, setIsFocused] = useState(false);
     const [isFilled, setIsFilled] = useState(!!props.value);
-    const [validationError, setValidationError] = useState<ReactNode | null>(
+    const [validationError, setValidationError] = useState<React.ReactNode | null>(
       null
     );
     const [height, setHeight] = useState<number | undefined>(undefined);
@@ -128,7 +127,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 
     const displayError = validationError || errorMessage;
 
-    const textareaClassNames = clsx(
+    const textareaClassNames = cn(
       'input',
       'textarea',
       'font-body',
@@ -151,7 +150,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         gap="8"
         fillWidth
         fitHeight
-        className={clsx(className, {
+        className={cn(className, {
           error: displayError && debouncedValue !== '',
         })}
       >
@@ -163,7 +162,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           position="relative"
           overflow="hidden"
           vertical="stretch"
-          className={clsx(
+          className={cn(
             'base',
             lines !== 'auto' && 'textarea-base',
             radius === 'none'
@@ -210,7 +209,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
                 as="label"
                 variant="label-default-m"
                 htmlFor={id}
-                className={clsx('label', 'textarea-label', {
+                className={cn('label', 'textarea-label', {
                   floating: isFocused || isFilled,
                 })}
               >

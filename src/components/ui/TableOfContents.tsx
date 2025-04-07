@@ -1,8 +1,8 @@
 'use client';
 
 import { Column, Text } from '@fck/components/ui';
-import type React from 'react';
-import '@fck/styles/globals.css';
+import type * as React from 'react';
+
 import { Flex } from './Flex';
 
 interface TableOfContentsProps {

@@ -1,12 +1,11 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef } from 'react';
 
-import { Icon, Skeleton, SmartImage, StatusIndicator, Text } from '.';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
-import { clsx } from 'clsx';
+import { Flex, Icon, Skeleton, SmartImage, StatusIndicator, Text } from '@fck/components/ui';
+import { cn } from '@fck/lib/utils';
+
 interface AvatarProps extends React.ComponentProps<typeof Flex> {
   size?: 'xs' | 's' | 'm' | 'l' | 'xl';
   value?: string;
@@ -68,7 +67,7 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
           shape="circle"
           width={size}
           height={size}
-          className={clsx('avatar', className)}
+          className={cn('avatar', className)}
           aria-busy="true"
           aria-label="Loading avatar"
         />
@@ -129,7 +128,7 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
         border="neutral-strong"
         background="surface"
         style={style}
-        className={clsx('avatar', size, className)}
+        className={cn('avatar', size, className)}
         {...rest}
       >
         {renderContent()}
@@ -137,7 +136,7 @@ const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
           <StatusIndicator
             size={statusIndicatorSizeMapping[size]}
             color={statusIndicator.color}
-            className={clsx(
+            className={cn(
               className,
               'indicator',
               size === 'xl' ? 'position' : ''

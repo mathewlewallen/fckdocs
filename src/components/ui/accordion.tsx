@@ -1,12 +1,9 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef, useImperativeHandle, useState } from 'react';
-import Column from '@fck/components/ui/Column';
-import Heading from '@fck/components/ui/Heading';
-import Icon from '@fck/components/ui/Icon';
-import '@fck/styles/globals.css';
-import Flex from '@fck/components/ui/Flex';
+import { Icon, Flex, Heading, Column } from '@fck/components/ui';
+
 
 interface AccordionProps
   extends Omit<React.ComponentProps<typeof Flex>, 'title'> {

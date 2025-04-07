@@ -1,9 +1,9 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef } from 'react';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 import { Flex } from './Flex';
 
 interface SkeletonProps extends React.ComponentProps<typeof Flex> {
@@ -30,7 +30,7 @@ const Skeleton: React.FC<SkeletonProps> = forwardRef<
         style={style}
         radius={shape === 'line' || shape === 'circle' ? 'full' : undefined}
         inline
-        className={clsx(
+        className={cn(
           'skeleton',
           shape,
           width && `w-${width}`,

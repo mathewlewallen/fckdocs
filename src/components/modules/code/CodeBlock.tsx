@@ -1,23 +1,24 @@
 'use client';
 
-import React, { useState, useEffect, useRef, type ReactNode } from 'react';
-import '@fck/styles/globals.css';
+import * as React from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   Button,
   IconButton,
   Row,
   Scroller,
   StyleOverlay,
+  Flex
 } from '@fck/components/ui';
-import { Flex } from '@fck/components/ui/Flex';
-import { clsx } from 'clsx';
+import { cn } from '@fck/lib/utils';
+import type { SpacingToken } from '@fck/components/types';
 import Prism from 'prismjs';
 import 'prismjs/plugins/line-highlight/prism-line-highlight';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-css';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-tsx';
-import type { SpacingToken } from '@fck/components/types';
+import { log } from '@fck/lib/observability/log';
 
 type CodeInstance = {
   code: string | { content: string; error: string | null };
@@ -31,7 +32,7 @@ interface CodeBlockProps extends React.ComponentProps<typeof Flex> {
   fillHeight?: boolean;
   previewPadding?: SpacingToken;
   codeInstances?: CodeInstance[];
-  codePreview?: ReactNode;
+  codePreview?: React.ReactNode;
   copyButton?: boolean;
   styleButton?: boolean;
   reloadButton?: boolean;
@@ -100,7 +101,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
           }, 5000);
         })
         .catch((err) => {
-          console.error('Failed to copy code: ', err);
+          log.error('Failed to copy code: ', { error: err });
         });
     }
   };
@@ -135,7 +136,7 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
       vertical="center"
       fillWidth
       minHeight={3}
-      className={clsx(className, {
+      className={cn(className, {
         fullscreen: isFullscreen,
       })}
       style={style}
@@ -252,12 +253,12 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
               style={{ maxHeight: `${codeHeight}rem` }}
               data-line={highlight}
               ref={preRef}
-              className={clsx('pre', `language-${language}`)}
+              className={cn('pre', `language-${language}`)}
               tabIndex={-1}
             >
               <code
                 ref={codeRef}
-                className={clsx('code', `language-${language}`)}
+                className={cn('code', `language-${language}`)}
               >
                 {typeof code === 'string' ? code : code.content}
               </code>
@@ -283,4 +284,4 @@ const CodeBlock: React.FC<CodeBlockProps> = ({
 };
 
 CodeBlock.displayName = 'CodeBlock';
-export { CodeBlock };
+export default CodeBlock;

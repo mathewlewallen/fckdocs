@@ -1,8 +1,8 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { useRef } from 'react';
-import '@fck/styles/globals.css';
+
 import { Flex } from './Flex';
 
 interface TiltFxProps extends React.ComponentProps<typeof Flex> {

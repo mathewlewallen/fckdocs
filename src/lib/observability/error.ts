@@ -1,5 +1,5 @@
 import { captureException } from '@sentry/nextjs';
-import { log } from './log';
+import { log } from '@fck/lib/observability/log';
 
 export const parseError = (error: unknown): string => {
   let message = 'An error occurred';
@@ -16,6 +16,7 @@ export const parseError = (error: unknown): string => {
     captureException(error);
     log.error(`Parsing error: ${message}`);
   } catch (newError) {
+    // biome-ignore lint/suspicious/noConsole: Need console here
     console.error('Error parsing error:', newError);
   }
 

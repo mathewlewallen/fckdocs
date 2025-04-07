@@ -3,11 +3,11 @@
 import { env } from '@fck/env';
 import posthog, { type PostHog } from 'posthog-js';
 import { PostHogProvider as PostHogProviderRaw } from 'posthog-js/react';
-import type { ReactNode } from 'react';
 import { useEffect } from 'react';
+import type * as React from 'react';
 
 type PostHogProviderProps = {
-  readonly children: ReactNode;
+  readonly children: React.ReactNode;
 };
 
 export const PostHogProvider = (

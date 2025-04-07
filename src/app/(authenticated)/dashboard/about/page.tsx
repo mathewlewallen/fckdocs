@@ -9,7 +9,7 @@ import {
   Tag,
   Text,
 } from '@fck/components/ui';
-import { Flex } from '@fck/components/ui/Flex';
+import { Flex } from '@fck/components/ui';
 import TableOfContents from '@fck/components/ui/TableOfContents';
 import { baseURL } from '@fck/lib/once-ui/config';
 import '@fck/styles/globals.css';

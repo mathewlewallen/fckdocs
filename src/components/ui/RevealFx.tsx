@@ -1,11 +1,11 @@
 'use client';
 
 import type { SpacingToken } from '@fck/components/types';
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
-import { clsx } from 'clsx';
+
+import { Flex } from '@fck/components/ui';
+import { cn } from '@fck/lib/utils';
 
 interface RevealFxProps extends React.ComponentProps<typeof Flex> {
   children: React.ReactNode;
@@ -86,7 +86,7 @@ const RevealFx = forwardRef<HTMLDivElement, RevealFxProps>(
         horizontal="center"
         ref={ref}
         style={revealStyle}
-        className={clsx(
+        className={cn(
           'reveal-fx',
           isRevealed ? 'revealed' : 'hidden',
           className

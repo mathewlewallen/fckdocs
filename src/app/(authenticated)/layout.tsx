@@ -14,12 +14,13 @@ import '@fck/styles/globals.css';
 import type { SpacingToken } from '@fck/components/types';
 import { Footer, Header, RouteGuard } from '@fck/components/ui';
 import { Background, Column, ToastProvider } from '@fck/components/ui';
-import { Flex } from '@fck/components/ui/Flex';
+import { Flex } from '@fck/components/ui';
 import { effects, style } from '@fck/lib/once-ui';
 import { home, person } from '@fck/lib/once-ui/content';
-import { clsx } from 'clsx';
+import { cn } from '@fck/lib/utils';
 import { Inter } from 'next/font/google';
 import { Source_Code_Pro } from 'next/font/google';
+import '@fck/styles/globals.css';
 
 export async function generateMetadata() {
   return {
@@ -109,7 +110,7 @@ export default async function AppLayout({ children }: PropsWithChildren) {
           data-border={style.border}
           data-surface={style.surface}
           data-transition={style.transition}
-          className={clsx(
+          className={cn(
             primary.variable,
             secondary ? secondary.variable : '',
             tertiary ? tertiary.variable : '',

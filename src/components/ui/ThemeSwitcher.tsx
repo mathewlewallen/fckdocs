@@ -2,7 +2,7 @@
 
 import { IconButton, Row } from '@fck/components/ui';
 import { useTheme } from '@fck/components/ui/ThemeProvider';
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef } from 'react';
 
 type ThemeType = 'system' | 'dark' | 'light';

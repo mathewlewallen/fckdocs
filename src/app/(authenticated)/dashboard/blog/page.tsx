@@ -3,6 +3,7 @@ import { Mailchimp } from '@fck/components/ui';
 import { Posts } from '@fck/components/ui';
 import { baseURL } from '@fck/lib/once-ui/config';
 import { blog, newsletter, person } from '@fck/lib/once-ui/content';
+import '@fck/styles/globals.css';
 
 export async function generateMetadata() {
   const title = blog.title;

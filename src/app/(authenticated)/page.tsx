@@ -1,45 +1,37 @@
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
-
 import { env } from '@fck/env';
 import { auth } from '@fck/server/auth/server';
 import { db } from '@fck/server/db';
-
 import { routes } from '@fck/lib/once-ui/config';
 import { about, home, newsletter, person } from '@fck/lib/once-ui/content';
-
 import {
   Avatar,
   Button,
   Column,
   Heading,
   Projects,
-  Revealfx,
+  RevealFx,
   Text,
   Posts,
   Flex,
   Mailchimp,
   Header,
-  AvatarStack,
   Chatbot,
   Cursors,
-  Langchain,
-  CollaborationProvider
+  Langchain
 } from '@fck/components/ui';
+import '@fck/styles/globals.css';
 
 // Dynamically load collaboration provider to reduce initial bundle size
 const CollaborationProvider = dynamic(() =>
-  import('@fck/components/ui/collaboration-provider').then(
+  import('@fck/components/ui').then(
     (mod) => mod.CollaborationProvider
   )
 );
 
-// -------------------------
-// Metadata Generator
-// -------------------------
-
-export async function generateMetadata(): Promise<Metadata> {
+export function generateMetadata(): Metadata {
   const title = home.title;
   const description = home.description;
 
@@ -68,7 +60,9 @@ export default async function App() {
   const pages = await db.page.findMany();
   const { orgId } = await auth();
 
-  if (!orgId) notFound();
+  if (!orgId) {
+    notFound();
+  }
 
   return (
     <Column maxWidth="m" gap="xl" horizontal="center">
@@ -96,7 +90,7 @@ export default async function App() {
       {/* Hero Section */}
       <Column fillWidth paddingY="l" gap="m">
         <Column maxWidth="s">
-          <Revealfx
+          <RevealFx
             translateY="4"
             fillWidth
             horizontal="start"
@@ -105,8 +99,8 @@ export default async function App() {
             <Heading wrap="balance" variant="display-strong-l">
               {home.headline}
             </Heading>
-          </Revealfx>
-          <Revealfx
+          </RevealFx>
+          <RevealFx
             translateY="8"
             delay={0.2}
             fillWidth
@@ -120,8 +114,8 @@ export default async function App() {
             >
               {home.subline}
             </Text>
-          </Revealfx>
-          <Revealfx translateY="12" delay={0.4} horizontal="start">
+          </RevealFx>
+          <RevealFx translateY="12" delay={0.4} horizontal="start">
             <Button
               id="about"
               data-border="rounded"
@@ -141,14 +135,14 @@ export default async function App() {
                 {about.title}
               </Flex>
             </Button>
-          </Revealfx>
+          </RevealFx>
         </Column>
       </Column>
 
       {/* Project Highlight */}
-      <Revealfx translateY="16" delay={0.6}>
+      <RevealFx translateY="16" delay={0.6}>
         <Projects range={[1, 1]} allProjects={[]} />
-      </Revealfx>
+      </RevealFx>
 
       {/* Blog Section */}
       {routes['/blog'] && (
@@ -176,7 +170,6 @@ export default async function App() {
           <CollaborationProvider orgId={orgId}>
             <Chatbot />
             <Langchain />
-            <AvatarStack />
             <Cursors />
           </CollaborationProvider>
         )}

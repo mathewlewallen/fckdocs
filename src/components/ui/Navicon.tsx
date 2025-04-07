@@ -1,7 +1,7 @@
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef } from 'react';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 import { Flex } from './Flex';
 
 interface NavIconProps extends React.ComponentProps<typeof Flex> {
@@ -29,8 +29,8 @@ const NavIcon = forwardRef<HTMLDivElement, Partial<NavIconProps>>(
         onClick={onClick}
         {...rest}
       >
-        <div className={clsx('line', isActive && 'active')} />
-        <div className={clsx('line', isActive && 'active')} />
+        <div className={cn('line', isActive && 'active')} />
+        <div className={cn('line', isActive && 'active')} />
       </Flex>
     );
   }

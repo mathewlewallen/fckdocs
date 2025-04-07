@@ -1,5 +1,6 @@
 import { webhooks } from '@fck/server/webhooks';
 import { notFound } from 'next/navigation';
+import '@fck/styles/globals.css';
 
 export const metadata = {
   title: 'Webhooks',

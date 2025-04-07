@@ -1,7 +1,8 @@
-import { Flex } from '@fck/components/ui/Flex';
+import { Flex } from '@fck/components/ui';
 import MasonryGrid from '@fck/components/ui/MasonryGrid';
 import { baseURL } from '@fck/lib/once-ui/config';
 import { gallery, person } from '@fck/lib/once-ui/content';
+import '@fck/styles/globals.css';
 
 export async function generateMetadata() {
   const title = gallery.title;

@@ -3,6 +3,7 @@ import type { Route } from 'next';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import '@fck/styles/globals.css';
 
 const title = 'Welcome back';
 const description = 'Enter your details to sign in.';

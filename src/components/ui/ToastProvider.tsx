@@ -1,14 +1,14 @@
 'use client';
 
-import type React from 'react';
-import { type ReactNode, createContext, useContext, useState } from 'react';
-import { Toaster } from './toaster';
+import * as React from 'react';
+import { useContext, useState } from 'react';
+import { Toaster } from '@fck/components/ui';
 
 interface Toast {
   id: string;
   variant: 'success' | 'danger';
   message: string;
-  action?: ReactNode;
+  action?: React.ReactNode;
 }
 
 interface ToastContextProps {
@@ -17,7 +17,7 @@ interface ToastContextProps {
   removeToast: (id: string) => void;
 }
 
-const ToastContext = createContext<ToastContextProps | undefined>(undefined);
+const ToastContext = React.createContext<ToastContextProps | undefined>(undefined);
 
 export const useToast = () => {
   const context = useContext(ToastContext);
@@ -28,7 +28,7 @@ export const useToast = () => {
 };
 
 const ToastProvider: React.FC<{
-  children: ReactNode;
+  children: React.ReactNode;
 }> = ({ children }) => {
   const [toasts, setToasts] = useState<Toast[]>([]);
 

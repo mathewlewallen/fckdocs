@@ -1,9 +1,5 @@
-import type {
-  CSSProperties,
-  ElementType,
-  HTMLAttributes,
-  ReactNode,
-} from 'react';
+import type * as React from 'react';
+import type { CSSProperties } from 'react';
 import type {
   ColorScheme,
   ColorWeight,
@@ -19,7 +15,7 @@ import type {
   gridColumns,
 } from './types';
 
-export interface GridProps extends HTMLAttributes<HTMLDivElement> {
+export interface GridProps extends React.HTMLAttributes<HTMLDivElement> {
   columns?: gridColumns;
   rows?: gridColumns;
   tabletColumns?: gridColumns;
@@ -28,7 +24,7 @@ export interface GridProps extends HTMLAttributes<HTMLDivElement> {
   mobileRows?: gridColumns;
 }
 
-export interface FlexProps extends HTMLAttributes<HTMLDivElement> {
+export interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
   direction?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
   tabletDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
   mobileDirection?: 'row' | 'column' | 'row-reverse' | 'column-reverse';
@@ -53,8 +49,8 @@ export interface FlexProps extends HTMLAttributes<HTMLDivElement> {
   flex?: flex;
 }
 
-export interface TextProps<T extends ElementType = 'span'>
-  extends HTMLAttributes<T> {
+export interface TextProps<T extends React.ElementType = 'span'>
+  extends React.HTMLAttributes<T> {
   as?: T;
   variant?: TextVariant;
   wrap?: CSSProperties['textWrap'];
@@ -62,7 +58,7 @@ export interface TextProps<T extends ElementType = 'span'>
   weight?: TextWeight;
 }
 
-export interface SizeProps extends HTMLAttributes<HTMLDivElement> {
+export interface SizeProps extends React.HTMLAttributes<HTMLDivElement> {
   width?: number | SpacingToken;
   height?: number | SpacingToken;
   maxWidth?: number | SpacingToken;
@@ -78,7 +74,7 @@ export interface SizeProps extends HTMLAttributes<HTMLDivElement> {
   aspectRatio?: CSSProperties['aspectRatio'];
 }
 
-export interface SpacingProps extends HTMLAttributes<HTMLDivElement> {
+export interface SpacingProps extends React.HTMLAttributes<HTMLDivElement> {
   padding?: SpacingToken;
   paddingLeft?: SpacingToken;
   paddingRight?: SpacingToken;
@@ -100,7 +96,7 @@ export interface SpacingProps extends HTMLAttributes<HTMLDivElement> {
   left?: SpacingToken;
 }
 
-export interface StyleProps extends HTMLAttributes<HTMLDivElement> {
+export interface StyleProps extends React.HTMLAttributes<HTMLDivElement> {
   textVariant?: TextVariant;
   textSize?: TextSize;
   textType?: TextType;
@@ -153,13 +149,13 @@ export interface StyleProps extends HTMLAttributes<HTMLDivElement> {
   cursor?: CSSProperties['cursor'] | 'interactive';
 }
 
-export interface ConditionalProps extends HTMLAttributes<HTMLDivElement> {
+export interface ConditionalProps extends React.HTMLAttributes<HTMLDivElement> {
   hide?: 's' | 'm' | 'l';
   show?: 's' | 'm' | 'l';
 }
 
-export interface DisplayProps extends HTMLAttributes<HTMLDivElement> {
-  as?: ElementType;
+export interface DisplayProps extends React.HTMLAttributes<HTMLDivElement> {
+  as?: React.ElementType;
   inline?: boolean;
   pointerEvents?: 'none' | 'all' | 'auto';
   position?: CSSProperties['position'];
@@ -177,11 +173,11 @@ export interface DisplayProps extends HTMLAttributes<HTMLDivElement> {
   zIndex?: -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
 }
 
-export interface CommonProps extends HTMLAttributes<HTMLDivElement> {
+export interface CommonProps extends React.HTMLAttributes<HTMLDivElement> {
   onBackground?: `${ColorScheme}-${ColorWeight}`;
   onSolid?: `${ColorScheme}-${ColorWeight}`;
   align?: CSSProperties['textAlign'];
   className?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
   style?: React.CSSProperties;
 }

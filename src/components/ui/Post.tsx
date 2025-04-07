@@ -7,7 +7,7 @@ import SmartLink from '@fck/components/ui/SmartLink';
 import Tag from '@fck/components/ui/Tag';
 import Text from '@fck/components/ui/Text';
 import Flex from '@fck/components/ui/Flex';
-import '@fck/styles/globals.css';
+
 import { formatDate } from '@fck/lib/once-ui/utils/formatDate';
 
 interface PostProps {

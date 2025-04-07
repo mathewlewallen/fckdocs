@@ -6,12 +6,13 @@ import {
   RevealFx,
   Text,
 } from '@fck/components/ui';
-import { Flex } from '@fck/components/ui/Flex';
+import { Flex } from '@fck/components/ui';
 import { Mailchimp } from '@fck/components/ui/mailchimp';
 import { Projects } from '@fck/components/ui/projects';
 import { Posts } from '@fck/components/ui';
 import { routes } from '@fck/lib/once-ui/config';
 import { about, home, newsletter, person } from '@fck/lib/once-ui/content';
+import '@fck/styles/globals.css';
 
 export async function generateMetadata() {
   const title = home.title;

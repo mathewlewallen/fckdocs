@@ -2,8 +2,8 @@
 
 import type { DisplayProps } from '@fck/components/interfaces';
 import type { SpacingToken } from '@fck/components/types';
-import { Flex } from '@fck/components/ui/Flex';
-import type React from 'react';
+import { Flex } from '@fck/components/ui';
+import type * as React from 'react';
 import {
   type CSSProperties,
   forwardRef,
@@ -11,8 +11,8 @@ import {
   useRef,
   useState,
 } from 'react';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 
 function setRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
   if (typeof ref === 'function') {
@@ -91,7 +91,7 @@ const Background = forwardRef<HTMLDivElement, BackgroundProps>(
     forwardedRef
   ) => {
     const dotsColor = dots.color ?? 'brand-on-background-weak';
-    const dotsSize = 'var(--static-space-' + (dots.size ?? '24') + ')';
+    const dotsSize = `var(--static-space-${dots.size ?? '24'})`;
 
     const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
     const [smoothPosition, setSmoothPosition] = useState({ x: 0, y: 0 });
@@ -146,7 +146,9 @@ const Background = forwardRef<HTMLDivElement, BackgroundProps>(
     }, [cursorPosition, mask]);
 
     const maskStyle = (): CSSProperties => {
-      if (!mask) return {};
+      if (!mask) {
+        return {};
+      }
 
       if (mask.cursor) {
         return {
@@ -190,7 +192,7 @@ const Background = forwardRef<HTMLDivElement, BackgroundProps>(
         ref={backgroundRef}
         fill
         position={position}
-        className={clsx(mask && 'mask', className)}
+        className={cn(mask && 'mask', className)}
         top="0"
         left="0"
         zIndex={0}

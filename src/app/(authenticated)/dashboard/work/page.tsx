@@ -3,6 +3,7 @@ import { Projects } from '@fck/components/ui';
 import { baseURL } from '@fck/lib/once-ui/config';
 import { person, work } from '@fck/lib/once-ui/content';
 import { getPosts } from '@fck/lib/once-ui/utils/utils';
+import '@fck/styles/globals.css';
 
 export async function generateMetadata() {
   const title = work.title;

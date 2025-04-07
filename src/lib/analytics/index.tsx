@@ -1,11 +1,11 @@
 import { env } from '@fck/env';
-import type { ReactNode } from 'react';
-import { GoogleAnalytics } from './google';
-import { PostHogProvider } from './posthog/client';
-import { VercelAnalytics } from './vercel';
+import type * as React from 'react';
+import { GoogleAnalytics } from '@fck/lib/analytics/google';
+import { VercelAnalytics } from '@fck/lib/analytics/vercel';
+import { PostHogProvider } from '@fck/lib/analytics/posthog/client';
 
 type AnalyticsProviderProps = {
-  readonly children: ReactNode;
+  readonly children: React.ReactNode;
 };
 
 const { NEXT_PUBLIC_GA_MEASUREMENT_ID } = env;

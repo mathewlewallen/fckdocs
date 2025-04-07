@@ -1,12 +1,12 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef, useState } from 'react';
 import { Input } from '.';
 import { IconButton } from '.';
 import { Flex } from './Flex';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 
 interface NumberInputProps
   extends Omit<
@@ -89,7 +89,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
                 fillHeight
                 borderBottom="neutral-medium"
                 paddingX="4"
-                className={clsx('stepper', 'transition-micro-medium')}
+                className={cn('stepper', 'transition-micro-medium')}
               >
                 <IconButton
                   icon="chevronUp"
@@ -102,7 +102,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
               <Flex
                 fillHeight
                 paddingX="4"
-                className={clsx('stepper', 'transition-micro-medium')}
+                className={cn('stepper', 'transition-micro-medium')}
               >
                 <IconButton
                   icon="chevronDown"

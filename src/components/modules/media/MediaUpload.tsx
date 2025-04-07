@@ -1,10 +1,11 @@
-import { Icon, SmartImage, Spinner, Text } from '@fck/components/ui';
+'use client'
+
+import { Icon, SmartImage, Spinner, Text, Flex } from '@fck/components/ui';
 import Compressor from 'compressorjs';
-import type React from 'react';
-import { forwardRef, useEffect, useRef, useState } from 'react';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
-import { clsx } from 'clsx';
+import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { cn } from '@fck/lib/utils';
+import { log } from '@fck/lib/observability/log';
 
 interface MediaUploadProps extends React.ComponentProps<typeof Flex> {
   onFileUpload?: (file: File) => Promise<void>;
@@ -26,7 +27,7 @@ interface MediaUploadProps extends React.ComponentProps<typeof Flex> {
   accept?: string;
 }
 
-const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
+const MediaUpload = React.forwardRef<HTMLInputElement, MediaUploadProps>(
   (
     {
       onFileUpload,
@@ -91,7 +92,9 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
 
     const handleFiles = (files: FileList) => {
       const file = files[0];
-      if (!file) return;
+      if (!file) {
+        return;
+      }
 
       if (file.type.startsWith('image/')) {
         setPreviewImage(URL.createObjectURL(file));
@@ -102,7 +105,7 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
           uploadFile(file);
         }
       } else {
-        console.warn('Unsupported file type:', file.type);
+        log.warn('Unsupported file type:', { fileType: file.type });
       }
     };
 
@@ -118,7 +121,7 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
           uploadFile(compressedFile as File);
         },
         error(err: Error) {
-          console.error('Compression error:', err);
+          log.error('Compression error:', { error: err });
           uploadFile(file);
         },
       });
@@ -137,7 +140,7 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
         transition="micro-medium"
         overflow="hidden"
         cursor="interactive"
-        className={clsx('container')}
+        className={cn('container')}
         aspectRatio={aspectRatio}
         fillWidth
         horizontal="center"
@@ -151,8 +154,7 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
         {...rest}
       >
         {!loading && (
-          <>
-            {previewImage ? (
+          previewImage ? (
               <SmartImage
                 style={{
                   cursor: 'pointer',
@@ -167,12 +169,11 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
               <Flex fill center>
                 <Icon name="plus" size="l" />
               </Flex>
-            )}
-          </>
+            )
         )}
         {children}
         <Flex
-          className={clsx('upload')}
+          className={cn('upload')}
           zIndex={1}
           transition="micro-medium"
           position="absolute"
@@ -184,7 +185,7 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
           {uploading || loading ? (
             <Spinner size="l" />
           ) : (
-            <Text className={clsx('text')} align="center">
+            <Text className={cn('text')} align="center">
               {emptyState}
             </Text>
           )}
@@ -206,4 +207,4 @@ const MediaUpload = forwardRef<HTMLInputElement, MediaUploadProps>(
 );
 
 MediaUpload.displayName = 'MediaUpload';
-export { MediaUpload };
+export default MediaUpload;

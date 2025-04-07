@@ -1,11 +1,11 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import { Grid } from './grid';
 import { Logo } from './logo';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 import type { ComponentProps } from 'react';
 import { Flex } from './Flex';
 
@@ -70,7 +70,7 @@ const LogoCloud = forwardRef<HTMLDivElement, LogoCloudProps>(
     return (
       <Grid
         ref={ref}
-        className={clsx('container', className)}
+        className={cn('container', className)}
         style={style}
         {...rest}
       >

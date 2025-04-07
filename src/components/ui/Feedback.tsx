@@ -1,9 +1,8 @@
 'use client';
 
-import { Flex } from '@fck/components/ui/Flex';
-import type React from 'react';
-import { type ReactNode, forwardRef } from 'react';
-import { Button, Icon, IconButton, Text } from '.';
+import * as React from 'react';
+import { Button, Icon, IconButton, Text, Flex } from '@fck/components/ui';
+
 interface FeedbackProps
   extends Omit<React.ComponentProps<typeof Flex>, 'title'> {
   variant?: 'info' | 'danger' | 'warning' | 'success';
@@ -13,7 +12,7 @@ interface FeedbackProps
   showCloseButton?: boolean;
   onClose?: () => void;
   actionButtonProps?: React.ComponentProps<typeof Button>;
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
 const variantIconMap: {
@@ -25,7 +24,7 @@ const variantIconMap: {
   success: 'checkCircle',
 };
 
-const Feedback = forwardRef<HTMLDivElement, FeedbackProps>(
+const Feedback = React.forwardRef<HTMLDivElement, FeedbackProps>(
   (
     {
       variant = 'info',

@@ -1,7 +1,7 @@
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef } from 'react';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 import { Flex } from './Flex';
 
 interface SpinnerProps extends React.ComponentProps<typeof Flex> {
@@ -25,7 +25,7 @@ const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
           ref={ref}
           horizontal="center"
           vertical="center"
-          className={clsx(size)}
+          className={cn(size)}
           role="status"
           aria-label={ariaLabel}
         >

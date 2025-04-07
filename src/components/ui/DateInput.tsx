@@ -1,7 +1,7 @@
 'use client';
 
-import { Flex } from '@fck/components/ui/Flex';
-import type React from 'react';
+import { Flex } from '@fck/components/ui';
+import type * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { DatePicker, DropdownWrapper, Input } from '.';
 interface DateInputProps

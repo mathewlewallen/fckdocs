@@ -1,52 +1,66 @@
-import 'server-only';
+"use client";
 
-import { env } from '@fck/env';
-import type { BetterStackResponse } from './types';
+import { useState, useEffect } from 'react';
+import { keys } from '@fck/lib/observability/keys';
+import type { BetterStackResponse } from '@fck/lib/observability/status/types';
 
-const apiKey = env.BETTERSTACK_API_KEY;
-const url = env.BETTERSTACK_URL;
+export const Status = () => {
+  const [statusColor, setStatusColor] = useState('bg-muted-foreground');
+  const [statusLabel, setStatusLabel] = useState('Loading status...');
+  const [statusUrl, setStatusUrl] = useState('');
 
-export const Status = async () => {
-  if (!apiKey || !url) {
-    return null;
-  }
-
-  let statusColor = 'bg-muted-foreground';
-  let statusLabel = 'Unable to fetch status';
-
-  try {
-    const response = await fetch(
-      'https://uptime.betterstack.com/api/v2/monitors',
-      {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
+  useEffect(() => {
+    const fetchStatus = async () => {
+      const apiKey = keys().BETTERSTACK_API_KEY;
+      const url = keys().BETTERSTACK_URL;
+      
+      if (!apiKey || !url) {
+        return;
       }
-    );
+      
+      setStatusUrl(url);
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch status');
-    }
+      try {
+        const response = await fetch(
+          'https://uptime.betterstack.com/api/v2/monitors',
+          {
+            headers: {
+              Authorization: `Bearer ${apiKey}`,
+            },
+          }
+        );
 
-    const { data } = (await response.json()) as BetterStackResponse;
+        if (!response.ok) {
+          throw new Error('Failed to fetch status');
+        }
 
-    const status =
-      data.filter((monitor) => monitor.attributes.status === 'up').length /
-      data.length;
+        const { data } = (await response.json()) as BetterStackResponse;
 
-    if (status === 0) {
-      statusColor = 'bg-destructive';
-      statusLabel = 'Degraded performance';
-    } else if (status < 1) {
-      statusColor = 'bg-warning';
-      statusLabel = 'Partial outage';
-    } else {
-      statusColor = 'bg-success';
-      statusLabel = 'All systems normal';
-    }
-  } catch {
-    statusColor = 'bg-muted-foreground';
-    statusLabel = 'Unable to fetch status';
+        const status =
+          data.filter((monitor) => monitor.attributes.status === 'up').length /
+          data.length;
+
+        if (status === 0) {
+          setStatusColor('bg-destructive');
+          setStatusLabel('Degraded performance');
+        } else if (status < 1) {
+          setStatusColor('bg-warning');
+          setStatusLabel('Partial outage');
+        } else {
+          setStatusColor('bg-success');
+          setStatusLabel('All systems normal');
+        }
+      } catch {
+        setStatusColor('bg-muted-foreground');
+        setStatusLabel('Unable to fetch status');
+      }
+    };
+
+    fetchStatus();
+  }, []);
+
+  if (!statusUrl) {
+    return null;
   }
 
   return (
@@ -54,7 +68,7 @@ export const Status = async () => {
       className="flex items-center gap-3 font-medium text-sm"
       target="_blank"
       rel="noreferrer"
-      href={url}
+      href={statusUrl}
     >
       <span className="relative flex h-2 w-2">
         <span

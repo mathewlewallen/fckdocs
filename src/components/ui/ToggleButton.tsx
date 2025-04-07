@@ -1,15 +1,12 @@
 'use client';
 
-import type React from 'react';
-import { type ReactNode, forwardRef } from 'react';
-import { Icon } from '.';
-import { ElementType } from './ElementType';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
-import { Flex } from './Flex';
+import * as React from 'react';
+import { Icon, Flex, ElementType } from '@fck/components/ui';
+
+import { cn } from '@fck/lib/utils';
 
 interface CommonProps {
-  label?: ReactNode;
+  label?: React.ReactNode;
   selected: boolean;
   variant?: 'ghost' | 'outline';
   size?: 's' | 'm' | 'l';
@@ -31,14 +28,14 @@ interface CommonProps {
   suffixIcon?: string;
   className?: string;
   style?: React.CSSProperties;
-  children?: ReactNode;
+  children?: React.ReactNode;
   href?: string;
 }
 
 export type ToggleButtonProps = CommonProps &
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-const ToggleButton = forwardRef<HTMLElement, ToggleButtonProps>(
+const ToggleButton = React.forwardRef<HTMLElement, ToggleButtonProps>(
   (
     {
       label,
@@ -64,7 +61,7 @@ const ToggleButton = forwardRef<HTMLElement, ToggleButtonProps>(
       <ElementType
         ref={ref}
         href={href}
-        className={clsx(
+        className={cn(
           'button',
           variant,
           size,
@@ -78,9 +75,9 @@ const ToggleButton = forwardRef<HTMLElement, ToggleButtonProps>(
           'button',
           'cursor-interactive',
           {
-            ['fill-width']: fillWidth,
-            ['fit-width']: !fillWidth,
-            ['justify-' + justifyContent]: justifyContent,
+            'fill-width': fillWidth,
+            'fit-width': !fillWidth,
+            [`justify-${justifyContent}`]: justifyContent,
           },
           className
         )}

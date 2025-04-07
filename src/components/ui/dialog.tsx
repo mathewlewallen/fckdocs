@@ -1,26 +1,25 @@
 'use client';
 
-import React, {
-  type ReactNode,
+import * as React from 'react';
+import {
   useEffect,
   useCallback,
   useRef,
-  forwardRef,
   useState,
   useContext,
 } from 'react';
-import ReactDOM from 'react-dom';
-import { Heading, IconButton, Text } from '.';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
-import { clsx } from 'clsx';
+import * as ReactDOM from 'react-dom';
+import { Heading, IconButton, Text, Flex } from '@fck/components/ui';
+
+import { cn } from '@fck/lib/utils';
+
 interface DialogProps extends Omit<React.ComponentProps<typeof Flex>, 'title'> {
   isOpen: boolean;
   onClose: () => void;
-  title: ReactNode;
-  description?: ReactNode;
-  children: ReactNode;
-  footer?: ReactNode;
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  children: React.ReactNode;
+  footer?: React.ReactNode;
   base?: boolean;
   stack?: boolean;
   onHeightChange?: (height: number) => void;
@@ -52,7 +51,7 @@ export const DialogProvider: React.FC<{
   );
 };
 
-const Dialog: React.FC<DialogProps> = forwardRef<HTMLDivElement, DialogProps>(
+const Dialog: React.FC<DialogProps> = React.forwardRef<HTMLDivElement, DialogProps>(
   (
     {
       isOpen,
@@ -231,7 +230,7 @@ const Dialog: React.FC<DialogProps> = forwardRef<HTMLDivElement, DialogProps>(
         left="0"
         right="0"
         bottom="0"
-        className={clsx('overlay', {
+        className={cn('overlay', {
           open: isAnimating,
         })}
         center
@@ -249,7 +248,7 @@ const Dialog: React.FC<DialogProps> = forwardRef<HTMLDivElement, DialogProps>(
           }}
         >
           <Flex
-            className={clsx('dialog', {
+            className={cn('dialog', {
               open: isAnimating,
             })}
             style={{

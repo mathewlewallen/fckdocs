@@ -2,13 +2,13 @@
 
 import { env } from '@fck/env';
 import { KnockFeedProvider, KnockProvider } from '@knocklabs/react';
-import type { ReactNode } from 'react';
+import type * as React from 'react';
 
 const knockApiKey = env.NEXT_PUBLIC_KNOCK_API_KEY;
 const knockFeedChannelId = env.NEXT_PUBLIC_KNOCK_FEED_CHANNEL_ID;
 
 type NotificationsProviderProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   userId: string;
 };
 

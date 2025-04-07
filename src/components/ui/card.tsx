@@ -1,14 +1,14 @@
 'use client';
 
-import { Flex } from '@fck/components/ui/Flex';
-import type React from 'react';
-import { forwardRef } from 'react';
-import '@fck/styles/globals.css';
+import { Flex } from '@fck/components/ui';
+import * as React from 'react';
+
+
 interface CardProps extends React.ComponentProps<typeof Flex> {
   children?: React.ReactNode;
 }
 
-const Card = forwardRef<HTMLDivElement, CardProps>(
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ children, style, className, ...rest }, ref) => {
     return (
       <Flex

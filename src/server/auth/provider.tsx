@@ -1,6 +1,5 @@
 'use client';
 
-import '@fck/styles/globals.css';
 import { ClerkProvider } from '@clerk/nextjs';
 import { dark } from '@clerk/themes';
 import type { Appearance, Theme } from '@clerk/types';

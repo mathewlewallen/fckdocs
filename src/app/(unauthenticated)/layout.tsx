@@ -1,11 +1,12 @@
-import { ModeToggle } from '@fck/components/ui/mode-toggle';
+import { ModeToggle } from '@fck/components/ui';
 import Icon from '@fck/public/favicon.ico';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { ReactNode } from 'react';
+import type * as React from 'react';
+import '@fck/styles/globals.css';
 
 type AuthLayoutProps = {
-  readonly children: ReactNode;
+  readonly children: React.ReactNode;
 };
 
 const AuthLayout = ({ children }: AuthLayoutProps) => (

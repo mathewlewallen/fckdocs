@@ -1,8 +1,9 @@
 'use client';
 
-import { RevealFx, Scroller, SmartImage } from '@fck/components/ui';
-import { Flex } from '@fck/components/ui/Flex';
+import { RevealFx, Scroller, SmartImage, Flex } from '@fck/components/ui';
 import { useEffect, useRef, useState } from 'react';
+import type * as React from 'react';
+
 interface Image {
   src: string;
   alt: string;
@@ -103,8 +104,7 @@ const Carousel: React.FC<CarouselProps> = ({
         />
       </RevealFx>
       {images.length > 1 && (
-        <>
-          {indicator === 'line' ? (
+        indicator === 'line' ? (
             <Flex gap="4" paddingX="s" fillWidth horizontal="center">
               {images.map((_, index) => (
                 <Flex
@@ -120,7 +120,7 @@ const Carousel: React.FC<CarouselProps> = ({
                   cursor="interactive"
                   fillWidth
                   height="2"
-                ></Flex>
+                />
               ))}
             </Flex>
           ) : (
@@ -153,8 +153,7 @@ const Carousel: React.FC<CarouselProps> = ({
                 </Flex>
               ))}
             </Scroller>
-          )}
-        </>
+          )
       )}
     </Flex>
   );

@@ -1,18 +1,16 @@
 'use client';
 
-import type React from 'react';
-import { type ReactNode, forwardRef } from 'react';
+import * as React from 'react';
+import { Text, Flex } from '@fck/components/ui';
 
-import { Text } from '.';
-import { Flex } from './Flex';
 interface KbdProps extends React.ComponentProps<typeof Flex> {
   label?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
 }
 
-const Kbd = forwardRef<HTMLDivElement, KbdProps>(
+const Kbd = React.forwardRef<HTMLDivElement, KbdProps>(
   ({ label, children, className, style, ...rest }, ref) => (
     <Flex
       as="kbd"

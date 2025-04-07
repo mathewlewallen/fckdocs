@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
+import type * as React from 'react';
+import '@fck/styles/globals.css';
 
 type LegalLayoutProps = {
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
 const LegalLayout = ({ children }: LegalLayoutProps) => (

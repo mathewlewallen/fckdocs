@@ -1,16 +1,15 @@
 'use client';
 
-import type React from 'react';
-import { type ReactNode, forwardRef } from 'react';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
-import { Flex } from './Flex';
+import type * as React from 'react';
+
+import { cn } from '@fck/lib/utils';
+import { Flex } from '@fck/components/ui';
 
 interface InlineCodeProps extends React.ComponentProps<typeof Flex> {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
-const InlineCode = forwardRef<HTMLDivElement, InlineCodeProps>(
+const InlineCode = React.forwardRef<HTMLDivElement, InlineCodeProps>(
   ({ children, ...rest }, ref) => {
     return (
       <Flex
@@ -25,7 +24,7 @@ const InlineCode = forwardRef<HTMLDivElement, InlineCodeProps>(
         textType="code"
         background="neutral-alpha-weak"
         border="neutral-alpha-medium"
-        className={clsx('inline-code')}
+        className={cn('inline-code')}
         {...rest}
       >
         {children}

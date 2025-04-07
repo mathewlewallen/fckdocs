@@ -1,10 +1,8 @@
 'use client';
 
-import type React from 'react';
-import { forwardRef } from 'react';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
-import { Flex } from './Flex';
+import * as React from 'react';
+import { cn } from '@fck/lib/utils';
+import { Flex } from '@fck/components/ui';
 
 interface StatusIndicatorProps extends React.ComponentProps<typeof Flex> {
   size: 's' | 'm' | 'l';
@@ -28,7 +26,7 @@ interface StatusIndicatorProps extends React.ComponentProps<typeof Flex> {
   style?: React.CSSProperties;
 }
 
-const StatusIndicator = forwardRef<HTMLDivElement, StatusIndicatorProps>(
+const StatusIndicator = React.forwardRef<HTMLDivElement, StatusIndicatorProps>(
   (
     {
       size,
@@ -44,7 +42,7 @@ const StatusIndicator = forwardRef<HTMLDivElement, StatusIndicatorProps>(
       <Flex
         ref={ref}
         style={style}
-        className={clsx('status-indicator', size, color, className)}
+        className={cn('status-indicator', size, color, className)}
         aria-label={ariaLabel}
         radius="full"
         {...rest}

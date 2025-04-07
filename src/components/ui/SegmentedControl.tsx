@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Scroller, ToggleButton } from '.';
-import { Flex } from './Flex';
-import type { ToggleButtonProps } from './ToggleButton';
+import { Scroller, ToggleButton, Flex } from '@fck/components/ui';
+import type { ToggleButtonProps } from '@fck/components/ui/ToggleButton';
+import type * as React from 'react';
 
 interface ButtonOption extends Omit<ToggleButtonProps, 'selected'> {
   value: string;
@@ -34,8 +34,12 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
   ...scrollerProps
 }) => {
   const [internalSelected, setInternalSelected] = useState<string>(() => {
-    if (selected !== undefined) return selected;
-    if (defaultSelected !== undefined) return defaultSelected;
+    if (selected !== undefined) {
+      return selected;
+    }
+    if (defaultSelected !== undefined) {
+      return defaultSelected;
+    }
     return buttons[0]?.value || '';
   });
 
@@ -64,7 +68,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
 
     switch (event.key) {
       case 'ArrowLeft':
-      case 'ArrowUp':
+      case 'ArrowUp': {
         event.preventDefault();
         const prevIndex =
           focusedIndex === -1
@@ -74,8 +78,9 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
               : buttons.length - 1;
         buttonRefs.current[prevIndex]?.focus();
         break;
+      }
       case 'ArrowRight':
-      case 'ArrowDown':
+      case 'ArrowDown': {
         event.preventDefault();
         const nextIndex =
           focusedIndex === -1
@@ -85,8 +90,9 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
               : 0;
         buttonRefs.current[nextIndex]?.focus();
         break;
+      }
       case 'Enter':
-      case ' ': // Space key
+      case ' ': { // Space key
         event.preventDefault();
         if (focusedIndex >= 0 && focusedIndex < buttons.length) {
           const focusedButton = buttons[focusedIndex];
@@ -94,6 +100,7 @@ const SegmentedControl: React.FC<SegmentedControlProps> = ({
           onToggle(focusedButton.value);
         }
         break;
+      }
       default:
         return;
     }

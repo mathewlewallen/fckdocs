@@ -1,26 +1,23 @@
 'use client';
 
-import type React from 'react';
+import * as React from 'react';
 import {
-  type InputHTMLAttributes,
-  type ReactNode,
-  forwardRef,
   useCallback,
   useEffect,
   useState,
 } from 'react';
-import { Text } from '.';
-import '@fck/styles/globals.css';
+import { Text, Flex } from '@fck/components/ui';
+
 import useDebounce from '@fck/hooks/useDebounce';
-import { clsx } from 'clsx';
-import { Flex } from './Flex';
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+import { cn } from '@fck/lib/utils';
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label: string;
   height?: 's' | 'm';
   error?: boolean;
-  errorMessage?: ReactNode;
-  description?: ReactNode;
+  errorMessage?: React.ReactNode;
+  description?: React.ReactNode;
   radius?:
     | 'none'
     | 'top'
@@ -33,13 +30,13 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     | 'bottom-left';
   className?: string;
   style?: React.CSSProperties;
-  hasPrefix?: ReactNode;
-  hasSuffix?: ReactNode;
+  hasPrefix?: React.ReactNode;
+  hasSuffix?: React.ReactNode;
   labelAsPlaceholder?: boolean;
-  validate?: (value: ReactNode) => ReactNode | null;
+  validate?: (value: React.ReactNode) => React.ReactNode | null;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
     {
       id,
@@ -64,7 +61,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   ) => {
     const [isFocused, setIsFocused] = useState(false);
     const [isFilled, setIsFilled] = useState(!!props.value);
-    const [validationError, setValidationError] = useState<ReactNode | null>(
+    const [validationError, setValidationError] = useState<React.ReactNode | null>(
       null
     );
     const debouncedValue = useDebounce(props.value, 1000);
@@ -112,7 +109,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const displayError = validationError || errorMessage;
 
-    const inputClassNames = clsx(
+    const inputClassNames = cn(
       'input', // replace styles.input
       'font-body font-default font-m', // global/tailwind font classes
       {
@@ -134,7 +131,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         style={style}
         fillWidth
         fitHeight
-        className={clsx(className, {
+        className={cn(className, {
           error:
             (error || (displayError && debouncedValue !== '')) &&
             props.value !== '',
@@ -147,7 +144,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           position="relative"
           overflow="hidden"
           vertical="stretch"
-          className={clsx(
+          className={cn(
             'input-base', // global base style
             height === 's' && 'input-s',
             height === 'm' && 'input-m',
@@ -180,7 +177,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
                 as="label"
                 variant="label-default-m"
                 htmlFor={id}
-                className={clsx('input-label', {
+                className={cn('input-label', {
                   floating: isFocused || isFilled,
                 })}
               >

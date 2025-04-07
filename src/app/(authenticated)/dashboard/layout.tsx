@@ -3,6 +3,7 @@ import { Button } from '@fck/components/ui/Button';
 import { SideMenu } from '@fck/components/ui/side-menu';
 import { PanelLeftCloseIcon } from 'lucide-react';
 import type { PropsWithChildren } from 'react';
+import '@fck/styles/globals.css';
 
 export default function AppLayout({ children }: PropsWithChildren) {
   return (

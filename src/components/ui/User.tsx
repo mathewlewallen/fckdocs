@@ -1,17 +1,17 @@
 'use client';
 
-import { clsx } from 'clsx';
-import type React from 'react';
+import { cn } from '@fck/lib/utils';
+import type * as React from 'react';
 import { forwardRef } from 'react';
 import {
   Avatar,
-  type AvatarProps,
   Skeleton,
   Tag,
-  type TagProps,
   Text,
-} from '.';
-import { Flex } from './Flex';
+  Flex
+} from '@fck/components/ui';
+import type { TagProps } from '@fck/components/ui/Tag';
+import type { AvatarProps } from '@fck/components/ui/Avatar';
 
 interface UserProps {
   name?: string;
@@ -41,7 +41,7 @@ const User = forwardRef<HTMLDivElement, UserProps>(
     const isEmpty = empty || (!src && !value);
 
     return (
-      <Flex ref={ref} vertical="center" gap="8" className={clsx(className)}>
+      <Flex ref={ref} vertical="center" gap="8" className={cn(className)}>
         <Avatar
           size="m"
           src={src}

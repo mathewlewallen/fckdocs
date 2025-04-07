@@ -1,11 +1,11 @@
 'use client';
 
-import type React from 'react';
-import { DropdownWrapper, User, type UserProps } from '.';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
-import type { DropdownWrapperProps } from './DropdownWrapper';
-import { Flex } from './Flex';
+import type * as React from 'react';
+import { DropdownWrapper, User, Flex } from '@fck/components/ui';
+import type { UserProps } from '@fck/components/ui/User';
+
+import { cn } from '@fck/lib/utils';
+import type { DropdownWrapperProps } from '@fck/components/ui/DropdownWrapper';
 
 interface UserMenuProps
   extends UserProps,
@@ -43,7 +43,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
           cursor="interactive"
           border={selected ? 'neutral-medium' : 'transparent'}
           background={selected ? 'neutral-strong' : 'transparent'}
-          className={clsx(
+          className={cn(
             className || '',
             selected ? 'selected' : '',
             'wrapper'
@@ -53,7 +53,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
           <User {...userProps} />
         </Flex>
       }
-      dropdown={<>{dropdown}</>}
+      dropdown={dropdown}
     />
   );
 };

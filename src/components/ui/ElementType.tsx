@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import type React from 'react';
-import { type ReactNode, forwardRef } from 'react';
+import type * as React from 'react';
+import { forwardRef } from 'react';
 
 interface ElementTypeProps {
   href?: string;
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
   [key: string]: any;

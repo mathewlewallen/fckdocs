@@ -1,21 +1,21 @@
 'use client';
 
-import type React from 'react';
-import { type ReactNode, forwardRef, useEffect, useRef, useState } from 'react';
+import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   DropdownWrapper,
   Icon,
   IconButton,
   Input,
-  type InputProps,
   Option,
-} from '.';
-import '@fck/styles/globals.css';
+  Flex,
+} from '@fck/components/ui';
+import type { DropdownWrapperProps } from '@fck/components/ui/DropdownWrapper';
+import type { OptionProps } from '@fck/components/ui/Option';
+import type { InputProps } from '@fck/components/ui/Input';
+
 import type { Placement } from '@floating-ui/react-dom';
-import { clsx } from 'clsx';
-import type { DropdownWrapperProps } from './DropdownWrapper';
-import { Flex } from './Flex';
-import type { OptionProps } from './option';
+import { cn } from '@fck/lib/utils';
 
 type SelectOptionType = Omit<OptionProps, 'selected'>;
 
@@ -24,7 +24,7 @@ interface SelectProps
     Pick<DropdownWrapperProps, 'minHeight' | 'minWidth' | 'maxWidth'> {
   options: SelectOptionType[];
   value?: string;
-  emptyState?: ReactNode;
+  emptyState?: React.ReactNode;
   onSelect?: (value: string) => void;
   floatingPlacement?: Placement;
   searchable?: boolean;
@@ -32,7 +32,7 @@ interface SelectProps
   style?: React.CSSProperties;
 }
 
-const Select = forwardRef<HTMLDivElement, SelectProps>(
+const Select = React.forwardRef<HTMLDivElement, SelectProps>(
   (
     {
       options,
@@ -190,7 +190,7 @@ const Select = forwardRef<HTMLDivElement, SelectProps>(
             onFocus={handleFocus}
             onKeyDown={handleKeyDown}
             readOnly
-            className={clsx('cursor-interactive', 'fill-width', {
+            className={cn('cursor-interactive', 'fill-width', {
               filled: isFilled,
               focused: isFocused,
               className,

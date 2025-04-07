@@ -13,6 +13,7 @@ import { person } from '@fck/lib/once-ui/content';
 import { formatDate } from '@fck/lib/once-ui/utils/formatDate';
 import { getPosts } from '@fck/lib/once-ui/utils/utils';
 import { notFound } from 'next/navigation';
+import '@fck/styles/globals.css';
 
 interface BlogParams {
   params: {

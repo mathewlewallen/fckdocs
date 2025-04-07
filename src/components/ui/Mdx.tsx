@@ -1,13 +1,11 @@
 import { MDXRemote, type MDXRemoteProps } from 'next-mdx-remote/rsc';
-import type React from 'react';
-import type { ReactNode } from 'react';
-
+import type * as React from 'react';
 import { CodeBlock } from '@fck/components/modules';
 import { SmartImage, SmartLink, Text } from '@fck/components/ui';
 import { HeadingLink } from '@fck/components/ui';
-
 import type { TextProps } from '@fck/components/interfaces';
 import type { SmartImageProps } from '@fck/components/ui/SmartImage';
+import type { SmartLinkProps } from '@fck/components/ui/SmartLink';
 
 type TableProps = {
   data: {
@@ -40,7 +38,7 @@ function Table({ data }: TableProps) {
 
 type CustomLinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
   href: string;
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
 function CustomLink({ href, children, ...props }: CustomLinkProps) {
@@ -139,15 +137,15 @@ function createParagraph({ children }: TextProps) {
 }
 
 const components = {
-  p: createParagraph as any,
-  h1: createHeading(1) as any,
-  h2: createHeading(2) as any,
-  h3: createHeading(3) as any,
-  h4: createHeading(4) as any,
-  h5: createHeading(5) as any,
-  h6: createHeading(6) as any,
-  img: createImage as any,
-  a: CustomLink as any,
+  p: createParagraph as React.FC<TextProps>,
+  h1: createHeading(1) as React.FC<TextProps>,
+  h2: createHeading(2) as React.FC<TextProps>,
+  h3: createHeading(3) as React.FC<TextProps>,
+  h4: createHeading(4) as React.FC<TextProps>,
+  h5: createHeading(5) as React.FC<TextProps>,
+  h6: createHeading(6) as React.FC<TextProps>,
+  img: createImage as React.FC<SmartImageProps>,
+  a: CustomLink as React.FC<SmartLinkProps>,
   Table,
   CodeBlock,
 };

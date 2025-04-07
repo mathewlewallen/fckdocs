@@ -16,6 +16,7 @@ import {
 import Link from 'next/link';
 import Balancer from 'react-wrap-balancer';
 import type Stripe from 'stripe';
+import '@fck/styles/globals.css';
 
 const features = [
   {

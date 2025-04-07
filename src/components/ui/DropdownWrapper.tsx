@@ -9,18 +9,16 @@ import {
   size,
   useFloating,
 } from '@floating-ui/react-dom';
-import type React from 'react';
+import type * as React from 'react';
 import {
-  type ReactNode,
   forwardRef,
   useEffect,
   useImperativeHandle,
   useRef,
   useState,
 } from 'react';
-import { Dropdown } from '.';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
+import { Dropdown, Flex } from '@fck/components/ui';
+
 
 export interface DropdownWrapperProps {
   fillWidth?: boolean;
@@ -28,8 +26,8 @@ export interface DropdownWrapperProps {
   maxWidth?: number;
   minHeight?: number;
   floatingPlacement?: Placement;
-  trigger: ReactNode;
-  dropdown: ReactNode;
+  trigger: React.ReactNode;
+  dropdown: React.ReactNode;
   selectedOption?: string;
   style?: React.CSSProperties;
   className?: string;

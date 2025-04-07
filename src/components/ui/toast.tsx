@@ -1,10 +1,10 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import { Icon, Iconbutton, Flex, Text } from '.';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 
 interface ToastProps {
   className?: string;
@@ -46,7 +46,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
         border="neutral-medium"
         role="alert"
         aria-live="assertive"
-        className={clsx(className, 'toast', variant, {
+        className={cn(className, 'toast', variant, {
           visible: visible,
           hidden: !visible,
         })}

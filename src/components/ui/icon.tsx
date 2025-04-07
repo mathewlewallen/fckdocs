@@ -2,24 +2,24 @@
 
 import { iconLibrary } from '@fck/components/icons';
 import type { ColorScheme, ColorWeight } from '@fck/components/types';
-import type React from 'react';
-import { type ReactNode, forwardRef, useEffect, useState } from 'react';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 import type { IconType } from 'react-icons';
-import { Tooltip } from '.';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
-import { clsx } from 'clsx';
+import { Tooltip, Flex } from '@fck/components/ui';
+
+import { cn } from '@fck/lib/utils';
+
 interface IconProps extends React.ComponentProps<typeof Flex> {
   name: string;
   onBackground?: `${ColorScheme}-${ColorWeight}`;
   onSolid?: `${ColorScheme}-${ColorWeight}`;
   size?: 'xs' | 's' | 'm' | 'l' | 'xl';
   decorative?: boolean;
-  tooltip?: ReactNode;
+  tooltip?: React.ReactNode;
   tooltipPosition?: 'top' | 'bottom' | 'left' | 'right';
 }
 
-const Icon = forwardRef<HTMLDivElement, IconProps>(
+const Icon = React.forwardRef<HTMLDivElement, IconProps>(
   (
     {
       name,
@@ -82,7 +82,7 @@ const Icon = forwardRef<HTMLDivElement, IconProps>(
         position="relative"
         as="div"
         ref={ref}
-        className={clsx(colorClass, 'icon', size)}
+        className={cn(colorClass, 'icon', size)}
         role={decorative ? 'presentation' : undefined}
         aria-hidden={decorative ? 'true' : undefined}
         aria-label={decorative ? undefined : name}

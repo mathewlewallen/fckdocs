@@ -11,7 +11,7 @@ import type {
   SpacingToken,
   TextVariant,
 } from '@fck/components/types';
-import { clsx } from 'clsx';
+import { cn } from '@fck/lib/utils';
 import type { ComponentPropsWithoutRef, ElementType } from 'react';
 
 type HeadingProps<T extends ElementType> = TextProps<T> &
@@ -90,7 +90,7 @@ const Heading = <T extends ElementType = 'h1'>({
     return token ? `${prefix}-${token}` : undefined;
   };
 
-  const combinedClasses = clsx(
+  const combinedClasses = cn(
     ...classes,
     colorClass,
     className,

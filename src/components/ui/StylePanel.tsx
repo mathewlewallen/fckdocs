@@ -1,11 +1,10 @@
 'use client';
 
-import { forwardRef, useEffect, useState } from 'react';
-import { Column, IconButton, Scroller, SegmentedControl, Text } from '.';
-import '@fck/styles/globals.css';
+import { useEffect, useState } from 'react';
+import * as React from 'react';
+import { Column, IconButton, Scroller, SegmentedControl, Text, Flex } from '@fck/components/ui';
 import { style } from '@fck/lib/once-ui';
-import { clsx } from 'clsx';
-import { Flex } from './Flex';
+import { cn } from '@fck/lib/utils';
 
 interface StylePanelProps extends React.ComponentProps<typeof Flex> {
   style?: React.CSSProperties;
@@ -48,7 +47,7 @@ const colorOptions = {
   neutral: ['sand', 'gray', 'slate'],
 };
 
-const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
+const StylePanel = React.forwardRef<HTMLDivElement, StylePanelProps>(
   ({ ...rest }, ref) => {
     const [selectedShape, setSelectedShape] = useState(style.border);
     const [brandColor, setBrandColor] = useState(style.brand);
@@ -137,7 +136,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                   key={radius}
                   horizontal="center"
                   vertical="center"
-                  className={clsx(
+                  className={cn(
                     'select',
                     selectedShape === radius && 'selected'
                   )}
@@ -146,7 +145,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                   }}
                 >
                   <IconButton variant="ghost" size="m">
-                    <div className={clsx('neutral', 'swatch')}></div>
+                    <div className={cn('neutral', 'swatch')} />
                   </IconButton>
                 </Flex>
               ))}
@@ -180,13 +179,13 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                   key={color}
                   horizontal="center"
                   vertical="center"
-                  className={clsx('select', brandColor === color && 'selected')}
+                  className={cn('select', brandColor === color && 'selected')}
                   onClick={() => {
                     setBrandColor(color);
                   }}
                 >
                   <IconButton variant="ghost" size="m">
-                    <div className={color + ' swatch'}></div>
+                    <div className={`${color} swatch`} />
                   </IconButton>
                 </Flex>
               ))}
@@ -212,7 +211,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                   key={color}
                   horizontal="center"
                   vertical="center"
-                  className={clsx(
+                  className={cn(
                     'select',
                     accentColor === color && 'selected'
                   )}
@@ -221,7 +220,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                   }}
                 >
                   <IconButton variant="ghost" size="m">
-                    <div className={color + ' swatch'}></div>
+                    <div className={`${color} swatch`} />
                   </IconButton>
                 </Flex>
               ))}
@@ -246,7 +245,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                   key={color}
                   horizontal="center"
                   vertical="center"
-                  className={clsx(
+                  className={cn(
                     'select',
                     neutralColor === color && 'selected'
                   )}
@@ -255,7 +254,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                   }}
                 >
                   <IconButton variant="ghost" size="m">
-                    <div className={color + ' swatch'}></div>
+                    <div className={`${color} swatch`} />
                   </IconButton>
                 </Flex>
               ))}
@@ -296,7 +295,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                         width="24"
                         height="24"
                         radius="s"
-                      ></Flex>
+                      />
                       Color
                     </Flex>
                   ),
@@ -314,7 +313,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                         width="24"
                         height="24"
                         radius="s"
-                      ></Flex>
+                      />
                       Inverse
                     </Flex>
                   ),
@@ -332,7 +331,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                         width="24"
                         height="24"
                         radius="s"
-                      ></Flex>
+                      />
                       Contrast
                     </Flex>
                   ),
@@ -369,7 +368,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                         width="24"
                         height="24"
                         radius="s"
-                      ></Flex>
+                      />
                       Flat
                     </Flex>
                   ),
@@ -390,7 +389,7 @@ const StylePanel = forwardRef<HTMLDivElement, StylePanelProps>(
                         width="24"
                         height="24"
                         radius="s"
-                      ></Flex>
+                      />
                       Plastic
                     </Flex>
                   ),

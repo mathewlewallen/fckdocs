@@ -1,13 +1,13 @@
 'use client';
 
-import { Flex } from '@fck/components/ui/Flex';
-import type React from 'react';
-import { type ReactNode, type SyntheticEvent, forwardRef } from 'react';
+import { Flex } from '@fck/components/ui';
+import type * as React from 'react';
+import { forwardRef } from 'react';
 
 interface DropdownProps
   extends Omit<React.ComponentProps<typeof Flex>, 'onSelect'> {
   selectedOption?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
   onEscape?: () => void;
   onSelect?: (event: string) => void;
 }
@@ -17,7 +17,7 @@ const Dropdown = forwardRef<HTMLDivElement, DropdownProps>(
     { selectedOption, className, children, onEscape, onSelect, ...rest },
     ref
   ) => {
-    const handleSelect = (event: SyntheticEvent<HTMLDivElement>) => {
+    const handleSelect = (event: React.SyntheticEvent<HTMLDivElement>) => {
       const value = event.currentTarget.getAttribute('data-value');
       if (onSelect && value) {
         onSelect(value);

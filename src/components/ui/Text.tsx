@@ -11,15 +11,16 @@ import type {
   SpacingToken,
   TextVariant,
 } from '@fck/components/types';
-import { clsx } from 'clsx';
-import type { ComponentPropsWithoutRef, ElementType } from 'react';
+import { log } from '@fck/lib/observability/log';
+import { cn } from '@fck/lib/utils';
+import type * as React from 'react';
 
-type TypeProps<T extends ElementType> = TextProps<T> &
+type TypeProps<T extends React.ElementType> = TextProps<T> &
   CommonProps &
   SpacingProps &
-  ComponentPropsWithoutRef<T>;
+  React.ComponentPropsWithoutRef<T>;
 
-const Text = <T extends ElementType = 'span'>({
+const Text = <T extends React.ElementType = 'span'>({
   as,
   variant,
   size,
@@ -50,11 +51,11 @@ const Text = <T extends ElementType = 'span'>({
   const Component = as || 'span';
 
   if (variant && (size || weight)) {
-    console.warn("When 'variant' is set, 'size' and 'weight' are ignored.");
+    log.warn("When 'variant' is set, 'size' and 'weight' are ignored.");
   }
 
   if (onBackground && onSolid) {
-    console.warn(
+    log.warn(
       "You cannot use both 'onBackground' and 'onSolid' props simultaneously. Only one will be applied."
     );
   }
@@ -90,7 +91,7 @@ const Text = <T extends ElementType = 'span'>({
     return token ? `${prefix}-${token}` : undefined;
   };
 
-  const combinedClasses = clsx(
+  const combinedClasses = cn(
     ...classes,
     colorClass,
     className,

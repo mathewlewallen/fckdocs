@@ -1,11 +1,9 @@
 'use client';
 
-import type React from 'react';
-import { type ReactNode, forwardRef } from 'react';
-import { Icon, Text } from '.';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
-import { Flex } from './Flex';
+import * as React from 'react';
+import { Icon, Text, Flex } from '@fck/components/ui';
+
+import { cn } from '@fck/lib/utils';
 
 interface TagProps extends React.ComponentProps<typeof Flex> {
   variant?:
@@ -21,10 +19,10 @@ interface TagProps extends React.ComponentProps<typeof Flex> {
   label?: string;
   prefixIcon?: string;
   suffixIcon?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
-const Tag = forwardRef<HTMLDivElement, TagProps>(
+const Tag = React.forwardRef<HTMLDivElement, TagProps>(
   (
     {
       variant = 'neutral',
@@ -49,7 +47,7 @@ const Tag = forwardRef<HTMLDivElement, TagProps>(
         radius="l"
         gap="4"
         ref={ref}
-        className={clsx('tag', variant, size, className)}
+        className={cn('tag', variant, size, className)}
         {...rest}
       >
         {prefixIcon && <Icon name={prefixIcon} size="xs" />}

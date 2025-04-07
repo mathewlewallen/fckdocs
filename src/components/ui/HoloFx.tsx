@@ -1,11 +1,11 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
 import { Flex } from './Flex';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 interface MaskOptions {
   maskPosition?: string;
 }
@@ -124,7 +124,7 @@ const HoloFx: React.FC<HoloFxProps> = ({
         position="absolute"
         fill
         pointerEvents="none"
-        className={clsx('overlay', 'burn')}
+        className={cn('overlay', 'burn')}
         style={{
           ['--burn-opacity' as any]: burnDefaults.opacity + '%',
           filter: burnDefaults.filter,
@@ -139,7 +139,7 @@ const HoloFx: React.FC<HoloFxProps> = ({
         position="absolute"
         fill
         pointerEvents="none"
-        className={clsx('overlay', 'light')}
+        className={cn('overlay', 'light')}
         style={{
           ['--light-opacity' as any]: lightDefaults.opacity + '%',
           filter: lightDefaults.filter,
@@ -154,7 +154,7 @@ const HoloFx: React.FC<HoloFxProps> = ({
         position="absolute"
         fill
         pointerEvents="none"
-        className={clsx('overlay', 'texture')}
+        className={cn('overlay', 'texture')}
         style={{
           ['--texture-opacity' as any]: textureDefaults.opacity + '%',
           backgroundImage: textureDefaults.image,

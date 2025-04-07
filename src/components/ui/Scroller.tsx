@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
-import { IconButton } from '.';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
-import { Fade } from './fade';
-import { Flex } from './Flex';
+import * as React from 'react';
+import { useEffect, useRef, useState } from 'react';
+
+import { cn } from '@fck/lib/utils';
+import { Flex, Fade, IconButton } from '@fck/components/ui';
 
 interface ScrollerProps extends React.ComponentProps<typeof Flex> {
   children?: React.ReactNode;
@@ -115,7 +114,7 @@ const Scroller: React.FC<ScrollerProps> = ({
     <Flex
       fillWidth
       position="relative"
-      className={clsx('container', className)}
+      className={cn('container', className)}
       style={style}
       {...rest}
     >
@@ -139,7 +138,7 @@ const Scroller: React.FC<ScrollerProps> = ({
             }}
             size="s"
             variant="secondary"
-            className={clsx('scroll-button', 'scroll-button-prev')}
+            className={cn('scroll-button', 'scroll-button-prev')}
             aria-label="Scroll Previous"
           />
         </Fade>
@@ -150,7 +149,7 @@ const Scroller: React.FC<ScrollerProps> = ({
         position="relative"
         radius="m"
         direction={direction}
-        className={clsx('scroller', direction)}
+        className={cn('scroller', direction)}
         ref={scrollerRef}
       >
         {wrappedChildren}
@@ -175,7 +174,7 @@ const Scroller: React.FC<ScrollerProps> = ({
             }}
             size="s"
             variant="secondary"
-            className={clsx('scroll-button', 'scroll-button-next')}
+            className={cn('scroll-button', 'scroll-button-next')}
             aria-label="Scroll Next"
           />
         </Fade>

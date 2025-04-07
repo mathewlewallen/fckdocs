@@ -1,9 +1,9 @@
 'use client';
 
-import type React from 'react';
-import { forwardRef } from 'react';
-import { IconButton, type IconButtonProps, Text } from '.';
-import { Flex } from './Flex';
+import * as React from 'react';
+import { IconButton, Text, Flex } from '@fck/components/ui';
+import type { IconButtonProps } from '@fck/components/ui/IconButton';
+
 interface InteractiveDetailsProps {
   label?: React.ReactNode;
   description?: React.ReactNode;
@@ -13,7 +13,7 @@ interface InteractiveDetailsProps {
   id?: string;
 }
 
-const InteractiveDetails: React.FC<InteractiveDetailsProps> = forwardRef<
+const InteractiveDetails: React.FC<InteractiveDetailsProps> = React.forwardRef<
   HTMLDivElement,
   InteractiveDetailsProps
 >(({ label, description, iconButtonProps, onClick, className, id }, ref) => {

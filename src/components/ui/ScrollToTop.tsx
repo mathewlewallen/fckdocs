@@ -1,7 +1,9 @@
-import { Flex } from '@fck/components/ui/Flex';
+'use client'
+
+import { Flex } from '@fck/components/ui';
 import { useEffect, useState } from 'react';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 
 interface ScrollToTopProps extends React.ComponentProps<typeof Flex> {
   offset?: number;
@@ -38,7 +40,7 @@ export default function ScrollToTop({
       position="fixed"
       bottom="16"
       right="16"
-      className={clsx('scrollToTop', className)}
+      className={cn('scrollToTop', className)}
       data-visible={isVisible}
       tabIndex={isVisible ? 0 : -1}
       zIndex={isVisible ? 8 : 0}

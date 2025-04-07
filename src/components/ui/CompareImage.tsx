@@ -1,10 +1,10 @@
 'use client';
 
-import { IconButton, SmartImage } from '@fck/components/ui';
+import { IconButton, SmartImage, Flex } from '@fck/components/ui';
 import { useEffect, useRef, useState } from 'react';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
-import { clsx } from 'clsx';
+import type * as React from 'react';
+
+import { cn } from '@fck/lib/utils';
 
 interface SideContent {
   src: string | React.ReactNode;
@@ -40,7 +40,7 @@ export default function CompareImage({
   leftContent,
   rightContent,
   ...rest
-}: CompareImageProps) => {
+}: CompareImageProps) {
   const [position, setPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
@@ -104,7 +104,7 @@ export default function CompareImage({
         position="absolute"
         horizontal="center"
         width={3}
-        className={clsx('hitArea')}
+        className={cn('hitArea')}
         top="0"
         bottom="0"
         style={{
@@ -118,7 +118,7 @@ export default function CompareImage({
       <IconButton
         icon="chevronsLeftRight"
         variant="secondary"
-        className={clsx('dragIcon')}
+        className={cn('dragIcon')}
         style={{
           left: `${position}%`,
         }}

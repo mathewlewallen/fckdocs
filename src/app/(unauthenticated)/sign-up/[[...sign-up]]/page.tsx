@@ -1,6 +1,7 @@
 import { createMetadata } from '@fck/lib/seo/metadata';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
+import '@fck/styles/globals.css';
 
 const title = 'Create an account';
 const description = 'Enter your details to get started.';

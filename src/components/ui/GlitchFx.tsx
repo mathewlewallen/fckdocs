@@ -1,9 +1,9 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 import { Flex } from './Flex';
 
 interface GlitchFxProps extends React.ComponentProps<typeof Flex> {
@@ -70,7 +70,7 @@ const GlitchFx = forwardRef<HTMLDivElement, GlitchFxProps>(
         position="relative"
         inline
         zIndex={0}
-        className={clsx(speedClass, isGlitching && 'active')}
+        className={cn(speedClass, isGlitching && 'active')}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         {...rest}
@@ -87,7 +87,7 @@ const GlitchFx = forwardRef<HTMLDivElement, GlitchFxProps>(
           fill
           zIndex={0}
           opacity={50}
-          className={clsx('glitch-layer', 'blue-shift')}
+          className={cn('glitch-layer', 'blue-shift')}
         >
           {children}
         </Flex>
@@ -100,7 +100,7 @@ const GlitchFx = forwardRef<HTMLDivElement, GlitchFxProps>(
           fill
           zIndex={0}
           opacity={50}
-          className={clsx('glitch-layer', 'red-shift')}
+          className={cn('glitch-layer', 'red-shift')}
         >
           {children}
         </Flex>

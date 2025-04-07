@@ -2,7 +2,7 @@
 
 import { Skeleton } from '@fck/components/ui';
 import Image from 'next/image';
-import type React from 'react';
+import type * as React from 'react';
 import { type CSSProperties, useEffect, useRef, useState } from 'react';
 import { Flex } from './Flex';
 

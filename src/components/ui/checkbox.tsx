@@ -1,11 +1,11 @@
 'use client';
 
-import { clsx } from 'clsx';
-import type React from 'react';
-import { forwardRef, useEffect, useState } from 'react';
-import { Icon, InteractiveDetails, Flex } from '.';
-import type { InteractiveDetailsProps } from './InteractiveDetails';
-import '@fck/styles/globals.css';
+import { cn } from '@fck/lib/utils';
+import  * as React from 'react';
+import { useEffect, useState } from 'react';
+import { Icon, InteractiveDetails, Flex } from '@fck/components/ui';
+import type { InteractiveDetailsProps } from '@fck/components/ui/InteractiveDetails';
+
 
 interface CheckboxProps
   extends Omit<InteractiveDetailsProps, 'onClick'>,
@@ -18,7 +18,7 @@ interface CheckboxProps
 const generateId = () =>
   `checkbox-${Math.random().toString(36).substring(2, 9)}`;
 
-const Checkbox: React.FC<CheckboxProps> = forwardRef<
+const Checkbox: React.FC<CheckboxProps> = React.forwardRef<
   HTMLInputElement,
   CheckboxProps
 >(
@@ -64,7 +64,7 @@ const Checkbox: React.FC<CheckboxProps> = forwardRef<
       <Flex
         vertical="center"
         gap="16"
-        className={clsx('container', className, {
+        className={cn('container', className, {
           disabled: disabled,
         })}
         style={style}
@@ -108,7 +108,7 @@ const Checkbox: React.FC<CheckboxProps> = forwardRef<
           aria-labelledby={checkboxId}
           onClick={toggleItem}
           onKeyDown={handleKeyDown}
-          className={clsx('element', {
+          className={cn('element', {
             checked:
               controlledIsChecked !== undefined
                 ? controlledIsChecked || isIndeterminate

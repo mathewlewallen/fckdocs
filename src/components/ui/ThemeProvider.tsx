@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import '@fck/styles/globals.css';
+import type * as React from 'react';
 
 type Theme = 'light' | 'dark' | 'system';
 
@@ -40,7 +40,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   // Update resolvedTheme when theme changes
   useEffect(() => {
-    if (!mounted) return;
+    if (!mounted) {
+      return;
+    }
 
     const root = document.documentElement;
     if (theme === 'system') {
@@ -55,7 +57,9 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
 
   // Listen for system theme changes
   useEffect(() => {
-    if (!mounted || theme !== 'system') return;
+    if (!mounted || theme !== 'system') {
+      return;
+    }
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     const handleChange = (e: MediaQueryListEvent) => {

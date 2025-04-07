@@ -6,7 +6,7 @@ import {
   SmartImage,
   Text,
 } from '@fck/components/ui';
-import { Flex } from '@fck/components/ui/Flex';
+import { Flex } from '@fck/components/ui';
 import ScrollToHash from '@fck/components/ui/ScrollToHash';
 import { CustomMDX } from '@fck/components/ui/custom-mdx';
 import { baseURL } from '@fck/lib/once-ui/config';
@@ -14,6 +14,8 @@ import { person } from '@fck/lib/once-ui/content';
 import { formatDate } from '@fck/lib/once-ui/utils/formatDate';
 import { getPosts } from '@fck/lib/once-ui/utils/utils';
 import { notFound } from 'next/navigation';
+import '@fck/styles/globals.css';
+
 interface WorkParams {
   params: {
     slug: string;

@@ -1,16 +1,16 @@
 'use client';
 
-import type React from 'react';
-import { forwardRef, useRef } from 'react';
-import { Icon, IconButton, Input, Flex } from '.';
-import type { InputProps } from './Input';
+import { Icon, IconButton, Input, Flex } from '@fck/components/ui';
+import * as React from 'react';
+import { useRef } from 'react';
+import type { InputProps } from '@fck/components/ui/Input';
 
 interface ColorInputProps extends Omit<InputProps, 'onChange' | 'value'> {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const ColorInput = forwardRef<HTMLInputElement, ColorInputProps>(
+const ColorInput = React.forwardRef<HTMLInputElement, ColorInputProps>(
   ({ label, id, value, onChange, ...props }, ref) => {
     const colorInputRef = useRef<HTMLInputElement>(null);
 

@@ -8,7 +8,7 @@ import {
   LiveblocksProvider,
   RoomProvider,
 } from '@liveblocks/react/suspense';
-import type { ComponentProps, ReactNode } from 'react';
+import type * as React from 'react';
 
 type Image = {
   id: string;
@@ -19,11 +19,11 @@ type Image = {
   timestamp: number;
 };
 
-export type RoomProps = ComponentProps<typeof LiveblocksProvider> & {
+export type RoomProps = React.ComponentProps<typeof LiveblocksProvider> & {
   id: string;
-  children: ReactNode;
+  children: React.ReactNode;
   authEndpoint: string;
-  fallback: ReactNode;
+  fallback: React.ReactNode;
   resolveUsers?: (
     args: ResolveUsersArgs
   ) => Promise<Liveblocks['UserMeta']['info'][]>;

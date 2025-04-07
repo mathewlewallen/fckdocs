@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import type React from 'react';
+import type * as React from 'react';
 import { useEffect } from 'react';
-import '@fck/styles/globals.css';
+
 import type { SpacingToken } from '@fck/components/types';
-import { Flex } from '@fck/components/ui/Flex';
-import { clsx } from 'clsx';
+import { Flex } from '@fck/components/ui';
+import { cn } from '@fck/lib/utils';
 
 const sizeMap: Record<string, SpacingToken> = {
   xs: '20',
@@ -89,7 +89,7 @@ const Logo: React.FC<LogoProps> = ({
 
   return href ? (
     <Link
-      className={clsx('radius-l', 'display-flex', 'fit-height', className)}
+      className={cn('radius-l', 'display-flex', 'fit-height', className)}
       style={style}
       href={href}
       aria-label="Trademark"
@@ -99,7 +99,7 @@ const Logo: React.FC<LogoProps> = ({
     </Link>
   ) : (
     <Flex
-      className={clsx(className)}
+      className={cn(className)}
       radius="l"
       fitHeight
       style={style}

@@ -1,8 +1,8 @@
-import { env } from '@fck/env';
+import { keys } from '@fck/lib/observability/keys';
 import { init } from '@sentry/nextjs';
 
 const opts = {
-  dsn: env.NEXT_PUBLIC_SENTRY_DSN,
+  dsn: keys().NEXT_PUBLIC_SENTRY_DSN,
 };
 
 export const initializeSentry = () => {

@@ -1,9 +1,9 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef } from 'react';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 import { InteractiveDetails, type InteractiveDetailsProps } from '.';
 import { Flex } from './Flex';
 interface SwitchProps
@@ -54,7 +54,7 @@ const Switch: React.FC<SwitchProps> = forwardRef<HTMLInputElement, SwitchProps>(
         vertical="center"
         horizontal={reverse ? 'space-between' : undefined}
         fillWidth={reverse}
-        className={clsx('container', className, {
+        className={cn('container', className, {
           reverse: reverse,
           disabled: disabled,
         })}
@@ -77,7 +77,7 @@ const Switch: React.FC<SwitchProps> = forwardRef<HTMLInputElement, SwitchProps>(
           {...props}
         />
         <div
-          className={clsx('switch', {
+          className={cn('switch', {
             checked: isChecked,
             disabled: disabled,
           })}
@@ -85,7 +85,7 @@ const Switch: React.FC<SwitchProps> = forwardRef<HTMLInputElement, SwitchProps>(
           <div
             onKeyDown={handleKeyDown}
             tabIndex={disabled ? -1 : 0}
-            className={clsx('element', {
+            className={cn('element', {
               checked: isChecked,
               disabled: disabled,
             })}

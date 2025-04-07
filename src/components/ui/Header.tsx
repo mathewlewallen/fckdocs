@@ -1,24 +1,27 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
+import type * as React from 'react';
 
-import { Fade, Line, ToggleButton } from '@fck/components/ui';
-import '@fck/styles/globals.css';
 import {
   Breadcrumb,
+  Fade,
+  Line,
+  ToggleButton,
+  Flex,
+  Separator
+} from '@fck/components/ui';
+import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
-  BreadcrumbSeparator,
-} from '@fck/components/ui/breadcrumb';
-import { Separator } from '@fck/components/ui/Separator';
+  BreadcrumbSeparator
+} from '@fck/components/ui/Breadcrumb'
 import { SidebarTrigger } from '@fck/components/ui/Sidebar';
 import { display, routes } from '@fck/lib/once-ui/config';
 import { about, blog, gallery, person, work } from '@fck/lib/once-ui/content';
-import { Fragment, type ReactNode } from 'react';
-import { Flex } from './Flex';
 
 type TimeDisplayProps = {
   timeZone: string;
@@ -28,7 +31,7 @@ type TimeDisplayProps = {
 type HeaderProps = {
   pages: string[];
   page: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
 };
 
 const TimeDisplay: React.FC<TimeDisplayProps> = ({

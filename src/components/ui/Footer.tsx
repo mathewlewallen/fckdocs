@@ -1,5 +1,5 @@
 import { person, social } from '@fck/lib/once-ui/content';
-import '@fck/styles/globals.css';
+
 import { Status } from '@fck/lib/observability/status';
 import { Flex } from './Flex';
 import { IconButton } from './IconButton';

@@ -1,10 +1,10 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Toast } from '.';
-import '@fck/styles/globals.css';
+
 import { Flex } from './Flex';
 
 interface ToasterProps {

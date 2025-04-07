@@ -1,15 +1,12 @@
 'use client';
 
-import { cn } from '@fck/lib/utils';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
-import { clsx } from 'clsx';
-import type React from 'react';
-import { type ReactNode, forwardRef } from 'react';
-import { Icon } from '.';
-import { Flex } from './Flex';
+import { cn } from '@fck/lib/utils';
+import * as React from 'react';
+import { Icon, Flex } from '@fck/components/ui';
 
 type TooltipProps = {
-  label: ReactNode;
+  label: React.ReactNode;
   prefixIcon?: string;
   suffixIcon?: string;
   className?: string;
@@ -59,7 +56,7 @@ function TooltipContent({
   );
 }
 
-const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
+const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
   ({ label, prefixIcon, suffixIcon, className, style }, ref) => {
     return (
       <Flex
@@ -79,7 +76,7 @@ const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
         radius="s"
         border="neutral-medium"
         role="tooltip"
-        className={clsx(className)}
+        className={cn(className)}
       >
         {prefixIcon && <Icon name={prefixIcon} size="xs" />}
         <Flex

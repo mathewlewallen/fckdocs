@@ -1,9 +1,5 @@
 'use client';
 
-import type React from 'react';
-import { useState } from 'react';
-
-import { CodeBlock, MediaUpload } from '@fck/components/modules';
 import {
   Avatar,
   AvatarGroup,
@@ -11,7 +7,6 @@ import {
   Button,
   Card,
   Column,
-  type DateRange,
   DateRangePicker,
   Dialog,
   Fade,
@@ -36,13 +31,19 @@ import {
   Switch,
   TagInput,
   Text,
-  Textarea,
+  TextArea,
+  ThemeSwitcher,
   TiltFx,
-  useToast,
+  CompareImage,
+  ScrollToTop,
 } from '@fck/components/ui';
-import { CompareImage } from '@fck/components/ui/CompareImage';
-import { ScrollToTop } from '@fck/components/ui/ScrollToTop';
-import { ThemeSwitcher } from '@fck/components/ui/ThemeSwitcher';
+import { useToast } from '@fck/components/ui/ToastProvider';
+import type { DateRange } from '@fck/components/ui/DateRangePicker';
+import type * as React from 'react';
+import { useState } from 'react';
+import { CodeBlock, MediaUpload } from '@fck/components/modules';
+import '@fck/styles/globals.css';
+import { log } from '@fck/lib/observability/log';
 
 export default function Home() {
   const [selectedValue, setSelectedValue] = useState('');
@@ -62,7 +63,7 @@ export default function Home() {
   const [twoFA, setTwoFA] = useState(false);
 
   const handleSelect = (value: string) => {
-    console.log('Selected option:', value);
+    log.info('Selected option:', { value });
     setSelectedValue(value);
   };
 
@@ -853,7 +854,7 @@ export default function Home() {
                     id="profileEmail"
                   />
                 </Column>
-                <Textarea
+                <TextArea
                   id="intro"
                   label="Intro"
                   lines="auto"

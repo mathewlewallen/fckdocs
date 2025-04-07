@@ -1,9 +1,10 @@
 'use client';
 
-import { clsx } from 'clsx';
+import type * as React from 'react';
+import { cn } from '@fck/lib/utils';
 import { useEffect, useRef } from 'react';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
+
+import { Flex } from '@fck/components/ui';
 
 interface ArrowProps {
   trigger: string;
@@ -50,15 +51,15 @@ const Arrow: React.FC<ArrowProps> = ({
       position="relative"
       vertical="center"
       horizontal="center"
-      className={clsx('arrow-container', className)}
+      className={cn('arrow-container', className)}
       style={{
         transform: `scale(${scale})`,
         ...style,
       }}
     >
-      <Flex className={clsx('arrow', color)} height={0.1} />
-      <Flex className={clsx('arrow-head', color)} height={0.0875} />
-      <Flex className={clsx('arrow-head', color)} height={0.0875} />
+      <Flex className={cn('arrow', color)} height={0.1} />
+      <Flex className={cn('arrow-head', color)} height={0.0875} />
+      <Flex className={cn('arrow-head', color)} height={0.0875} />
     </Flex>
   );
 };

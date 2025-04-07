@@ -1,12 +1,12 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef } from 'react';
+import type { AvatarProps } from '@fck/components/ui/Avatar';
 
-import { Avatar, type AvatarProps } from '.';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
-import { clsx } from 'clsx';
+import { Flex, Avatar } from '@fck/components/ui';
+import { cn } from '@fck/lib/utils';
+
 interface AvatarGroupProps extends React.ComponentProps<typeof Flex> {
   avatars: AvatarProps[];
   size?: 'xs' | 's' | 'm' | 'l' | 'xl';
@@ -30,7 +30,7 @@ const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(
         position="relative"
         vertical="center"
         ref={ref}
-        className={clsx('avatar-group', className)}
+        className={cn('avatar-group', className)}
         style={style}
         zIndex={0}
         {...rest}

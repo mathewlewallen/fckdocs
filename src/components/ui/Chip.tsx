@@ -1,25 +1,24 @@
 'use client';
 
-import { clsx } from 'clsx';
-import type React from 'react';
-import { type MouseEventHandler, type ReactNode, forwardRef } from 'react';
-import { Icon, IconButton, type IconButtonProps, Text } from '.';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
+import { cn } from '@fck/lib/utils';
+import * as React from 'react';
+import { Icon, IconButton, Flex, Text } from '@fck/components/ui';
+import type { IconButtonProps } from '@fck/components/ui/IconButton';
+
 
 interface ChipProps extends React.ComponentProps<typeof Flex> {
   label: string;
   selected?: boolean;
   prefixIcon?: string;
   onRemove?: () => void;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-  children?: ReactNode;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  children?: React.ReactNode;
   iconButtonProps?: Partial<IconButtonProps>;
   style?: React.CSSProperties;
   className?: string;
 }
 
-const Chip: React.FC<ChipProps> = forwardRef<HTMLDivElement, ChipProps>(
+const Chip: React.FC<ChipProps> = React.forwardRef<HTMLDivElement, ChipProps>(
   (
     {
       label,
@@ -75,7 +74,7 @@ const Chip: React.FC<ChipProps> = forwardRef<HTMLDivElement, ChipProps>(
         aria-pressed={selected}
         cursor="interactive"
         transition="micro-medium"
-        className={clsx('chip', {
+        className={cn('chip', {
           selected: selected,
           unselected: !selected,
         })}

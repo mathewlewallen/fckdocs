@@ -2,8 +2,8 @@
 
 import { forwardRef, useState } from 'react';
 import { Background, IconButton, StylePanel } from '.';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 import { Flex } from './Flex';
 
 interface StyleOverlayProps extends React.ComponentProps<typeof Flex> {
@@ -29,7 +29,7 @@ const StyleOverlay = forwardRef<HTMLDivElement, StyleOverlayProps>(
         <Flex
           as="aside"
           zIndex={3}
-          className={clsx('panel', isOpen && 'open')}
+          className={cn('panel', isOpen && 'open')}
           maxWidth={28}
           style={{
             maxHeight: 'calc(100% - var(--static-space-4))',

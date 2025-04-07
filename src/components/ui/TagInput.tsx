@@ -1,30 +1,25 @@
 'use client';
 
-import {
-  type ChangeEventHandler,
-  type FocusEventHandler,
-  type KeyboardEventHandler,
-  forwardRef,
-  useState,
-} from 'react';
-import { Chip, Input, type InputProps } from '.';
-import { Flex } from './Flex';
+import { useState } from 'react';
+import * as React from 'react';
+import { Chip, Input, Flex } from '@fck/components/ui';
+import type { InputProps } from '@fck/components/ui/Input';
 
 interface TagInputProps extends Omit<InputProps, 'onChange' | 'value'> {
   value: string[];
   onChange: (value: string[]) => void;
 }
 
-const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
+const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
   ({ value, onChange, label, placeholder, ...inputProps }, ref) => {
     const [inputValue, setInputValue] = useState('');
     const [isFocused, setIsFocused] = useState(false);
 
-    const handleInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
       setInputValue(e.target.value);
     };
 
-    const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
       if (e.key === 'Enter' || e.key === ',') {
         e.preventDefault();
         if (inputValue.trim()) {
@@ -39,11 +34,11 @@ const TagInput = forwardRef<HTMLInputElement, TagInputProps>(
       onChange(newValue);
     };
 
-    const handleFocus: FocusEventHandler<HTMLInputElement> = () => {
+    const handleFocus: React.FocusEventHandler<HTMLInputElement> = () => {
       setIsFocused(true);
     };
 
-    const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
+    const handleBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
       setIsFocused(false);
     };
 

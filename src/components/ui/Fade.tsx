@@ -1,14 +1,14 @@
 'use client';
 
-import type React from 'react';
-import { type ReactNode, forwardRef } from 'react';
-import '@fck/styles/globals.css';
+import type * as React from 'react';
+import { forwardRef } from 'react';
+
 import type {
   ColorScheme,
   ColorWeight,
   SpacingToken,
 } from '@fck/components/types';
-import { Flex } from '@fck/components/ui/Flex';
+import { Flex } from '@fck/components/ui';
 
 type BaseColor =
   | `${ColorScheme}-${ColorWeight}`
@@ -27,7 +27,7 @@ interface FadeProps extends React.ComponentProps<typeof Flex> {
     size?: SpacingToken;
   };
   style?: React.CSSProperties;
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
 const Fade = forwardRef<HTMLDivElement, FadeProps>(
@@ -75,7 +75,7 @@ const Fade = forwardRef<HTMLDivElement, FadeProps>(
                     ? '180deg'
                     : '270deg',
             ...(pattern.display && {
-              backgroundImage: `linear-gradient(var(--gradient-direction), var(--base-color), transparent), radial-gradient(transparent 1px, var(--base-color) 1px)`,
+              backgroundImage: 'linear-gradient(var(--gradient-direction), var(--base-color), transparent), radial-gradient(transparent 1px, var(--base-color) 1px)',
               backgroundSize: `100% 100%, var(--static-space-${pattern.size}) var(--static-space-${pattern.size})`,
               backdropFilter: `blur(${blur}rem)`,
             }),

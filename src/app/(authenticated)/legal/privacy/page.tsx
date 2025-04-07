@@ -3,6 +3,7 @@ import { ArrowLeftIcon } from '@radix-ui/react-icons';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import Balancer from 'react-wrap-balancer';
+import '@fck/styles/globals.css';
 
 export const metadata: Metadata = createMetadata({
   title: 'Privacy Policy – Cloud Context',

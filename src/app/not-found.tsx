@@ -1,4 +1,5 @@
 import { Column, Heading, Text } from '@fck/components/ui';
+import '@fck/styles/globals.css';
 
 export default function NotFound() {
   return (

@@ -1,6 +1,6 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import {
   Button,
@@ -11,9 +11,9 @@ import {
   SegmentedControl,
   Text,
 } from '.';
-import '@fck/styles/globals.css';
-import { Flex } from '@fck/components/ui/Flex';
-import { clsx } from 'clsx';
+
+import { Flex } from '@fck/components/ui';
+import { cn } from '@fck/lib/utils';
 
 export interface DatePickerProps
   extends Omit<React.ComponentProps<typeof Flex>, 'onChange'> {
@@ -329,7 +329,7 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     return (
       <Flex
         ref={ref}
-        className={clsx('calendar', className)}
+        className={cn('calendar', className)}
         style={style}
         direction="column"
         fillWidth

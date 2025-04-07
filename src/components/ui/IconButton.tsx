@@ -1,12 +1,10 @@
 'use client';
 
-import type React from 'react';
-import { type ReactNode, forwardRef, useEffect, useState } from 'react';
-import { Icon, Tooltip } from '.';
-import { ElementType } from './ElementType';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
-import { Flex } from './Flex';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { Icon, Flex, Tooltip, ElementType } from '';
+
+import { cn } from '@fck/lib/utils';
 
 interface CommonProps {
   icon?: string;
@@ -28,14 +26,14 @@ interface CommonProps {
   className?: string;
   style?: React.CSSProperties;
   href?: string;
-  children?: ReactNode;
+  children?: React.ReactNode;
 }
 
 export type IconButtonProps = CommonProps &
   React.ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorProps = CommonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
-const IconButton = forwardRef<HTMLButtonElement, IconButtonProps | AnchorProps>(
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps | AnchorProps>(
   (
     {
       icon = 'refresh',
@@ -87,7 +85,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps | AnchorProps>(
         id={id}
         href={href}
         ref={ref}
-        className={clsx(
+        className={cn(
           'button',
           variant,
           size,

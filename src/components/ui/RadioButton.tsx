@@ -1,10 +1,10 @@
 'use client';
 
-import type React from 'react';
+import type * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import { InteractiveDetails, type InteractiveDetailsProps } from '.';
-import '@fck/styles/globals.css';
-import { clsx } from 'clsx';
+
+import { cn } from '@fck/lib/utils';
 import { Flex } from './Flex';
 interface RadioButtonProps
   extends Omit<InteractiveDetailsProps, 'onClick'>,
@@ -68,7 +68,7 @@ const RadioButton: React.FC<RadioButtonProps> = forwardRef<
         vertical="center"
         gap="16"
         zIndex={1}
-        className={clsx('container', className, {
+        className={cn('container', className, {
           disabled: disabled,
         })}
         style={style}
@@ -101,7 +101,7 @@ const RadioButton: React.FC<RadioButtonProps> = forwardRef<
           onClick={toggleItem}
           onKeyDown={handleKeyDown}
           tabIndex={disabled ? -1 : 0}
-          className={clsx('element', {
+          className={cn('element', {
             checked:
               controlledIsChecked !== undefined
                 ? controlledIsChecked

@@ -5,6 +5,7 @@ import { fonts } from '@fck/lib/fonts';
 import { captureException } from '@sentry/nextjs';
 import type NextError from 'next/error';
 import { useEffect } from 'react';
+import '@fck/styles/globals.css';
 
 type GlobalErrorProperties = {
   readonly error: NextError & { digest?: string };

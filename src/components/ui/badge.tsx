@@ -1,12 +1,9 @@
 'use client';
 
-import { Flex } from '@fck/components/ui/Flex';
-import React, { forwardRef } from 'react';
-import Arrow from '@fck/components/ui/Arrow';
-import Icon from '@fck/components/ui/Icon';
-import SmartLink from '@fck/components/ui/SmartLink';
-import Text from '@fck/components/ui/Text';
-import '@fck/styles/globals.css';
+import { Flex, Arrow, Icon, SmartLink, Text } from '@fck/components/ui';
+import { forwardRef } from 'react';
+import * as React from 'react';
+
 
 interface BadgeProps extends React.ComponentProps<typeof Flex> {
   title?: string;

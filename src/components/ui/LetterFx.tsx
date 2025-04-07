@@ -1,15 +1,14 @@
 'use client';
 
-import { clsx } from 'clsx';
-import type React from 'react';
+import { cn } from '@fck/lib/utils';
+import * as React from 'react';
 import {
-  type ReactNode,
-  forwardRef,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
+
 const defaultCharset = [
   'X',
   '$',
@@ -98,7 +97,7 @@ function createEventHandler(
 }
 
 type LetterFxProps = {
-  children: ReactNode;
+  children: React.ReactNode;
   trigger?: 'hover' | 'instant' | 'custom';
   speed?: 'fast' | 'medium' | 'slow';
   charset?: string[];
@@ -107,7 +106,7 @@ type LetterFxProps = {
   style?: React.CSSProperties;
 };
 
-const LetterFx = forwardRef<HTMLSpanElement, LetterFxProps>(
+const LetterFx = React.forwardRef<HTMLSpanElement, LetterFxProps>(
   (
     {
       children,
@@ -162,7 +161,7 @@ const LetterFx = forwardRef<HTMLSpanElement, LetterFxProps>(
     return (
       <span
         ref={ref}
-        className={clsx(className)}
+        className={cn(className)}
         style={style}
         onMouseOver={trigger === 'hover' ? eventHandler : undefined}
       >

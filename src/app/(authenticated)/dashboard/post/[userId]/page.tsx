@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import { format } from 'timeago.js';
+import '@fck/styles/globals.css';
 
 interface Props {
   params: {

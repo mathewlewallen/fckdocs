@@ -4,12 +4,12 @@
  * https://docs.sentry.io/platforms/javascript/guides/nextjs/
  */
 
-import { env } from '@fck/env';
+import { keys } from '@fck/lib/observability/keys';
 import { init, replayIntegration } from '@sentry/nextjs';
 
 export const initializeSentry = (): ReturnType<typeof init> =>
   init({
-    dsn: env.NEXT_PUBLIC_SENTRY_DSN,
+    dsn: keys().NEXT_PUBLIC_SENTRY_DSN,
 
     // Adjust this value in production, or use tracesSampler for greater control
     tracesSampleRate: 1,
