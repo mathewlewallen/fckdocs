@@ -2,23 +2,9 @@
 
 import type * as React from 'react';
 import { forwardRef } from 'react';
-
 import { cn } from '@fck/lib/utils';
-import { InteractiveDetails, type InteractiveDetailsProps } from '.';
-import { Flex } from './Flex';
-interface SwitchProps
-  extends Omit<InteractiveDetailsProps, 'onClick'>,
-    React.InputHTMLAttributes<HTMLInputElement> {
-  style?: React.CSSProperties;
-  className?: string;
-  isChecked: boolean;
-  name?: string;
-  value?: string;
-  disabled?: boolean;
-  reverse?: boolean;
-  ariaLabel?: string;
-  onToggle: () => void;
-}
+import { InteractiveDetails, Flex } from '@fck/components/ui';
+import type { SwitchProps } from '@fck/components/interfaces';
 
 const Switch: React.FC<SwitchProps> = forwardRef<HTMLInputElement, SwitchProps>(
   (

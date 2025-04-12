@@ -1,9 +1,9 @@
 'use client';
 
-import { Flex } from '@fck/components/ui';
 import type * as React from 'react';
 import { useCallback, useEffect, useState } from 'react';
-import { DatePicker, DropdownWrapper, Input } from '.';
+import { DatePicker, Flex, DropdownWrapper, Input } from '@fck/components/ui';
+
 interface DateInputProps
   extends Omit<React.ComponentProps<typeof Input>, 'onChange' | 'value'> {
   id: string;
@@ -31,7 +31,7 @@ const formatDate = (date: Date, timePicker: boolean) => {
   return date.toLocaleString('en-US', options);
 };
 
-export default function DateInput({
+const DateInput: React.FC<DateInputProps> = ({
   id,
   label,
   value,
@@ -108,3 +108,5 @@ export default function DateInput({
     />
   );
 };
+
+export default DateInput;

@@ -78,5 +78,6 @@ export { default as Toaster } from './Toaster';
 export { default as ToastProvider } from './ToastProvider';
 export { default as ToggleButton } from './ToggleButton';
 export { default as Tooltip } from './Tooltip';
-export { default as ThemeProvider } from './ThemeProvider';
+export { default as useTheme } from './ThemeProvider';
 export { default as ThemeSwitcher } from './ThemeSwitcher';
+export { default as Option } from './Option';

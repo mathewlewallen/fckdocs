@@ -1,15 +1,7 @@
-import type * as React from 'react';
 import { forwardRef } from 'react';
-
 import { cn } from '@fck/lib/utils';
-import { Flex } from './Flex';
-
-interface SpinnerProps extends React.ComponentProps<typeof Flex> {
-  size?: 'xs' | 's' | 'm' | 'l' | 'xl';
-  ariaLabel?: string;
-  className?: string;
-  style?: React.CSSProperties;
-}
+import Flex from '@fck/components/ui/Flex';
+import type { SpinnerProps } from '@fck/components/interfaces';
 
 const Spinner = forwardRef<HTMLDivElement, SpinnerProps>(
   ({ size = 'm', ariaLabel = 'Loading', className, style, ...rest }, ref) => {

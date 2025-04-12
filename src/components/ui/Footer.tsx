@@ -1,10 +1,6 @@
 import { person, social } from '@fck/lib/once-ui/content';
-
 import { Status } from '@fck/lib/observability/status';
-import { Flex } from './Flex';
-import { IconButton } from './IconButton';
-import { SmartLink } from './SmartLink';
-import { Text } from './text';
+import { SmartLink, Text, IconButton, Flex } from '@fck/components/ui'; 
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

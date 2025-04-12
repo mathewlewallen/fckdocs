@@ -11,26 +11,9 @@ import {
   Flex,
 } from '@fck/components/ui';
 import type { DropdownWrapperProps } from '@fck/components/ui/DropdownWrapper';
-import type { OptionProps } from '@fck/components/ui/Option';
-import type { InputProps } from '@fck/components/ui/Input';
-
+import type { SelectProps } from '@fck/components/interfaces';
 import type { Placement } from '@floating-ui/react-dom';
 import { cn } from '@fck/lib/utils';
-
-type SelectOptionType = Omit<OptionProps, 'selected'>;
-
-interface SelectProps
-  extends Omit<InputProps, 'onSelect' | 'value'>,
-    Pick<DropdownWrapperProps, 'minHeight' | 'minWidth' | 'maxWidth'> {
-  options: SelectOptionType[];
-  value?: string;
-  emptyState?: React.ReactNode;
-  onSelect?: (value: string) => void;
-  floatingPlacement?: Placement;
-  searchable?: boolean;
-  className?: string;
-  style?: React.CSSProperties;
-}
 
 const Select = React.forwardRef<HTMLDivElement, SelectProps>(
   (

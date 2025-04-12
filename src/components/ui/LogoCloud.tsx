@@ -1,15 +1,11 @@
 'use client';
 
-import type * as React from 'react';
-import { forwardRef, useEffect, useState } from 'react';
-import { Grid } from './grid';
-import { Logo } from './logo';
-
+import * as React from 'react';
+import { useEffect, useState } from 'react';
+import { Grid, Logo, Flex } from '@fck/components/ui';
 import { cn } from '@fck/lib/utils';
-import type { ComponentProps } from 'react';
-import { Flex } from './Flex';
 
-type LogoProps = ComponentProps<typeof Logo>;
+type LogoProps = React.ComponentProps<typeof Logo>;
 
 interface LogoCloudProps extends React.ComponentProps<typeof Grid> {
   logos: LogoProps[];
@@ -22,7 +18,7 @@ interface LogoCloudProps extends React.ComponentProps<typeof Grid> {
 const ANIMATION_DURATION = 5000;
 const STAGGER_DELAY = 25;
 
-const LogoCloud = forwardRef<HTMLDivElement, LogoCloudProps>(
+const LogoCloud = React.forwardRef<HTMLDivElement, LogoCloudProps>(
   (
     {
       logos,

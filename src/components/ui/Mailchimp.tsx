@@ -7,10 +7,10 @@ import {
   Heading,
   Input,
   Text,
+  Flex
 } from '@fck/components/ui';
 import { mailchimp } from '@fck/lib/once-ui/config';
 import { useState } from 'react';
-import { Flex } from './Flex';
 
 function debounce<T extends (...args: any[]) => void>(
   func: T,

@@ -1,23 +1,8 @@
 'use client';
 
-import { Column, Text } from '@fck/components/ui';
+import { Column, Text, Flex } from '@fck/components/ui';
 import type * as React from 'react';
-
-import { Flex } from './Flex';
-
-interface TableOfContentsProps {
-  structure: {
-    title: string;
-    display: boolean;
-    items: string[];
-  }[];
-  about: {
-    tableOfContent: {
-      display: boolean;
-      subItems: boolean;
-    };
-  };
-}
+import type { TableOfContentsProps } from '@fck/components/interfaces';
 
 const TableOfContents: React.FC<TableOfContentsProps> = ({
   structure,
@@ -36,7 +21,9 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
     }
   };
 
-  if (!about.tableOfContent.display) return null;
+  if (!about.tableOfContent.display) {
+    return null;
+  }
 
   return (
     <Column
@@ -62,7 +49,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
               vertical="center"
               onClick={() => scrollTo(section.title, 80)}
             >
-              <Flex height="1" minWidth="16" background="neutral-strong"></Flex>
+              <Flex height="1" minWidth="16" background="neutral-strong" />
               <Text>{section.title}</Text>
             </Flex>
             {about.tableOfContent.subItems &&
@@ -81,7 +68,7 @@ const TableOfContents: React.FC<TableOfContentsProps> = ({
                     height="1"
                     minWidth="8"
                     background="neutral-strong"
-                  ></Flex>
+                  />
                   <Text>{item}</Text>
                 </Flex>
               ))}

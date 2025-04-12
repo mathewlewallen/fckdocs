@@ -1,23 +1,11 @@
 'use client';
 
-import { Skeleton } from '@fck/components/ui';
+import { Skeleton, Flex } from '@fck/components/ui';
 import Image from 'next/image';
 import type * as React from 'react';
-import { type CSSProperties, useEffect, useRef, useState } from 'react';
-import { Flex } from './Flex';
+import { useEffect, useRef, useState } from 'react';
+import type { SmartImageProps } from '@fck/components/interfaces';
 
-export interface SmartImageProps extends React.ComponentProps<typeof Flex> {
-  aspectRatio?: string;
-  height?: number;
-  alt?: string;
-  isLoading?: boolean;
-  objectFit?: CSSProperties['objectFit'];
-  enlarge?: boolean;
-  src: string;
-  unoptimized?: boolean;
-  sizes?: string;
-  priority?: boolean;
-}
 
 const SmartImage: React.FC<SmartImageProps> = ({
   aspectRatio,
@@ -65,7 +53,7 @@ const SmartImage: React.FC<SmartImageProps> = ({
   }, [isEnlarged]);
 
   const calculateTransform = () => {
-    if (!imageRef.current) return {};
+    if (!imageRef.current) { return {}; }
 
     const rect = imageRef.current.getBoundingClientRect();
     const scaleX = window.innerWidth / rect.width;

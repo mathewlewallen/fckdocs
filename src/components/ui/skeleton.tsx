@@ -2,18 +2,9 @@
 
 import type * as React from 'react';
 import { forwardRef } from 'react';
-
 import { cn } from '@fck/lib/utils';
-import { Flex } from './Flex';
-
-interface SkeletonProps extends React.ComponentProps<typeof Flex> {
-  shape: 'line' | 'circle' | 'block';
-  width?: 'xl' | 'l' | 'm' | 's' | 'xs';
-  height?: 'xl' | 'l' | 'm' | 's' | 'xs';
-  delay?: '1' | '2' | '3' | '4' | '5' | '6';
-  style?: React.CSSProperties;
-  className?: string;
-}
+import { Flex } from '@fck/components/ui';
+import type { SkeletonProps } from '@fck/components/interfaces';
 
 const Skeleton: React.FC<SkeletonProps> = forwardRef<
   HTMLDivElement,

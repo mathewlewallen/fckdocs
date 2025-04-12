@@ -1,15 +1,7 @@
-import type * as React from 'react';
 import { forwardRef } from 'react';
-
 import { cn } from '@fck/lib/utils';
-import { Flex } from './Flex';
-
-interface NavIconProps extends React.ComponentProps<typeof Flex> {
-  className?: string;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  isActive: boolean;
-}
+import { Flex } from '@fck/components/ui';
+import type { NavIconProps } from '@fck/components/interfaces';
 
 const NavIcon = forwardRef<HTMLDivElement, Partial<NavIconProps>>(
   ({ className, isActive, style, onClick, ...rest }, ref) => {

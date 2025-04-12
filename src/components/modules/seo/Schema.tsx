@@ -1,26 +1,5 @@
 import Script from 'next/script';
-
-export interface SchemaProps {
-  as:
-    | 'website'
-    | 'article'
-    | 'blogPosting'
-    | 'techArticle'
-    | 'webPage'
-    | 'organization';
-  title: string;
-  description: string;
-  baseURL: string;
-  path: string;
-  datePublished?: string;
-  dateModified?: string;
-  image?: string;
-  author?: {
-    name: string;
-    url?: string;
-    image?: string;
-  };
-}
+import type { SchemaProps } from '@fck/components/interfaces';
 
 const schemaTypeMap = {
   website: 'WebSite',

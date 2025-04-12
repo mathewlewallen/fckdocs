@@ -1,9 +1,9 @@
 'use client';
 
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react'; 
 import type * as React from 'react';
 
-type Theme = 'light' | 'dark' | 'system';
+type Theme = 'light' | 'dark' | 'system'; 
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -23,7 +23,7 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
-export function ThemeProvider({ children }: ThemeProviderProps) {
+function ThemeProvider({ children }: ThemeProviderProps) {
   // Start with system theme on server, will be updated on client
   const [theme, setTheme] = useState<Theme>('system');
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('dark');
@@ -90,12 +90,15 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   );
 }
 
-export default function useTheme() {
+const useTheme = () => {
   const context = useContext(ThemeProviderContext);
 
   if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    throw new Error("useTheme must be used within a ThemeProvider");
   }
 
   return context;
 };
+
+export default useTheme;
+export { ThemeProvider };

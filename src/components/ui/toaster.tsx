@@ -3,19 +3,8 @@
 import type * as React from 'react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Toast } from '.';
-
-import { Flex } from './Flex';
-
-interface ToasterProps {
-  toasts: {
-    id: string;
-    variant: 'success' | 'danger';
-    message: string;
-    action?: React.ReactNode;
-  }[];
-  removeToast: (id: string) => void;
-}
+import { Toast, Flex } from '@fck/components/ui';
+import type { ToasterProps } from '@fck/components/interfaces';
 
 const Toaster: React.FC<ToasterProps> = ({ toasts, removeToast }) => {
   const [mounted, setMounted] = useState(false);
@@ -25,7 +14,9 @@ const Toaster: React.FC<ToasterProps> = ({ toasts, removeToast }) => {
     return () => setMounted(false);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return null;
+  }
 
   return createPortal(
     <Flex

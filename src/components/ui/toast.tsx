@@ -1,19 +1,9 @@
 'use client';
 
-import type * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
-import { Icon, Iconbutton, Flex, Text } from '.';
-
+import { Icon, Flex, Text, IconButton } from '@fck/components/ui';
+import type { ToastProps } from '@fck/components/interfaces';
 import { cn } from '@fck/lib/utils';
-
-interface ToastProps {
-  className?: string;
-  variant: 'success' | 'danger';
-  icon?: boolean;
-  onClose?: () => void;
-  action?: React.ReactNode;
-  children: React.ReactNode;
-}
 
 const iconMap = {
   success: 'checkCircle',
@@ -64,7 +54,7 @@ const Toast = forwardRef<HTMLDivElement, ToastProps>(
           </Text>
           {action && <div>{action}</div>}
           {onClose && (
-            <Iconbutton
+            <IconButton
               variant="ghost"
               icon="close"
               size="m"

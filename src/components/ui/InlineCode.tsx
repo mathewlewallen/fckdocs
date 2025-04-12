@@ -1,7 +1,6 @@
 'use client';
 
-import type * as React from 'react';
-
+import * as React from 'react';
 import { cn } from '@fck/lib/utils';
 import { Flex } from '@fck/components/ui';
 

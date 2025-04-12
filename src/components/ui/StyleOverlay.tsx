@@ -1,14 +1,9 @@
 'use client';
 
 import { forwardRef, useState } from 'react';
-import { Background, IconButton, StylePanel } from '.';
-
+import { Background, IconButton, StylePanel, Flex } from '@fck/components/ui';
+import type { StyleOverlayProps } from '@fck/components/interfaces';
 import { cn } from '@fck/lib/utils';
-import { Flex } from './Flex';
-
-interface StyleOverlayProps extends React.ComponentProps<typeof Flex> {
-  iconButtonProps?: Partial<React.ComponentProps<typeof IconButton>>;
-}
 
 const StyleOverlay = forwardRef<HTMLDivElement, StyleOverlayProps>(
   ({ iconButtonProps, ...rest }, ref) => {

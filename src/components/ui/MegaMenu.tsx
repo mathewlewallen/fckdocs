@@ -1,36 +1,10 @@
 "use client";
 
-import type * as React from "react";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { Flex, Row, Column, Text, Icon, ToggleButton } from '@fck/components/ui';
+import type { MegaMenuProps } from '@fck/components/interfaces';
 
-
-export interface MenuLink {
-  label: string;
-  href: string;
-  icon?: string;
-  description?: string;
-  selected?: boolean;
-}
-
-export interface MenuSection {
-  title?: string;
-  links: MenuLink[];
-}
-
-export interface MenuGroup {
-  label: string;
-  suffixIcon?: string;
-  href?: string;
-  selected?: boolean;
-  sections?: MenuSection[];
-}
-
-export interface MegaMenuProps extends React.ComponentProps<typeof Flex> {
-  menuGroups: MenuGroup[];
-  className?: string;
-}
 
 export default function MegaMenu({ menuGroups, className, ...rest }: MegaMenuProps) {
   const pathname = usePathname();

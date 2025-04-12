@@ -1,18 +1,6 @@
 import type { Metadata as NextMetadata } from 'next';
+import type { MetaProps } from '@fck/components/interfaces';
 
-export interface MetaProps {
-  title: string;
-  description: string;
-  baseURL: string;
-  path?: string;
-  type?: 'website' | 'article';
-  image?: string;
-  publishedTime?: string;
-  author?: {
-    name: string;
-    url?: string;
-  };
-}
 
 export function generateMetadata({
   title,

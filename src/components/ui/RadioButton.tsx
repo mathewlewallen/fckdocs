@@ -2,21 +2,9 @@
 
 import type * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
-import { InteractiveDetails, type InteractiveDetailsProps } from '.';
-
+import { InteractiveDetails, Flex } from '@fck/components/ui';
+import type { RadioButtonProps } from '@fck/components/interfaces';
 import { cn } from '@fck/lib/utils';
-import { Flex } from './Flex';
-interface RadioButtonProps
-  extends Omit<InteractiveDetailsProps, 'onClick'>,
-    React.InputHTMLAttributes<HTMLInputElement> {
-  style?: React.CSSProperties;
-  className?: string;
-  isChecked?: boolean;
-  name?: string;
-  value?: string;
-  disabled?: boolean;
-  onToggle?: () => void;
-}
 
 const generateId = () => `radio-${Math.random().toString(36).substring(2, 9)}`;
 
@@ -134,4 +122,3 @@ const RadioButton: React.FC<RadioButtonProps> = forwardRef<
 RadioButton.displayName = 'RadioButton';
 
 export default RadioButton
-export type { RadioButtonProps };

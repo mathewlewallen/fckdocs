@@ -3,22 +3,7 @@
 import { cn } from '@fck/lib/utils';
 import * as React from 'react';
 import { Icon, ElementType } from '@fck/components/ui';
-
-interface CommonProps {
-  prefixIcon?: string;
-  suffixIcon?: string;
-  fillWidth?: boolean;
-  iconSize?: 'xs' | 's' | 'm' | 'l' | 'xl';
-  selected?: boolean;
-  unstyled?: boolean;
-  children: React.ReactNode;
-  href?: string;
-  style?: React.CSSProperties;
-  className?: string;
-}
-
-export type SmartLinkProps = CommonProps &
-  React.AnchorHTMLAttributes<HTMLAnchorElement>;
+import type { SmartLinkProps } from '@fck/components/interfaces';
 
 const SmartLink = React.forwardRef<HTMLAnchorElement, SmartLinkProps>(
   (

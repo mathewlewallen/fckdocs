@@ -113,7 +113,9 @@ const Grid = forwardRef<HTMLDivElement, ComponentProps>(
       type: string,
       value: string | '-1' | undefined
     ) => {
-      if (!value) return undefined;
+      if (!value) {
+        return undefined;
+      }
       if (value === 'surface' || value === 'page' || value === 'transparent') {
         return `${value}-${type}`;
       }
@@ -125,8 +127,12 @@ const Grid = forwardRef<HTMLDivElement, ComponentProps>(
       value: number | SpacingToken | undefined,
       type: 'width' | 'height'
     ): string | undefined => {
-      if (value === undefined) return undefined;
-      if (typeof value === 'number') return `${value}rem`;
+      if (value === undefined) {
+        return undefined;
+      }
+      if (typeof value === 'number') {
+        return `${value}rem`;
+      }
       if (
         [
           '0',
@@ -249,4 +255,3 @@ const Grid = forwardRef<HTMLDivElement, ComponentProps>(
 Grid.displayName = 'Grid';
 
 export default Grid
-export type { GridProps };

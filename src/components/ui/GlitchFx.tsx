@@ -1,18 +1,9 @@
 'use client';
 
-import type * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
-
+import type { GlitchFxProps } from '@fck/components/interfaces';
 import { cn } from '@fck/lib/utils';
-import { Flex } from './Flex';
-
-interface GlitchFxProps extends React.ComponentProps<typeof Flex> {
-  children: React.ReactNode;
-  speed?: 'slow' | 'medium' | 'fast';
-  interval?: number;
-  trigger?: 'instant' | 'hover' | 'custom';
-  continuous?: boolean;
-}
+import { Flex } from '@fck/components/ui';
 
 const GlitchFx = forwardRef<HTMLDivElement, GlitchFxProps>(
   (
@@ -48,16 +39,12 @@ const GlitchFx = forwardRef<HTMLDivElement, GlitchFxProps>(
       }
     };
 
-    const triggerGlitch = () => {
-      if (trigger === 'custom') {
-        setIsGlitching(true);
-        setTimeout(() => setIsGlitching(false), 500);
-      }
-    };
-
     useEffect(() => {
       if (trigger === 'custom') {
-        const glitchInterval = setInterval(triggerGlitch, interval);
+        const glitchInterval = setInterval(() => {
+          setIsGlitching(true);
+          setTimeout(() => setIsGlitching(false), 500);
+        }, interval);
         return () => clearInterval(glitchInterval);
       }
     }, [trigger, interval]);

@@ -1,13 +1,8 @@
 'use client';
 
-import type * as React from 'react';
 import { forwardRef } from 'react';
-import { Flex } from './Flex';
-
-interface LineProps extends React.ComponentProps<typeof Flex> {
-  vert?: boolean;
-  style?: React.CSSProperties;
-}
+import type { LineProps } from '@fck/components/interfaces';
+import { Flex } from '@fck/components/ui';
 
 const Line = forwardRef<HTMLDivElement, LineProps>(
   ({ vert, className, style, ...rest }, ref) => {

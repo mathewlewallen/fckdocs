@@ -2,14 +2,14 @@
 
 import { Flex } from '@fck/components/ui';
 import { useEffect, useState } from 'react';
-
+import type * as React from 'react';
 import { cn } from '@fck/lib/utils';
 
 interface ScrollToTopProps extends React.ComponentProps<typeof Flex> {
   offset?: number;
 }
 
-export default function ScrollToTop({
+const ScrollToTop: React.FC<ScrollToTopProps> = ({
   children,
   offset = 300,
   className,
@@ -51,3 +51,5 @@ export default function ScrollToTop({
     </Flex>
   );
 };
+
+export default ScrollToTop;

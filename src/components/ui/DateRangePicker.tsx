@@ -4,19 +4,7 @@ import { Flex } from '@fck/components/ui';
 import type * as React from 'react';
 import { useEffect, useState } from 'react';
 import { DatePicker } from '.';
-export interface DateRange {
-  startDate: Date | undefined;
-  endDate: Date | undefined;
-}
-
-export interface DateRangePickerProps
-  extends Omit<React.ComponentProps<typeof Flex>, 'onChange'> {
-  value?: DateRange;
-  onChange?: (range: DateRange) => void;
-  minDate?: Date;
-  maxDate?: Date;
-  size?: 's' | 'm' | 'l';
-}
+import type { DateRangePickerProps, DateRange } from '@fck/components/interfaces';
 
 const DateRangePicker: React.FC<DateRangePickerProps> = ({
   value,

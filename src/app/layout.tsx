@@ -3,9 +3,9 @@ import {
   Background,
   Column,
   Flex,
-  ThemeProvider,
   ToastProvider,
 } from '@fck/components/ui';
+import { ThemeProvider } from '@fck/components/ui/ThemeProvider';
 import {
   baseURL,
   meta,
@@ -14,13 +14,15 @@ import {
   social,
   style,
 } from '@fck/lib/once-ui/config';
-import { AuthProvider } from '@fck/server/auth/provider';
+import AuthProvider from '@fck/server/auth/provider';
 import { TRPCReactProvider } from '@fck/server/trpc/react';
+import type * as React from 'react';
 import { cn } from '@fck/lib/utils';
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import { Geist_Mono } from 'next/font/google';
 import { headers } from 'next/headers';
+import { effects } from '@fck/lib/once-ui/config';
 
 const primary = Geist({
   variable: '--font-primary',
@@ -57,7 +59,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title: og.title,
       description: og.description,
-      url: 'https://' + baseURL,
+      url: `https://${baseURL}`,
       images: [
         {
           url: og.image,
@@ -91,7 +93,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const schemaData = {
   '@context': 'https://schema.org',
   '@type': schema.type,
-  url: 'https://' + baseURL,
+  url: `https://${baseURL}`,
   logo: schema.logo,
   name: schema.name,
   description: schema.description,
@@ -161,30 +163,51 @@ export default function RootLayout({
             <ToastProvider>
               <Column as="body" fillWidth margin="0" padding="0">
                 <Background
-                  position="absolute"
-                  mask={{
-                    x: 100,
-                    y: 0,
-                    radius: 100,
-                  }}
-                  gradient={{
-                    display: true,
-                    x: 100,
-                    y: 60,
-                    width: 70,
-                    height: 50,
-                    tilt: -40,
-                    opacity: 90,
-                    colorStart: 'accent-background-strong',
-                    colorEnd: 'page-background',
-                  }}
-                  grid={{
-                    display: true,
-                    opacity: 100,
-                    width: '0.25rem',
-                    color: 'neutral-alpha-medium',
-                    height: '0.25rem',
-                  }}
+            mask={{
+              cursor: effects.mask.cursor,
+              x: effects.mask.x,
+              y: effects.mask.y,
+              radius: effects.mask.radius,
+            }}
+            gradient={{
+              display: effects.gradient.display,
+              x: effects.gradient.x,
+              y: effects.gradient.y,
+              width: effects.gradient.width,
+              height: effects.gradient.height,
+              tilt: effects.gradient.tilt,
+              colorStart: effects.gradient.colorStart,
+              colorEnd: effects.gradient.colorEnd,
+              opacity: effects.gradient.opacity as
+                | 0
+                | 10
+                | 20
+                | 30
+                | 40
+                | 50
+                | 60
+                | 70
+                | 80
+                | 90
+                | 100,
+            }}
+            dots={{
+              display: effects.dots.display,
+              color: effects.dots.color,
+              size: effects.dots.size as any,
+              opacity: effects.dots.opacity as any,
+            }}
+            grid={{
+              display: effects.grid.display,
+              color: effects.grid.color,
+              width: effects.grid.width as any,
+              height: effects.grid.height as any,
+              opacity: effects.grid.opacity as any,
+            }}
+            lines={{
+              display: effects.lines.display,
+              opacity: effects.lines.opacity as any,
+            }}
                 />
                 {children}
               </Column>

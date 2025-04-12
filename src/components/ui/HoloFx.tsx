@@ -2,36 +2,9 @@
 
 import type * as React from 'react';
 import { useEffect, useRef } from 'react';
-import type { CSSProperties } from 'react';
-import { Flex } from './Flex';
-
 import { cn } from '@fck/lib/utils';
-interface MaskOptions {
-  maskPosition?: string;
-}
-
-interface HoloFxProps extends React.ComponentProps<typeof Flex> {
-  children: React.ReactNode;
-  light?: {
-    opacity?: number;
-    filter?: string;
-    blending?: CSSProperties['mixBlendMode'];
-    mask?: MaskOptions;
-  };
-  burn?: {
-    opacity?: number;
-    filter?: string;
-    blending?: CSSProperties['mixBlendMode'];
-    mask?: MaskOptions;
-  };
-  texture?: {
-    opacity?: number;
-    filter?: string;
-    blending?: CSSProperties['mixBlendMode'];
-    image?: string;
-    mask?: MaskOptions;
-  };
-}
+import type { MaskOptions, HoloFxProps } from '@fck/components/interfaces';
+import { Flex } from '@fck/components/ui';
 
 const formatMask = (maskPosition = '100 200'): string => {
   const [x, y] = maskPosition.split(' ');
@@ -52,11 +25,11 @@ const HoloFx: React.FC<HoloFxProps> = ({
   ...rest
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  let lastCall = 0;
+  const lastCallRef = useRef(0);
 
   const lightDefaults = {
     opacity: 30,
-    blending: 'color-dodge' as CSSProperties['mixBlendMode'],
+    blending: 'color-dodge' as React.CSSProperties['mixBlendMode'],
     mask: getMaskStyle(light?.mask),
     ...light,
   };
@@ -64,14 +37,14 @@ const HoloFx: React.FC<HoloFxProps> = ({
   const burnDefaults = {
     opacity: 30,
     filter: 'brightness(0.2) contrast(2)',
-    blending: 'color-dodge' as CSSProperties['mixBlendMode'],
+    blending: 'color-dodge' as React.CSSProperties['mixBlendMode'],
     mask: getMaskStyle(burn?.mask),
     ...burn,
   };
 
   const textureDefaults = {
     opacity: 10,
-    blending: 'color-dodge' as CSSProperties['mixBlendMode'],
+    blending: 'color-dodge' as React.CSSProperties['mixBlendMode'],
     image:
       'repeating-linear-gradient(-45deg, var(--static-white) 0, var(--static-white) 1px, transparent 3px, transparent 2px)',
     mask: getMaskStyle(texture?.mask),
@@ -81,11 +54,15 @@ const HoloFx: React.FC<HoloFxProps> = ({
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
       const now = Date.now();
-      if (now - lastCall < 16) return;
-      lastCall = now;
+      if (now - lastCallRef.current < 16) {
+        return;
+      }
+      lastCallRef.current = now;
 
       const element = ref.current;
-      if (!element) return;
+      if (!element) {
+        return;
+      }
 
       const rect = element.getBoundingClientRect();
       const offsetX = event.clientX - rect.left;
@@ -126,7 +103,7 @@ const HoloFx: React.FC<HoloFxProps> = ({
         pointerEvents="none"
         className={cn('overlay', 'burn')}
         style={{
-          ['--burn-opacity' as any]: burnDefaults.opacity + '%',
+          ['--burn-opacity' as any]: `${burnDefaults.opacity}%`,
           filter: burnDefaults.filter,
           mixBlendMode: burnDefaults.blending,
           maskImage: burnDefaults.mask as string,
@@ -141,7 +118,7 @@ const HoloFx: React.FC<HoloFxProps> = ({
         pointerEvents="none"
         className={cn('overlay', 'light')}
         style={{
-          ['--light-opacity' as any]: lightDefaults.opacity + '%',
+          ['--light-opacity' as any]: `${lightDefaults.opacity}%`,
           filter: lightDefaults.filter,
           mixBlendMode: lightDefaults.blending,
           maskImage: lightDefaults.mask as string,
@@ -156,13 +133,13 @@ const HoloFx: React.FC<HoloFxProps> = ({
         pointerEvents="none"
         className={cn('overlay', 'texture')}
         style={{
-          ['--texture-opacity' as any]: textureDefaults.opacity + '%',
+          ['--texture-opacity' as any]: `${textureDefaults.opacity}%`,
           backgroundImage: textureDefaults.image,
           filter: textureDefaults.filter,
           mixBlendMode: textureDefaults.blending,
           maskImage: textureDefaults.mask as string,
         }}
-      ></Flex>
+      />
     </Flex>
   );
 };

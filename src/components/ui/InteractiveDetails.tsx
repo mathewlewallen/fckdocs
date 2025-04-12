@@ -2,16 +2,7 @@
 
 import * as React from 'react';
 import { IconButton, Text, Flex } from '@fck/components/ui';
-import type { IconButtonProps } from '@fck/components/ui/IconButton';
-
-interface InteractiveDetailsProps {
-  label?: React.ReactNode;
-  description?: React.ReactNode;
-  iconButtonProps?: IconButtonProps;
-  onClick: () => void;
-  className?: string;
-  id?: string;
-}
+import type { InteractiveDetailsProps } from '@fck/components/interfaces';
 
 const InteractiveDetails: React.FC<InteractiveDetailsProps> = React.forwardRef<
   HTMLDivElement,
@@ -52,4 +43,3 @@ const InteractiveDetails: React.FC<InteractiveDetailsProps> = React.forwardRef<
 InteractiveDetails.displayName = 'InteractiveDetails';
 
 export default InteractiveDetails
-export type { InteractiveDetailsProps };

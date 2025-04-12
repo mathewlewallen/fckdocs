@@ -2,8 +2,7 @@
 
 import type * as React from 'react';
 import { useRef } from 'react';
-
-import { Flex } from './Flex';
+import { Flex } from '@fck/components/ui';
 
 interface TiltFxProps extends React.ComponentProps<typeof Flex> {
   children: React.ReactNode;
@@ -11,20 +10,26 @@ interface TiltFxProps extends React.ComponentProps<typeof Flex> {
 
 const TiltFx: React.FC<TiltFxProps> = ({ children, ...rest }) => {
   const ref = useRef<HTMLDivElement>(null);
-  let lastCall = 0;
+  const lastCallRef = useRef(0);
   let resetTimeout: NodeJS.Timeout;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if ('ontouchstart' in window) return;
+    if ('ontouchstart' in window) {
+      return;
+    }
 
     clearTimeout(resetTimeout);
 
     const now = Date.now();
-    if (now - lastCall < 16) return;
-    lastCall = now;
+    if (now - lastCallRef.current < 16) {
+      return;
+    }
+    lastCallRef.current = now;
 
     const element = ref.current;
-    if (!element) return;
+    if (!element) {
+      return;
+    }
 
     const rect = element.getBoundingClientRect();
     const offsetX = e.clientX - rect.left;
@@ -45,7 +50,9 @@ const TiltFx: React.FC<TiltFxProps> = ({ children, ...rest }) => {
   };
 
   const handleMouseLeave = () => {
-    if ('ontouchstart' in window) return;
+    if ('ontouchstart' in window) {
+      return;
+    }
 
     const element = ref.current;
     if (element) {

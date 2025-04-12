@@ -1,6 +1,5 @@
 'use client';
 
-import type * as React from 'react';
 import { forwardRef, useEffect, useState } from 'react';
 import {
   Button,
@@ -10,37 +9,10 @@ import {
   RevealFx,
   SegmentedControl,
   Text,
-} from '.';
-
-import { Flex } from '@fck/components/ui';
+  Flex,
+} from '@fck/components/ui';
 import { cn } from '@fck/lib/utils';
-
-export interface DatePickerProps
-  extends Omit<React.ComponentProps<typeof Flex>, 'onChange'> {
-  value?: Date;
-  onChange?: (date: Date) => void;
-  minDate?: Date;
-  maxDate?: Date;
-  previousMonth?: boolean;
-  nextMonth?: boolean;
-  timePicker?: boolean;
-  defaultDate?: Date;
-  defaultTime?: {
-    hours: number;
-    minutes: number;
-  };
-  size?: 's' | 'm' | 'l';
-  className?: string;
-  style?: React.CSSProperties;
-  currentMonth?: number;
-  currentYear?: number;
-  onMonthChange?: (increment: number) => void;
-  range?: {
-    startDate?: Date;
-    endDate?: Date;
-  };
-  onHover?: (date: Date | null) => void;
-}
+import type { DatePickerProps } from '@fck/components/interfaces';
 
 const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
   (
@@ -174,8 +146,12 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const convert24to12 = (hour24: number) => {
-      if (hour24 === 0) return 12;
-      if (hour24 > 12) return hour24 - 12;
+      if (hour24 === 0) {
+        return 12;
+      }
+      if (hour24 > 12) {
+        return hour24 - 12;
+      }
       return hour24;
     };
 
@@ -184,7 +160,9 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
       minutes: number,
       pm: boolean = isPM
     ) => {
-      if (!selectedDate) return;
+      if (!selectedDate) {
+        return;
+      }
 
       const newTime = {
         hours: pm ? (hours === 12 ? 12 : hours + 12) : hours === 12 ? 0 : hours,
@@ -200,8 +178,12 @@ const DatePicker = forwardRef<HTMLDivElement, DatePickerProps>(
     };
 
     const isInRange = (date: Date) => {
-      if (!range?.startDate) return false;
-      if (!range?.endDate) return false;
+      if (!range?.startDate) {
+        return false;
+      }
+      if (!range?.endDate) {
+        return false;
+      }
       return date >= range.startDate && date <= range.endDate;
     };
 

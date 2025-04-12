@@ -1,7 +1,6 @@
 'use client';
 
 import {
-  type Placement,
   autoUpdate,
   flip,
   offset,
@@ -9,7 +8,6 @@ import {
   size,
   useFloating,
 } from '@floating-ui/react-dom';
-import type * as React from 'react';
 import {
   forwardRef,
   useEffect,
@@ -18,23 +16,7 @@ import {
   useState,
 } from 'react';
 import { Dropdown, Flex } from '@fck/components/ui';
-
-
-export interface DropdownWrapperProps {
-  fillWidth?: boolean;
-  minWidth?: number;
-  maxWidth?: number;
-  minHeight?: number;
-  floatingPlacement?: Placement;
-  trigger: React.ReactNode;
-  dropdown: React.ReactNode;
-  selectedOption?: string;
-  style?: React.CSSProperties;
-  className?: string;
-  onSelect?: (value: string) => void;
-  isOpen?: boolean;
-  onOpenChange?: (isOpen: boolean) => void;
-}
+import type { DropdownWrapperProps } from '@fck/components/interfaces';
 
 const DropdownWrapper = forwardRef<HTMLDivElement, DropdownWrapperProps>(
   (

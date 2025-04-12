@@ -2,38 +2,8 @@
 
 import * as React from 'react';
 import { Icon, Flex, ElementType } from '@fck/components/ui';
-
+import type { ToggleButtonProps } from '@fck/components/interfaces';
 import { cn } from '@fck/lib/utils';
-
-interface CommonProps {
-  label?: React.ReactNode;
-  selected: boolean;
-  variant?: 'ghost' | 'outline';
-  size?: 's' | 'm' | 'l';
-  radius?:
-    | 'none'
-    | 'top'
-    | 'right'
-    | 'bottom'
-    | 'left'
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-right'
-    | 'bottom-left';
-  justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between';
-  fillWidth?: boolean;
-  weight?: 'default' | 'strong';
-  truncate?: boolean;
-  prefixIcon?: string;
-  suffixIcon?: string;
-  className?: string;
-  style?: React.CSSProperties;
-  children?: React.ReactNode;
-  href?: string;
-}
-
-export type ToggleButtonProps = CommonProps &
-  React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const ToggleButton = React.forwardRef<HTMLElement, ToggleButtonProps>(
   (

@@ -2,24 +2,9 @@
 
 import type * as React from 'react';
 import { forwardRef, useState } from 'react';
-import { Input } from '.';
-import { IconButton } from '.';
-import { Flex } from './Flex';
-
+import { Input, IconButton, Flex } from '@fck/components/ui';
 import { cn } from '@fck/lib/utils';
-
-interface NumberInputProps
-  extends Omit<
-    React.ComponentProps<typeof Input>,
-    'type' | 'value' | 'onChange'
-  > {
-  value?: number;
-  onChange?: (value: number) => void;
-  min?: number;
-  max?: number;
-  step?: number;
-  padStart?: number;
-}
+import type { NumberInputProps } from '@fck/components/interfaces';
 
 const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
   ({ value, onChange, min, max, step = 1, padStart, ...props }, ref) => {
@@ -34,7 +19,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       setLocalValue(newValue);
 
       const numValue = Number.parseFloat(newValue);
-      if (!isNaN(numValue) && onChange) {
+      if (!Number.isNaN(numValue) && onChange) {
         onChange(numValue);
       }
     };
@@ -75,7 +60,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
         step={step}
         hasSuffix={
           <>
-            <Flex minWidth={1.25}></Flex>
+            <Flex minWidth={1.25} />
             <Flex
               position="absolute"
               right="0"

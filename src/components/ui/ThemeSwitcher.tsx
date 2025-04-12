@@ -1,7 +1,7 @@
 'use client';
 
 import { IconButton, Row } from '@fck/components/ui';
-import { useTheme } from '@fck/components/ui/ThemeProvider';
+import { useTheme } from '@fck/components/ui';
 import type * as React from 'react';
 import { forwardRef } from 'react';
 
@@ -9,10 +9,11 @@ type ThemeType = 'system' | 'dark' | 'light';
 
 interface ThemeSwitchProps extends React.ComponentProps<typeof Row> {
   defaultTheme?: ThemeType;
+  margin?: string;
 }
 
 const ThemeSwitcher = forwardRef<HTMLDivElement, ThemeSwitchProps>(
-  ({ defaultTheme = 'system', ...rest }, ref) => {
+  ({ defaultTheme = 'system', margin = '0', ...rest }, ref) => {
     const { theme, setTheme } = useTheme();
 
     return (

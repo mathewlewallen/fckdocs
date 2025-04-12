@@ -2,38 +2,11 @@
 
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Icon, Flex, Tooltip, ElementType } from '';
-
+import { Icon, Flex, Tooltip, ElementType } from '@fck/components/ui';
+import type { IconButtonProps, AnchorIconButtonProps } from '@fck/components/interfaces';
 import { cn } from '@fck/lib/utils';
 
-interface CommonProps {
-  icon?: string;
-  id?: string;
-  size?: 's' | 'm' | 'l';
-  radius?:
-    | 'none'
-    | 'top'
-    | 'right'
-    | 'bottom'
-    | 'left'
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-right'
-    | 'bottom-left';
-  tooltip?: string;
-  tooltipPosition?: 'top' | 'bottom' | 'left' | 'right';
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'danger' | 'ghost';
-  className?: string;
-  style?: React.CSSProperties;
-  href?: string;
-  children?: React.ReactNode;
-}
-
-export type IconButtonProps = CommonProps &
-  React.ButtonHTMLAttributes<HTMLButtonElement>;
-type AnchorProps = CommonProps & React.AnchorHTMLAttributes<HTMLAnchorElement>;
-
-const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps | AnchorProps>(
+const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps | AnchorIconButtonProps>(
   (
     {
       icon = 'refresh',
@@ -115,4 +88,4 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps | AnchorP
 );
 
 IconButton.displayName = 'IconButton';
-export default IconButton
+export default IconButton;

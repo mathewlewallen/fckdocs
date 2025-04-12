@@ -7,34 +7,9 @@ import {
   useState,
 } from 'react';
 import { Text, Flex } from '@fck/components/ui';
-
 import useDebounce from '@fck/hooks/useDebounce';
 import { cn } from '@fck/lib/utils';
-
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  id: string;
-  label: string;
-  height?: 's' | 'm';
-  error?: boolean;
-  errorMessage?: React.ReactNode;
-  description?: React.ReactNode;
-  radius?:
-    | 'none'
-    | 'top'
-    | 'right'
-    | 'bottom'
-    | 'left'
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-right'
-    | 'bottom-left';
-  className?: string;
-  style?: React.CSSProperties;
-  hasPrefix?: React.ReactNode;
-  hasSuffix?: React.ReactNode;
-  labelAsPlaceholder?: boolean;
-  validate?: (value: React.ReactNode) => React.ReactNode | null;
-}
+import type { InputProps } from '@fck/components/interfaces';
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
@@ -68,7 +43,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
       setIsFocused(true);
-      if (onFocus) onFocus(event);
+      if (onFocus) { onFocus(event); }
     };
 
     const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -78,7 +53,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       } else {
         setIsFilled(false);
       }
-      if (onBlur) onBlur(event);
+      if (onBlur) { onBlur(event); }
     };
 
     useEffect(() => {
@@ -105,7 +80,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     useEffect(() => {
       validateInput();
-    }, [debouncedValue, validateInput]);
+    }, [validateInput]);
 
     const displayError = validationError || errorMessage;
 
@@ -224,4 +199,3 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 Input.displayName = 'Input';
 
 export default Input
-export type { InputProps };

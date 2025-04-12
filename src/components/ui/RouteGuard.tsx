@@ -7,15 +7,13 @@ import {
   Heading,
   PasswordInput,
   Spinner,
+  Flex,
 } from '@fck/components/ui';
 import { protectedRoutes, routes } from '@fck/lib/once-ui/config';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Flex } from './Flex';
-
-interface RouteGuardProps {
-  children: React.ReactNode;
-}
+import type * as React from 'react';
+import type { RouteGuardProps } from '@fck/components/interfaces';
 
 const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
   const pathname = usePathname();
@@ -34,7 +32,9 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
       setIsAuthenticated(false);
 
       const checkRouteEnabled = () => {
-        if (!pathname) return false;
+        if (!pathname) {
+          return false;
+        }
 
         if (pathname in routes) {
           return routes[pathname as keyof typeof routes];
@@ -106,7 +106,7 @@ const RouteGuard: React.FC<RouteGuardProps> = ({ children }) => {
             id="password"
             label="Password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             errorMessage={error}
           />
           <Button onClick={handlePasswordSubmit}>Submit</Button>

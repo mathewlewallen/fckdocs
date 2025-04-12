@@ -1,7 +1,5 @@
 'use client';
 
-import type { DisplayProps } from '@fck/components/interfaces';
-import type { SpacingToken } from '@fck/components/types';
 import { Flex } from '@fck/components/ui';
 import type * as React from 'react';
 import {
@@ -11,7 +9,7 @@ import {
   useRef,
   useState,
 } from 'react';
-
+import type { BackgroundProps } from '@fck/components/interfaces';
 import { cn } from '@fck/lib/utils';
 
 function setRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
@@ -20,58 +18,6 @@ function setRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
   } else if (ref && 'current' in ref) {
     (ref as React.MutableRefObject<T | null>).current = value;
   }
-}
-
-interface MaskProps {
-  cursor?: boolean;
-  x?: number;
-  y?: number;
-  radius?: number;
-}
-
-interface GradientProps {
-  display?: boolean;
-  opacity?: DisplayProps['opacity'];
-  x?: number;
-  y?: number;
-  width?: number;
-  height?: number;
-  tilt?: number;
-  colorStart?: string;
-  colorEnd?: string;
-}
-
-interface DotsProps {
-  display?: boolean;
-  opacity?: DisplayProps['opacity'];
-  color?: string;
-  size?: SpacingToken;
-}
-
-interface GridProps {
-  display?: boolean;
-  opacity?: DisplayProps['opacity'];
-  color?: string;
-  width?: string;
-  height?: string;
-}
-
-interface LinesProps {
-  display?: boolean;
-  opacity?: DisplayProps['opacity'];
-  size?: SpacingToken;
-}
-
-interface BackgroundProps extends React.ComponentProps<typeof Flex> {
-  position?: CSSProperties['position'];
-  gradient?: GradientProps;
-  dots?: DotsProps;
-  grid?: GridProps;
-  lines?: LinesProps;
-  mask?: MaskProps;
-  className?: string;
-  style?: React.CSSProperties;
-  children?: React.ReactNode;
 }
 
 const Background = forwardRef<HTMLDivElement, BackgroundProps>(
